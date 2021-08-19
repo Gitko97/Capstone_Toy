@@ -9,7 +9,8 @@ class ToyResult():
     '''
 
 
-    def __init__(self, score, image_name, product_name, product_labels):
+    def __init__(self, index_time, score, image_name, product_name, product_labels):
+        self.index_time = str(index_time)
         self.score = score
         self.image_name = str(image_name).split("/")[-1]
         self.product_name = str(product_name).split("/")[-1]

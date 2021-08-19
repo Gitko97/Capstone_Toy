@@ -235,16 +235,12 @@ def get_similar_products_uri(
         image, image_context=image_context)
 
     index_time = response.product_search_results.index_time
-    print('Product set index time: ')
-    print(index_time)
-
     results = response.product_search_results.results
 
-    print('Search results:')
     top_three = []
     for i in range(3):
         product = results[i].product
-        toy = ToyResult(results[i].score, results[i].image, product.name, product.product_labels)
+        toy = ToyResult(index_time, results[i].score, results[i].image, product.name, product.product_labels)
         top_three.append(toy)
     return top_three
 
