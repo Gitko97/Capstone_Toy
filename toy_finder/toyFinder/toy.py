@@ -1,12 +1,11 @@
-import io
-import os
-
 # Imports the Google Cloud client library
+
+from google.cloud import storage
 from google.cloud import vision
 
-from google.cloud import vision
-from google.cloud import storage
-from finder.models import ToyResult
+from toy_finder.finder.models import ToyResult
+
+
 #'capstone_toy_db'
 def check_cloud_storage(bucket_name):
     storage_client = storage.Client()
@@ -245,8 +244,7 @@ def get_similar_products_uri(
     top_three = []
     for i in range(3):
         product = results[i].product
-        toy = ToyResult.create(results[i].score, results[i].image, product.name, product.product_labels)
-        print(toy.__str__())
+        toy = ToyResult(results[i].score, results[i].image, product.name, product.product_labels)
         top_three.append(toy)
     return top_three
 
