@@ -132,7 +132,7 @@ def list_product_sets(project_id, location):
 
 def get_similar_products_file(
         project_id, location, product_set_id, product_category,
-        file_path, filter):
+        file_content, filter):
     """Search similar products to image.
     Args:
         project_id: Id of the project.
@@ -151,11 +151,13 @@ def get_similar_products_file(
     image_annotator_client = vision.ImageAnnotatorClient()
 
     # Read the image as a stream of bytes.
-    with open(file_path, 'rb') as image_file:
-        content = image_file.read()
-
+    # with open(file_path, 'rb') as image_file:
+    #     content = image_file.read()
+    #
+    # print(content)
+    # print(type(content))
     # Create annotate image request along with product search feature.
-    image = vision.Image(content=content)
+    image = vision.Image(content=file_content)
 
     # product search specific parameters
     product_set_path = product_search_client.product_set_path(
@@ -173,26 +175,14 @@ def get_similar_products_file(
         image, image_context=image_context)
 
     index_time = response.product_search_results.index_time
-    print('Product set index time: ')
-    print(index_time)
-
     results = response.product_search_results.results
 
-    print('Search results:')
-    scores = {}
-    for result in results:
-        product = result.product
-
-        print('Score(Confidence): {}'.format(result.score))
-        print('Image name: {}'.format(result.image))
-
-        print('Product name: {}'.format(product.name))
-        print('Product display name: {}'.format(
-            product.display_name))
-        print('Product description: {}\n'.format(product.description))
-        print('Product labels: {}\n'.format(product.product_labels))
-        scores[product.name] = result.score
-    return scores
+    top_three = []
+    for i in range(3):
+        product = results[i].product
+        toy = ToyResult(index_time, results[i].score, results[i].image, product.name, product.product_labels)
+        top_three.append(toy)
+    return top_three
 
 
 def get_similar_products_uri(
