@@ -1,18 +1,11 @@
 # Imports the Google Cloud client library
 
-from google.cloud import storage
 from google.cloud import vision
 
 from toy_finder.finder.models import ToyResult
 
 
-#'capstone_toy_db'
-def check_cloud_storage(bucket_name):
-    storage_client = storage.Client()
-    bucket = storage_client.bucket(bucket_name)
-    blobs = bucket.list_blobs()
-    for blob in blobs:
-        print(blob.name)
+
 
 
 def import_product_sets(project_id, location, gcs_uri):
