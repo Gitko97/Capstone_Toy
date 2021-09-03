@@ -53,13 +53,11 @@ class GoogleApiView(views.APIView):
             cv2.rectangle(decoded, (min_x, min_y), (max_x, max_y), (0, 255, 0), 2)
             response_body["box_"+str(i+1)] = point
 
-        print(type(decoded))
         res, im_png = cv2.imencode(".png", decoded)
         base64_bytes = base64.b64encode(im_png.tobytes())
         base64_string = base64_bytes.decode("utf-8")
         response_body["file"] = base64_string
 
-        print(response_body)
         response = HttpResponse(json.dumps(response_body), content_type="text/json-comment-filtered")
         return response
 
