@@ -26,20 +26,20 @@ class Ui_GrabCut(QtWidgets.QDialog):
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout.setObjectName("horizontalLayout")
 
-        self.btn_loadFromFile = QtWidgets.QPushButton(self.layoutWidget)
-        self.btn_loadFromFile.setObjectName("btn_loadFromFile")
-        self.horizontalLayout.addWidget(self.btn_loadFromFile)
-        self.btn_loadFromFile.clicked.connect(self.controller.loadImageFromFile)
+        self.btn_change_box = QtWidgets.QPushButton(self.layoutWidget)
+        self.btn_change_box.setObjectName("btn_change_box")
+        self.horizontalLayout.addWidget(self.btn_change_box)
+        self.btn_change_box.clicked.connect(self.controller.change_bounding_box)
 
-        self.btn_loadFromWeb = QtWidgets.QPushButton(self.layoutWidget)
-        self.btn_loadFromWeb.setObjectName("btn_loadFromWeb")
-        self.horizontalLayout.addWidget(self.btn_loadFromWeb)
-        self.btn_loadFromWeb.clicked.connect(self.controller.loadImageFromFile)
+        self.btn_change_grabcut = QtWidgets.QPushButton(self.layoutWidget)
+        self.btn_change_grabcut.setObjectName("btn_change_grabcut")
+        self.horizontalLayout.addWidget(self.btn_change_grabcut)
+        self.btn_change_grabcut.clicked.connect(self.controller.change_grabCut)
 
         self.btn_savePicture = QtWidgets.QPushButton(self.layoutWidget)
         self.btn_savePicture.setObjectName("btn_savePicture")
         self.horizontalLayout.addWidget(self.btn_savePicture)
-        self.btn_savePicture.clicked.connect(self.controller.loadImageFromFile)
+        self.btn_savePicture.clicked.connect(self.controller.saveImage)
 
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
@@ -48,8 +48,8 @@ class Ui_GrabCut(QtWidgets.QDialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.lbl_picture.setText(_translate("Dialog", "TextLabel"))
-        self.btn_loadFromFile.setText(_translate("Dialog", "loadFromFile"))
-        self.btn_loadFromWeb.setText(_translate("Dialog", "loadFromWeb"))
+        self.btn_change_box.setText(_translate("Dialog", "Change Box"))
+        self.btn_change_grabcut.setText(_translate("Dialog", "Change GrabCut"))
         self.btn_savePicture.setText(_translate("Dialog", "Save"))
 
     def loadImageFromNumpy(self, image):
