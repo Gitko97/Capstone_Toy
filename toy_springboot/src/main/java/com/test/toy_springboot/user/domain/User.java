@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long index;
+    private Long idx;
 
     @Column(nullable = false)
     private String userId;
@@ -43,7 +43,6 @@ public class User {
         this.name = name;
         this.phoneNumber = phoneNumber;
     }
-
 
 
 

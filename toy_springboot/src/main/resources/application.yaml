@@ -1,0 +1,32 @@
+ spring:
+   datasource:
+     driver-class-name: com.mysql.cj.jdbc.Driver
+     url: jdbc:mysql://localhost:3306/test1?serverTimezone=UTC
+     username: root
+     password: sksk2019
+
+
+   jpa:
+     open-in-view: true
+     hibernate:
+       ddl-auto: none
+     show-sql: true
+     properties:
+       hibernate.format_sql: true
+
+   sql:
+     init:
+       mode: always
+
+
+
+ #   jackson:
+#     serialization:
+#       fail-on-empty-beans: false
+
+#  spring:
+#    datasource:
+#      driver-class-name: com.mysql.cj.jdbc.Driver
+#      url: jdbc:mysql://localhost:(MySQL의 포트번호)/(DB이름)?serverTimezone=Asia/Seoul
+#      username: (user명)
+#      password: (password)
