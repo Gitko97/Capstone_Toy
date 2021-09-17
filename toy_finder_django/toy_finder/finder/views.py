@@ -42,6 +42,7 @@ class GoogleApiView(views.APIView):
 
         # points_list = list()
         response_body = dict()
+        response_body["box_num"] = len(objects)
         for i, object_ in enumerate(objects):
             point = image_preprocessor.get_boundingBox_with_object(decoded, object_)
             min_x = point["min_x"]
