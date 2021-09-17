@@ -1,2 +1,2 @@
 insert into user(user_id, pw, `name`, phone_number) values (
-                                                               'sss', 'ddd', 'wqeqwe', '010101010');
+                                                               'ID1', 'PW1', 'NAME1', 'Number1');
