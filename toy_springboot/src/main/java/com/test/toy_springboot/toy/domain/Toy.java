@@ -3,6 +3,7 @@ package com.test.toy_springboot.toy.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.test.toy_springboot.photo.domain.Photo;
 import com.test.toy_springboot.shop.domain.Shop;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,6 +27,9 @@ public class Toy {
     @JsonIgnore
     //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 후에 에러 날시 테스트
     private Shop shop;
+
+    @OneToOne(mappedBy = "toy",fetch = FetchType.EAGER)
+    private Photo photo;
 
     @Column(nullable = false)
    private String productName;
