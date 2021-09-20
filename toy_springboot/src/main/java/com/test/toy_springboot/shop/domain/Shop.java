@@ -21,7 +21,6 @@ public class Shop {
     private Long idx;
 
     @OneToMany(mappedBy = "shop",fetch = FetchType.EAGER)
-    @JsonIgnore
     private List<Toy> toyList;
 
     @LastModifiedDate

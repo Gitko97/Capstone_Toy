@@ -1,4 +1,7 @@
 package com.test.toy_springboot.shop.repository;
 
-public interface ShopRepository {
+import com.test.toy_springboot.shop.domain.Shop;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ShopRepository extends JpaRepository<Shop, Long> {
 }
