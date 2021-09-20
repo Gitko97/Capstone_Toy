@@ -3,8 +3,8 @@ import numpy as np
 import os
 
 
-from toy_finder.toy_preprocessor.image_utils.preprocessor import Image_PreProcessor
-from toy_finder.toy_preprocessor.ui.grabcut_ui import Ui_GrabCut
+from toy_finder_django.toy_finder.toy_preprocessor.image_utils.preprocessor import Image_PreProcessor
+from toy_finder_django.toy_finder.toy_preprocessor.ui.grabcut_ui import Ui_GrabCut
 
 
 class GrabCutController(object):

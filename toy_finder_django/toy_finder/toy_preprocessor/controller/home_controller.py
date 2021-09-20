@@ -2,10 +2,10 @@ import sys
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QFileDialog
 from matplotlib import pyplot as plt
-from toy_finder.toy_preprocessor.file.file_in_out import FileInOut
-from toy_finder.toy_preprocessor.image_utils.preprocessor import Image_PreProcessor
-from toy_finder.toy_preprocessor.ui.ui import Ui_Dialog
-from toy_finder.toy_preprocessor.controller.grabcut_controller import GrabCutController
+from toy_finder_django.toy_finder.toy_preprocessor.file.file_in_out import FileInOut
+from toy_finder_django.toy_finder.toy_preprocessor.image_utils.preprocessor import Image_PreProcessor
+from toy_finder_django.toy_finder.toy_preprocessor.ui.ui import Ui_Dialog
+from toy_finder_django.toy_finder.toy_preprocessor.controller.grabcut_controller import GrabCutController
 import cv2
 import os
 import numpy as np

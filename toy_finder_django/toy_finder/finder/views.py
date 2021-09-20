@@ -9,10 +9,10 @@ from rest_framework import views
 
 sys.path.append("..")
 import cv2
-from toy_finder.toyFinder import wsgi
-from toy_finder.toyFinder import toy
-from toy_finder.toyFinder import storage
-from toy_finder.toy_preprocessor.image_utils.preprocessor import Image_PreProcessor
+from toy_finder_django.toy_finder.toyFinder import wsgi
+from toy_finder_django.toy_finder.toyFinder import toy
+from toy_finder_django.toy_finder.toyFinder import storage
+from toy_finder_django.toy_finder.toy_preprocessor.image_utils.preprocessor import Image_PreProcessor
 from rest_framework.parsers import MultiPartParser, FormParser
 
 
