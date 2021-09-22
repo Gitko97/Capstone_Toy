@@ -9,10 +9,10 @@ from rest_framework import views
 
 sys.path.append("..")
 import cv2
-from toy_finder_django.toy_finder.toyFinder import wsgi
-from toy_finder_django.toy_finder.toyFinder import toy
-from toy_finder_django.toy_finder.toyFinder import storage
-from toy_finder_django.toy_finder.toy_preprocessor.image_utils.preprocessor import Image_PreProcessor
+from toy_finder.toyFinder import wsgi
+from toy_finder.toyFinder import toy
+from toy_finder.toyFinder import storage
+from toy_finder.toy_preprocessor.image_utils.preprocessor import Image_PreProcessor
 from rest_framework.parsers import MultiPartParser, FormParser
 
 
@@ -77,11 +77,8 @@ class StorageView(views.APIView):
     def post(self, request):
         bucket_name = request.POST["bucket_name"]
         file_name = request.data["file_name"]
-        character = request.data["character"]
-        category = request.data["category"]
         content = request.data["file"]
         # ToDo: 파일 이름 중복 처리 필요(현재는 덮어쓰기)
-        storage.update_txt(wsgi.image_storage_bucket, file_name, character, category, wsgi.product_setID, wsgi.product_category)
         storage.upload_blob(bucket_name, content, f"{file_name}.png")
 
 

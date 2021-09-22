@@ -2,7 +2,7 @@
 
 from google.cloud import vision
 
-from toy_finder_django.toy_finder.finder.models import ToyResult
+from toy_finder.finder.models import ToyResult
 
 
 
