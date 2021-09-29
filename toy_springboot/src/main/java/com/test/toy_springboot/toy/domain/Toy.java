@@ -9,6 +9,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -20,11 +22,11 @@ import javax.persistence.*;
 public class Toy {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idx;
+    private Long toy_id;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="shop_id")
-    @JsonIgnore
+    @OnDelete(action= OnDeleteAction.CASCADE)
     //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 후에 에러 날시 테스트
     private Shop shop;
 

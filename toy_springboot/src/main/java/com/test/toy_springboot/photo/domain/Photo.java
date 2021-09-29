@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 public class Photo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idx;
+    private Long photo_id;
 
     @OneToOne
     @JoinColumn(name="toy_id")

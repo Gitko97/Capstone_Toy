@@ -18,9 +18,10 @@ import java.util.List;
 public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idx;
+    private Long shop_id;
 
     @OneToMany(mappedBy = "shop",fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Toy> toyList;
 
     @LastModifiedDate
