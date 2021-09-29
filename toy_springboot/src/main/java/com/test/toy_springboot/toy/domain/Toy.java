@@ -3,6 +3,8 @@ package com.test.toy_springboot.toy.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.test.toy_springboot.category.domain.Character;
+import com.test.toy_springboot.category.domain.Genre;
 import com.test.toy_springboot.photo.domain.Photo;
 import com.test.toy_springboot.shop.domain.Shop;
 import lombok.Builder;
@@ -33,6 +35,14 @@ public class Toy {
     @OneToOne(mappedBy = "toy",fetch = FetchType.EAGER)
     private Photo photo;
 
+    @OneToOne
+    @JoinColumn(name="character_id")
+    private Character character;
+
+    @OneToOne
+    @JoinColumn(name="genre_id")
+    private Genre genre;
+
     @Column(nullable = false)
    private String productName;
 
@@ -40,7 +50,5 @@ public class Toy {
     public Toy(String productName) {
         this.productName = productName;
     }
-
-
 
 }
