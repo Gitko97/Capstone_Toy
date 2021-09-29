@@ -31,4 +31,8 @@ public class PhotoService {
     public void delete(Photo photo) throws IllegalArgumentException{
         dbAccess.delete(photo);
     }
+
+    public Photo getPhotoById(Long photo_id){
+        return dbAccess.getById(photo_id);
+    }
 }
