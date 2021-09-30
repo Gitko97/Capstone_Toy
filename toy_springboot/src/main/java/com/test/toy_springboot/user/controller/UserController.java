@@ -1,28 +1,41 @@
 package com.test.toy_springboot.user.controller;
 
 import com.test.toy_springboot.user.domain.User;
-import com.test.toy_springboot.user.repository.UserRepository;
+import com.test.toy_springboot.user.dto.SignUpDto;
+import com.test.toy_springboot.user.dto.UserInfoDto;
+import com.test.toy_springboot.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 
 @RestController
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class UserController {
-
-    private final UserRepository userRepository;
-
-    @GetMapping("/users")
-    public ResponseEntity<List<User>> getAllUser(){
-        return ResponseEntity.ok().body(userRepository.findAll());
+    private final UserService userService;
+    
+    @PostMapping("/signup")
+    public ResponseEntity<User> signup(
+            @Valid @RequestBody SignUpDto signUpDto
+    ) {
+        return ResponseEntity.ok(userService.signup(signUpDto));
     }
 
     @GetMapping("/user")
-    public ResponseEntity<User> getUserById(@RequestParam Long idx){
-        return ResponseEntity.ok().body(userRepository.findById(idx).orElse(null));
+    @PreAuthorize("hasAnyRole('USER')")
+    public ResponseEntity<User> getMyUserInfo(HttpServletRequest request) {
+        return ResponseEntity.ok(userService.getMyUserWithAuthorities().orElse(null));
     }
+    @GetMapping("/userInfo")
+    public ResponseEntity<UserInfoDto> showUserInfo(@AuthenticationPrincipal org.springframework.security.core.userdetails.User user ){
+        return ResponseEntity.ok(userService.getUserInfoById(user.getUsername()));
+    }
+
+
 }
