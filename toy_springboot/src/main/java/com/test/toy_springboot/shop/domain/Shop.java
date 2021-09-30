@@ -2,6 +2,7 @@ package com.test.toy_springboot.shop.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.test.toy_springboot.toy.domain.Toy;
 import lombok.*;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -18,9 +19,10 @@ import java.util.List;
 public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idx;
+    private Long shop_id;
 
-    @OneToMany(mappedBy = "shop",fetch = FetchType.EAGER)
+    @JsonManagedReference
+    @OneToMany(mappedBy = "shop",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Toy> toyList;
 
     @LastModifiedDate
