@@ -51,13 +51,6 @@ public class PhotoRestApi {
         value = "/{photo_id}",
         produces = MediaType.IMAGE_JPEG_VALUE
     )
-    public ResponseEntity<byte[]> getFile(@PathVariable Long photo_id) throws IOException {
-        Photo photo = photoService.getPhotoById(photo_id);
-        InputStream in = getClass()
-            .getResourceAsStream(photo.getFilePath());
-        return new ResponseEntity<>(IOUtils.readAllBytes(in), HttpStatus.OK);
-    }
-
     @PostMapping("/upload_image")
     public ResponseEntity<Photo> uploadSource(@RequestParam("file") MultipartFile sourceFile) throws IOException {
         String filePath = save_image_file_path +"/" + new Date().toString()+"-"+sourceFile.getOriginalFilename();
