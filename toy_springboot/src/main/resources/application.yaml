@@ -14,18 +14,46 @@ spring:
     password: 1234
 
 
-  jpa:
-    open-in-view: true
-    hibernate:
-      ddl-auto: update
-    show-sql: false
-    properties:
-      hibernate.format_sql: true
+   jpa:
+     open-in-view: true
+     hibernate:
+       ddl-auto: none
+     show-sql: true
+     properties:
+       hibernate:
+         format_sql: true
+         show_sql: true
+     defer-datasource-initialization: true
+#     database-platform=org:
+#       hibernate:
+#         dialect:
+#           MySQL8Dialect:
 
   sql:
     init:
       mode: always
 
+
+ jwt:
+   header: Authorization
+   #HS512 알고리즘을 사용할 것이기 때문에 512bit, 즉 64byte 이상의 secret key를 사용해야 한다.
+   #echo 'silvernine-tech-spring-boot-jwt-tutorial-secret-silvernine-tech-spring-boot-jwt-tutorial-secret'|base64
+   secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
+   token-validity-in-seconds: 86400
+
+
+
+ #   jackson:
+#     serialization:
+#       fail-on-empty-beans: false
+
+#  spring:
+#    datasource:
+#      driver-class-name: com.mysql.cj.jdbc.Driver
+#      url: jdbc:mysql://localhost:(MySQL의 포트번호)/(DB이름)?serverTimezone=Asia/Seoul
+#      username: (user명)
+#      password: (password)
 file:
   path:
+    /Users/joonhyoungjeon/Documents/GitHub/Toy_Finder/Toy_Finder
     /Users/joonhyoungjeon/Documents/GitHub/Toy_Finder/Toy_Finder

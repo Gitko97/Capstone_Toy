@@ -25,14 +25,25 @@ dependencies {
 	implementation 'org.thymeleaf:thymeleaf:3.0.12.RELEASE'
 
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.4'
+	implementation 'org.springframework.boot:spring-boot-starter-security:2.5.4'
+	implementation 'org.springframework.boot:spring-boot-starter-validation:2.5.4'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc:2.5.4'
 	implementation 'org.springframework.boot:spring-boot-starter-web:2.5.4'
+
+
 	compileOnly 'org.projectlombok:lombok:1.18.20'
 
 	// https://mvnrepository.com/artifact/mysql/mysql-connector-java
 	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.26'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools:2.5.4'
 	annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.4'
+	testImplementation 'org.springframework.security:spring-security-test:5.5.1'
+
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+	implementation 'io.jsonwebtoken:jjwt-impl:0.11.2'
+	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
 }
 
 test {
