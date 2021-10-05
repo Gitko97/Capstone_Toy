@@ -2,6 +2,7 @@ package com.test.toy_springboot.photo.controller;
 
 import com.test.toy_springboot.photo.domain.Photo;
 import com.test.toy_springboot.photo.service.PhotoService;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -9,14 +10,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import sun.misc.IOUtils;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Date;
 import java.util.List;
 
@@ -40,17 +36,15 @@ public class PhotoRestApi {
         return new ResponseEntity<>(photoList, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Photo> savePhoto(@RequestBody Photo photo) {
-        Photo resultPhoto = photoService.addPhoto(photo);
-        if(resultPhoto == null) new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<>(resultPhoto,HttpStatus.OK);
+    @GetMapping(value = "/{image_id}", produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<byte[]> userSearch(@PathVariable("image_id") long image_id) throws IOException {
+        Photo photo = photoService.getPhotoById(image_id);
+        InputStream imageStream = new FileInputStream(photo.getFilePath());
+        byte[] imageByteArray = IOUtils.toByteArray(imageStream);
+        imageStream.close();
+        return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);
     }
 
-    @GetMapping(
-        value = "/{photo_id}",
-        produces = MediaType.IMAGE_JPEG_VALUE
-    )
     @PostMapping("/upload_image")
     public ResponseEntity<Photo> uploadSource(@RequestParam("file") MultipartFile sourceFile) throws IOException {
         String filePath = save_image_file_path +"/" + new Date().toString()+"-"+sourceFile.getOriginalFilename();
