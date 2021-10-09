@@ -20,8 +20,4 @@ public class Character {
     @Id
     @NonNull
     private String name;
-
-    @OneToOne(mappedBy = "character",fetch = FetchType.EAGER)
-    @JsonIgnore
-    private Toy toy;
 }

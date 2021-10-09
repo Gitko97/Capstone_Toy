@@ -18,8 +18,4 @@ public class Genre {
     @Id
     @NonNull
     private String name;
-
-    @OneToOne(mappedBy = "genre",fetch = FetchType.EAGER)
-    @JsonIgnore
-    private Toy toy;
 }
