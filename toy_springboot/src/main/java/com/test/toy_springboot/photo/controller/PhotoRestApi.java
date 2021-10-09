@@ -46,7 +46,6 @@ public class PhotoRestApi {
     @PostMapping("/upload_image")
     public ResponseEntity<Photo> uploadSource(@RequestParam("file") MultipartFile sourceFile) throws IOException {
         String filePath = save_image_file_path +"/" + new Date().toString()+"-"+sourceFile.getOriginalFilename();
-        System.out.println(filePath);
         byteArrayConvertToImageFile(sourceFile.getBytes(), filePath);
         Photo photo = photoService.addPhoto(new Photo(filePath));
         return new ResponseEntity<>(photo, HttpStatus.OK);
