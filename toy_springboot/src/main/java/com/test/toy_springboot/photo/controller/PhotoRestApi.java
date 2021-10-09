@@ -39,9 +39,7 @@ public class PhotoRestApi {
     @GetMapping(value = "/{image_id}", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<byte[]> userSearch(@PathVariable("image_id") long image_id) throws IOException {
         Photo photo = photoService.getPhotoById(image_id);
-        InputStream imageStream = new FileInputStream(photo.getFilePath());
-        byte[] imageByteArray = IOUtils.toByteArray(imageStream);
-        imageStream.close();
+        byte[] imageByteArray = photo.getImageByte();
         return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);
     }
 
