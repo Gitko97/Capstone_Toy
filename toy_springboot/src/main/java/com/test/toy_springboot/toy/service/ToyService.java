@@ -20,6 +20,9 @@ public class ToyService {
         return dbAccess.findAll();
     }
 
+    public Toy getToyById(Long toy_id){
+        return dbAccess.getById(toy_id);
+    }
     public Toy addToy(Toy toy){
         return dbAccess.save(toy);
     }
@@ -30,5 +33,13 @@ public class ToyService {
 
     public void delete(Toy toy) throws IllegalArgumentException{
         dbAccess.delete(toy);
+    }
+
+    public Long findToyBySetId(Long set_id){
+        return dbAccess.findToyBySetId(set_id);
+    }
+
+    public void updateToySetGoods(Long toyId, Long set_id) {
+        dbAccess.match_toy_to_setItem(toyId, set_id);
     }
 }
