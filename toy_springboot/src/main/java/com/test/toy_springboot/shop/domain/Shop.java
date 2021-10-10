@@ -3,7 +3,9 @@ package com.test.toy_springboot.shop.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.test.toy_springboot.category.domain.Genre;
 import com.test.toy_springboot.toy.domain.Toy;
+import com.test.toy_springboot.user.domain.User;
 import lombok.*;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -24,6 +26,12 @@ public class Shop {
     @JsonManagedReference
     @OneToMany(mappedBy = "shop",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Toy> toyList;
+
+
+    @OneToOne(mappedBy = "shop",fetch = FetchType.EAGER)
+    @JsonIgnore
+    private User user;
+
 
     @LastModifiedDate
     private LocalDateTime modifiedDate;

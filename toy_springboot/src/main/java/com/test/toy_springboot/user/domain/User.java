@@ -1,5 +1,7 @@
 package com.test.toy_springboot.user.domain;
 
+import com.test.toy_springboot.shop.domain.Shop;
+import com.test.toy_springboot.toy.domain.Toy;
 import lombok.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.CreatedDate;
@@ -24,7 +26,7 @@ public class User {
     @Column(name = "user_index")
     private Long userIndex;
 
-    @Column(nullable = false, length = 50, unique = true)
+    @Column(nullable = false, length = 50, unique = true, name = "user_id")
     private String userId;
 
     @JsonIgnore
@@ -49,6 +51,11 @@ public class User {
 
     @Column
     private String authority;
+
+    @OneToOne
+    @JoinColumn(name="shop_id")
+    private Shop shop;
+
 
 //   @ManyToMany
 //   @JoinTable(
