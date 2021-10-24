@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.test.toy_springboot.category.domain.Category_set;
 import com.test.toy_springboot.category.domain.Character;
 import com.test.toy_springboot.category.domain.Genre;
+import com.test.toy_springboot.config.AuditingEntity;
 import com.test.toy_springboot.photo.domain.Photo;
 import com.test.toy_springboot.set.domain.Set_goods;
 import com.test.toy_springboot.shop.domain.Shop;
@@ -24,7 +25,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @ToString
-public class Toy {
+public class Toy extends AuditingEntity {
     @Column(nullable = false)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

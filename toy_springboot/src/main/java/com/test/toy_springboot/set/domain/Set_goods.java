@@ -4,6 +4,7 @@ package com.test.toy_springboot.set.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.test.toy_springboot.config.AuditingEntity;
 import com.test.toy_springboot.photo.domain.Photo;
 import com.test.toy_springboot.toy.domain.Toy;
 import lombok.Getter;
@@ -27,7 +28,7 @@ import java.util.List;
 @Setter
 @Entity
 @NoArgsConstructor
-public class Set_goods {
+public class Set_goods extends AuditingEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long set_id;
@@ -38,9 +39,6 @@ public class Set_goods {
     @OneToMany(mappedBy = "set_goods", fetch = FetchType.EAGER)
     @JsonIgnore
     private List<Toy> toy;
-
-    @CreatedDate
-    private LocalDateTime creationDate;
 
     public Set_goods(String set_name) {
         this.set_name = set_name;

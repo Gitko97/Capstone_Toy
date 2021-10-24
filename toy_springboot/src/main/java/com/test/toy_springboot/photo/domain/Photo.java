@@ -3,6 +3,7 @@ package com.test.toy_springboot.photo.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.test.toy_springboot.config.AuditingEntity;
 import com.test.toy_springboot.toy.domain.Toy;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +25,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @NoArgsConstructor
-public class Photo {
+public class Photo extends AuditingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long photo_id;
@@ -38,12 +39,6 @@ public class Photo {
     @Column
     @JsonIgnore
     private String filePath;
-
-    @CreatedDate
-    private LocalDateTime creationDate;
-
-    @LastModifiedDate
-    private LocalDateTime modifiedDate;
 
     public byte[] getImageByte() throws IOException {
         InputStream imageStream = new FileInputStream(this.filePath);

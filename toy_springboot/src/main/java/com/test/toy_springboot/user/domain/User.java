@@ -39,12 +39,6 @@ public class User {
     @Column(nullable = false)
     private String phoneNumber;
 
-    @CreatedDate
-    private LocalDateTime createdDate;
-
-    @LastModifiedDate
-    private LocalDateTime modifiedDate;
-
    @JsonIgnore
    @Column
    private boolean activated;
