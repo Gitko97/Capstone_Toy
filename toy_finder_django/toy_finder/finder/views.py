@@ -19,7 +19,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 class FileUpload(views.APIView):
     parser_classes = (MultiPartParser, FormParser, )
 
-    def get(self, request):
+    def post(self, request):
         content = request.data["file"].read()
         scores = toy.get_similar_products_file(wsgi.storage_bucket_name, wsgi.storage_region, wsgi.product_setID,
                                               wsgi.product_category, content, filter="")
@@ -27,7 +27,7 @@ class FileUpload(views.APIView):
         return HttpResponse(scores_json, content_type="text/json-comment-filtered")
 
 class ToyFinderView(views.APIView):
-    def get(self, request):
+    def post(self, request):
         image_url = request.GET["url"]
         scores = toy.get_similar_products_uri(wsgi.storage_bucket_name, wsgi.storage_region, wsgi.product_setID, wsgi.product_category, image_url, filter="")
         scores_json = json.dumps([score.__dict__ for score in scores])
@@ -62,7 +62,7 @@ class GoogleApiView(views.APIView):
         response = HttpResponse(json.dumps(response_body), content_type="text/json-comment-filtered")
         return response
 
-    def get(self, request):
+    def post(self, request):
         content = request.data["file"]
         response = self.makeBoundingBoxResponse(content)
         return response
