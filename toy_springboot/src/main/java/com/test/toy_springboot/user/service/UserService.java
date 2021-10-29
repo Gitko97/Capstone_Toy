@@ -49,6 +49,13 @@ public class UserService {
         return userRepository.findOneByUserId(username);
     }
 
+    @Transactional
+    public void userPointUp(String username, int point) throws Exception {
+        User user=  userRepository.findOneByUserId(username).orElseThrow(() -> new Exception("Cannot find User ID"));
+        user.userPointUp(point);
+        userRepository.save(user);
+    }
+
     @Transactional(readOnly = true)
     public Optional<User> getMyUserWithAuthorities() {
         return SecurityUtil.getCurrentUsername().flatMap(userRepository::findOneByUserId);

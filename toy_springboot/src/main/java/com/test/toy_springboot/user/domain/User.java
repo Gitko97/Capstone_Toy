@@ -46,10 +46,16 @@ public class User {
     @Column
     private String authority;
 
+    @Column
+    private int point;
+
     @OneToOne
     @JoinColumn(name="shop_id")
     private Shop shop;
 
+    public void userPointUp(int point){
+        this.point += point;
+    }
 
 //   @ManyToMany
 //   @JoinTable(
