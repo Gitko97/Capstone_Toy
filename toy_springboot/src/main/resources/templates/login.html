@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org/" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout%22%3E">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Toytra Log-in</title>
+
+    <!-- Bootstrap core CSS -->
+<link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link th:href="@{css/signin.css}" rel="stylesheet">
+  </head>
+  <body class="text-center">
+    
+<main class="form-signin">
+  <form action="">
+    <img class="mb-4" th:src="@{img/logo.png}" alt="" width="150">
+    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+    <div class="form-floating">
+      <input type="text" class="form-control" id="floatingInput" placeholder="id">
+      <label for="floatingInput">ID</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+      <label for="floatingPassword">Password</label>
+    </div>
+
+    <input type="button" id="btnLogin" class="w-100 btn btn-lg btn-primary" value="Sign in" />
+
+
+  </form>
+</main>
+
+<script src="http://code.jquery.com/jquery-1.12.0.js"></script>
+<script>
+  $("#btnLogin").click(function() {
+
+    const userId = $("#floatingInput").val();
+    const pw = $("#floatingPassword").val();
+
+    const loginData = {"userId":userId, "password":pw};
+
+    $.ajax({
+      type : "POST",
+      url  : "/signin",
+      contentType :"application/json",
+      data : JSON.stringify(loginData),
+      success : function (jwtToken){
+        alert("로그인 성공");
+        localStorage.setItem("token", JSON.stringify(jwtToken));
+        window.location.href = "signUp"
+      },
+      error : function(jqXHR, status, error){
+        alert("ID와 Password가 일치하지 않습니다");
+      }
+
+    });
+  });
+
+</script>
+    
+  </body>
+</html>

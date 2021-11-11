@@ -46,12 +46,14 @@ public class User {
     @Column
     private String authority;
 
-    @Column
-    private int point;
+
 
     @OneToOne
     @JoinColumn(name="shop_id")
     private Shop shop;
+
+    @Column(nullable = true)
+    private Integer point;
 
     public void userPointUp(int point){
         this.point += point;
