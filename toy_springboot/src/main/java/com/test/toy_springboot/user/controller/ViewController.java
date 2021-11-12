@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 public class ViewController {
 
-    @GetMapping(value = "/", produces="text/plain;charset=UTF-8")
+    @GetMapping("home")
     public String main(){
         return "index";
     }
