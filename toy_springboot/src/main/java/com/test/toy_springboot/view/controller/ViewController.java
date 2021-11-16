@@ -1,4 +1,4 @@
-package com.test.toy_springboot.user.controller;
+package com.test.toy_springboot.view.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 public class ViewController {
 
-    @GetMapping("home")
+    @GetMapping("/home")
     public String main(){
-        return "index";
+        return "home";
     }
 }
