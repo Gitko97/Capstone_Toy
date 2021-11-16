@@ -67,4 +67,10 @@ public class UserService {
 
         return UserInfoDto.from(user);
     }
+
+    @Transactional
+    public User getUserById(String userId) {
+        User user = userRepository.findOneByUserId(userId).orElse(new User());
+        return user;
+    }
 }
