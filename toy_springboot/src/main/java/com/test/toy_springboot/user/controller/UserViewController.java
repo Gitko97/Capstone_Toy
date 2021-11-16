@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 @Controller
 public class UserViewController {
-    @GetMapping("/login")
+    @GetMapping("/signIn")
     public String loginDto(Model model){
-        return "login";
+        return "signIn";
     }
 
     @GetMapping("/signUp")
