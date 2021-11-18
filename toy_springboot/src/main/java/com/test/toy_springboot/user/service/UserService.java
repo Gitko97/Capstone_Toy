@@ -46,6 +46,7 @@ public class UserService {
         newShop.setUser(user);
         shopService.addShop(newShop);
         user.setShop(newShop);
+        user.setPoint(0);
         return userRepository.save(user);
     }
 
