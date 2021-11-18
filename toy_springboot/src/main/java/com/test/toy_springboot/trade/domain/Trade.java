@@ -1,6 +1,7 @@
 package com.test.toy_springboot.trade.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.test.toy_springboot.config.AuditingEntity;
 import com.test.toy_springboot.toy.domain.Toy;
 import com.test.toy_springboot.user.domain.User;
@@ -8,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -27,6 +30,7 @@ public class Trade extends AuditingEntity {
 
     @OneToMany
     @JoinColumn(name = "from_toy_id")
+    @OnDelete(action= OnDeleteAction.NO_ACTION)
     List<Toy> from_toy = new ArrayList<>();
 
     @OneToMany
@@ -41,4 +45,6 @@ public class Trade extends AuditingEntity {
     @JoinColumn(name = "to_user")
     User to_user;
 
+    @Column
+    private boolean trade_status = false;
 }
