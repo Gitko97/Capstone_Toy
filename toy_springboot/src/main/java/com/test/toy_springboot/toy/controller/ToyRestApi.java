@@ -56,7 +56,7 @@ public class ToyRestApi {
     }
 
     @PostMapping// 장난감 등록 api
-    public ResponseEntity<Toy> saveDevice(@RequestBody Toy toy, @RequestParam Long shop_id) {
+    public ResponseEntity<Toy> saveToy(@RequestBody Toy toy, @RequestParam Long shop_id) {
         try {
             Toy resultToy = toyService.addToy(toy, shop_id);
             return new ResponseEntity<>(resultToy, HttpStatus.OK);
@@ -66,14 +66,14 @@ public class ToyRestApi {
     }
 
     @PutMapping
-    public ResponseEntity<Toy> updateDevice(@RequestBody Toy toy){
+    public ResponseEntity<Toy> updateToy(@RequestBody Toy toy){
         Toy resultToy = toyService.updateToy(toy);
         if(resultToy == null) new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(resultToy,HttpStatus.OK);
     }
 
     @DeleteMapping
-    public ResponseEntity<Toy> deleteDevice(@RequestBody Toy toy){
+    public ResponseEntity<Toy> deleteToy(@RequestBody Toy toy){
         toyService.delete(toy);
         return new ResponseEntity<>(HttpStatus.OK);
     }

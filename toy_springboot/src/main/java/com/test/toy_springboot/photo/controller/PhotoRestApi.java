@@ -43,11 +43,11 @@ public class PhotoRestApi {
         return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);
     }
 
-    @PostMapping("/upload_image")
-    public ResponseEntity<Photo> uploadSource(@RequestParam("file") MultipartFile sourceFile) throws IOException {
+    @PostMapping("/upload_image/{toy_id}")
+    public ResponseEntity<Photo> uploadSource(@RequestParam("file") MultipartFile sourceFile, @PathVariable("toy_id") Long toy_id) throws IOException {
         String filePath = save_image_file_path +"/" + new Date().toString()+"-"+sourceFile.getOriginalFilename();
         byteArrayConvertToImageFile(sourceFile.getBytes(), filePath);
-        Photo photo = photoService.addPhoto(new Photo(filePath));
+        Photo photo = photoService.addPhotoWithToyId(new Photo(filePath), toy_id);
         return new ResponseEntity<>(photo, HttpStatus.OK);
     }
 

@@ -2,6 +2,8 @@ package com.test.toy_springboot.photo.service;
 
 import com.test.toy_springboot.photo.domain.Photo;
 import com.test.toy_springboot.photo.repository.PhotoRepository;
+import com.test.toy_springboot.toy.domain.Toy;
+import com.test.toy_springboot.toy.service.ToyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +12,11 @@ import java.util.List;
 @Service
 public class PhotoService {
     private PhotoRepository dbAccess;
+    private ToyService toyService;
 
     @Autowired
-    public PhotoService(PhotoRepository dbAccess) {
+    public PhotoService(PhotoRepository dbAccess, ToyService toyService) {
+        this.toyService = toyService;
         this.dbAccess = dbAccess;
     }
 
@@ -21,6 +25,12 @@ public class PhotoService {
     }
 
     public Photo addPhoto(Photo photo){
+        return dbAccess.save(photo);
+    }
+
+    public Photo addPhotoWithToyId(Photo photo, Long toyId){
+        Toy toy = toyService.getToyById(toyId);
+        photo.setToy(toy);
         return dbAccess.save(photo);
     }
 
