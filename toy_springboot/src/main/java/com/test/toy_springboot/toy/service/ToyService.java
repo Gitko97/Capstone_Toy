@@ -32,6 +32,9 @@ public class ToyService {
         return dbAccess.save(toy);
     }
 
+    public List<Toy> findNotTradeToyWithShopId(Long shop_id){
+        return dbAccess.findNotTradeToyWithShopId(shop_id);
+    }
     public Toy updateToy(Toy toy) {
         return dbAccess.save(toy);
     }
