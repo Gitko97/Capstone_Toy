@@ -26,6 +26,10 @@ public class ShopService {
         return dbAccess.save(shop);
     }
 
+    public Shop getShopById(Long shop_id) throws Exception {
+        return dbAccess.findById(shop_id).orElseThrow(() -> new Exception("Shop ID Error"));
+    }
+
     public Shop updateShop(Shop shop) {
         return dbAccess.save(shop);
     }

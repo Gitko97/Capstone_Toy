@@ -25,6 +25,13 @@ public class ShopRestApi {
         return new ResponseEntity<>(shopList, HttpStatus.OK);
     }
 
+    @GetMapping("/id")
+    public ResponseEntity<Shop> getShopList(@RequestParam Long shop_id) throws Exception {
+        Shop shop = shopService.getShopById(shop_id);
+        if(shop == null) new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(shop, HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<Shop> saveShop(@RequestBody Shop shop) {
         Shop resultShop = shopService.addShop(shop);
