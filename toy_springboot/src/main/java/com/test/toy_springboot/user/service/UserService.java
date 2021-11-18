@@ -75,8 +75,8 @@ public class UserService {
     }
 
     @Transactional
-    public User getUserById(String userId) {
-        User user = userRepository.findOneByUserId(userId).orElse(new User());
+    public User getUserById(String userId) throws Exception {
+        User user = userRepository.findOneByUserId(userId).orElseThrow(() -> new Exception("User ID Error"));
         return user;
     }
 }

@@ -20,7 +20,7 @@ public class ViewController {
     }
 
     @GetMapping("/home")
-    public String main(Model model){
+    public String main(Model model) throws Exception {
         String userId = "1"; // 토큰으로 Id 읽어오기
         User user = userService.getUserById(userId);
         model.addAttribute("currentUser", user);

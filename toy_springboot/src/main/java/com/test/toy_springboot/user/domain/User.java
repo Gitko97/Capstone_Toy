@@ -59,10 +59,4 @@ public class User {
         this.point += point;
     }
 
-//   @ManyToMany
-//   @JoinTable(
-//           name = "user_authority",
-//           joinColumns = {@JoinColumn(name = "user_index", referencedColumnName = "user_index")},
-//           inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")})
-
 }
