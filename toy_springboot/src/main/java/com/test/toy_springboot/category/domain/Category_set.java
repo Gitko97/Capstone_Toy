@@ -29,29 +29,6 @@ public class Category_set {
     public Category_set(String set_name, int set_num) {
         this.set_name = set_name;
         this.set_num = set_num;
-//        this.toy_id_list = "";
     }
 
-//    public Category_set(String set_name, int set_num, String str) {
-//        this.set_name = set_name;
-//        this.set_num = set_num;
-//        this.toy_id_list = str;
-//    }
-//
-//    public void addToyId(Long toy_id){
-//        if (this.toy_id_list.length() == 0)
-//            this.toy_id_list += toy_id.toString();
-//        else this.toy_id_list += "," + toy_id.toString();
-//    }
-//
-//    public boolean checkToyListNull(){
-//        return this.toy_id_list.length() <= 0;
-//    }
-//
-//    public int popToy(){
-//        int firstIndex = this.toy_id_list.indexOf(",");
-//        int toy_id = Integer.parseInt(this.toy_id_list.substring(0, firstIndex));
-//        this.toy_id_list = this.toy_id_list.substring(toy_id);
-//        return toy_id;
-//    }
 }
