@@ -1,5 +1,7 @@
 package com.test.toy_springboot.user.service;
 
+import com.test.toy_springboot.shop.domain.Shop;
+import com.test.toy_springboot.shop.service.ShopService;
 import com.test.toy_springboot.user.domain.User;
 import com.test.toy_springboot.user.dto.SignUpDto;
 import com.test.toy_springboot.user.dto.UserInfoDto;
@@ -19,7 +21,7 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
+    private final ShopService shopService;
 
     @Transactional
     public User signup(SignUpDto signUpDto) {
@@ -40,7 +42,10 @@ public class UserService {
                 .authority("ROLE_USER")
                 .activated(true)
                 .build();
-
+        Shop newShop = new Shop();
+        newShop.setUser(user);
+        shopService.addShop(newShop);
+        user.setShop(newShop);
         return userRepository.save(user);
     }
 
