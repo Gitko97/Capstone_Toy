@@ -3,6 +3,7 @@ package com.test.toy_springboot.toy.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.test.toy_springboot.category.domain.Category_set;
 import com.test.toy_springboot.category.domain.Character;
@@ -25,13 +26,14 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @ToString
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Toy extends AuditingEntity {
     @Column(nullable = false)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long toy_id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="shop_id")
     @OnDelete(action= OnDeleteAction.CASCADE)
     @JsonBackReference
