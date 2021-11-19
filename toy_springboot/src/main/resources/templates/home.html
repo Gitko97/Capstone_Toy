@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- 타임리프 레이아웃 적용 -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
     <head>
         <th:block th:fragment="style-area">
@@ -24,35 +25,9 @@
     </head>
 
     <body>
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="#!">토이트라</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">홈</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">서비스 소개</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">회원 메뉴</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">회원 정보</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#!">나의 교환소</a></li>
-                                <li><a class="dropdown-item" href="#!">신청 내역</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="#!">장난감 등록</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">교환소 둘러보기</a></li>
-                    </ul>
-                    <form class="d-flex">
-                        <button class="btn btn-outline-dark" type="submit">
-                            로그인
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </nav>
+
+        <!-- 사이드바-->
+        <th:block th:replace="fragments/sidebar :: sidebarFragment"></th:block>
 
         <!-- Header-->
         <header class="bg-dark py-5">
@@ -69,58 +44,14 @@
             <div class="container px-4 px-lg-5 mt-5">
                 <div class = "mb-5">
                     <h4 class = "mb-5">나의 등록현황</h4>
-
-                    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id = "my_toy_box">
-
-                    <script th:inline="javascript">
-
-                    var settings = {
-                    "url": "http://localhost:8092/api/photo",
-                    "method": "GET",
-                    "timeout": 0,
-                    "dataType" : "JSON"
-                    };
-
-                    $.ajax(settings).done(function (data) {
-                        console.log(data);
-                        var str_html = '';
-                        var i = 1
-
-                        $.each(data, function(index, item) {
-
-					        var html_box =
-                            '<div class="col mb-5"><div class="card h-100">\
-                                    <img class="card-img-top" src="photo_src" alt="..." />\
-                                    <!-- Product details-->\
-                                    <div class="card-body p-4">\
-                                        <div class="text-center">\
-                                            <!-- Product name-->\
-                                            <h5 class="fw-bolder">장난감명</h5>\
-                                        </div>\
-                                    </div>\
-                            </div></div>'
-
-                        var photo_src = 'http://localhost:8092/api/photo/'+i;
-                        console.log(photo_src);
-                        html_box = html_box.replace('photo_src', photo_src);
-                        str_html = str_html + html_box + '\n';
-                        i++
-				        });
-
-				        $('#my_toy_box').html(str_html);
-                    });
-
-                    </script>
-
-                    </div>
+                    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id = "my_toy_box"></div>
                 </div>
             </div>
         </section>
 
         <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Toytra 2021</p></div>
-        </footer>
+        <th:block th:replace="fragments/footer :: footerFragment"></th:block>
+
     </body>
 </html>
 
