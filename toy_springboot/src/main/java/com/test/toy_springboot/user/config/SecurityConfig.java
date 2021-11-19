@@ -74,7 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 //                일부 요청만 제한을 열어둠 : 회원가입 / 로그인 / 메인화면
                 .antMatchers("/home").permitAll()
-//                .antMatchers("/signup").permitAll()
+                .antMatchers("/signUp").permitAll()
                 .antMatchers("/signIn").permitAll()
 
                 .anyRequest().authenticated()
