@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @MappedSuperclass
@@ -18,4 +19,9 @@ public class AuditingEntity {
     private LocalDateTime createdDate;
     @LastModifiedDate
     private LocalDateTime modifiedDate;
+
+    public String getcreatedDate(){
+        String yyyyMMdd = this.createdDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        return yyyyMMdd;
+    }
 }
