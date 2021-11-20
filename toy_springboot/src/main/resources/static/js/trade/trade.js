@@ -48,6 +48,11 @@ $(".next-toyList").on('click', function() {
     getToyList()
 });
 
+$(".before-toyList").on('click', function() {
+    currentMode = "me"
+    getToyList()
+});
+
 function getToyList(){
     var currentShopID
     $(".removed-area").remove()

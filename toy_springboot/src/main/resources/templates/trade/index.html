@@ -30,14 +30,14 @@
     <th:block th:replace="fragments/sidebar :: sidebarFragment"></th:block>
 
         <!-- Header-->
-        <div class="row mb-5 mt-2">
-            <div class="col">
-                <button type="button" class="btn btn-primary next-toyList">다음</button>
+        <div class="row mb-5 mt-2" style="align-items: flex-start;">
+            <div class="col text-end">
+                <button type="button" class="btn btn-primary before-toyList" style="float: right;width: 60px;">이전</button>
             </div>
-            <div class="col-auto" style="margin-left: 20px;">
+            <div class="col-auto">
                 <h2>내 장난감 장터</h2>
             </div>
-            <div class="col">
+            <div class="col text-start" style="float: right;width: 60px;">
                 <button type="button" class="btn btn-primary next-toyList">다음</button>
             </div>
         </div>
