@@ -37,10 +37,10 @@ public class PhotoRestApi {
     }
 
     @GetMapping(value = "/{image_id}", produces = MediaType.IMAGE_JPEG_VALUE)
-    public ResponseEntity<byte[]> userSearch(@PathVariable("image_id") long image_id) throws IOException {
+    public ResponseEntity<String> getImageToBase64(@PathVariable("image_id") long image_id) throws IOException {
         Photo photo = photoService.getPhotoById(image_id);
-        byte[] imageByteArray = photo.getImageByte();
-        return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);
+        String imageBase64 = photo.getImageByte();
+        return new ResponseEntity<String>(imageBase64, HttpStatus.OK);
     }
 
     @PostMapping("/upload_image/{toy_id}")

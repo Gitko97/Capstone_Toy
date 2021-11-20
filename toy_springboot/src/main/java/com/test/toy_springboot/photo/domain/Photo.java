@@ -11,14 +11,12 @@ import lombok.Setter;
 import org.apache.commons.io.IOUtils;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.LocalDateTime;
+import java.util.Base64;
 
 
 @Getter
@@ -40,11 +38,12 @@ public class Photo extends AuditingEntity {
     @JsonIgnore
     private String filePath;
 
-    public byte[] getImageByte() throws IOException {
+    public String getImageByte() throws IOException {
         InputStream imageStream = new FileInputStream(this.filePath);
         byte[] imageByteArray = IOUtils.toByteArray(imageStream);
+        String resultBase64Encoded = Base64.getEncoder().encodeToString(imageByteArray);
         imageStream.close();
-        return imageByteArray;
+        return resultBase64Encoded;
     }
     public Photo(String filePath) {
         this.filePath = filePath;
