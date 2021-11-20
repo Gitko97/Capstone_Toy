@@ -34,6 +34,13 @@ public class ToyRestApi {
         return new ResponseEntity<>(toy, HttpStatus.OK);
     }
 
+    @GetMapping("/shop/{shopID}")
+    public ResponseEntity<List<Toy>> getNotTradeToyWithShopId(@PathVariable Long shopID){
+        List<Toy> toyList = toyService.findNotTradeToyWithShopId(shopID);
+        if(toyList == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(toyList, HttpStatus.OK);
+    }
+
     @GetMapping("/filter")
     public ResponseEntity<List<Toy>>  getToyByFilter(@RequestParam(required = false) String character, @RequestParam(required = false) String genre){
         if (character == null && genre == null){
