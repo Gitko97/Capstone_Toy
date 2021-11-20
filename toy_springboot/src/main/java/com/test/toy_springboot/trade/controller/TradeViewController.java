@@ -25,13 +25,11 @@ public class TradeViewController {
     }
 
     @GetMapping
-    public String device(Model model, Principal principal) throws Exception {
+    public String getTradePage(Model model, Principal principal) throws Exception {
         long l=1;
         long i=2;
-        List<Toy> myToyList = toyService.findNotTradeToyWithShopId(l);
-        List<Toy> clickedToyList = toyService.findNotTradeToyWithShopId(i);
-        model.addAttribute("myToyList", myToyList);
-        model.addAttribute("clickedToyList", clickedToyList);
+        model.addAttribute("myShopID", l);
+        model.addAttribute("clickedShopID", i);
         return "trade/index";
     }
 
