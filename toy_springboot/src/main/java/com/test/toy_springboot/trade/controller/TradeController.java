@@ -27,10 +27,10 @@ public class TradeController {
     }
 
     @PostMapping
-    public ResponseEntity<Trade> saveTradeWithoutUser(@RequestBody Trade trade) {
+    public ResponseEntity<Long> saveTradeWithoutUser(@RequestBody Trade trade) {
         Trade resultTrade = tradeService.addTradeWithoutUser(trade);
-        if(resultTrade == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<>(resultTrade, HttpStatus.OK);
+        if(resultTrade == null) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity(resultTrade.getTrade_id(), HttpStatus.OK);
     }
 
     @DeleteMapping

@@ -19,7 +19,6 @@ const currentToyListArea = $("#toyList-card-area").html();
 const currentToyListTemplate = Handlebars.compile(currentToyListArea);
 
 $('#card-container').on('click', '.card-pf-view-checkbox>input', function(event) {
-    console.log()
     var $currentCard = $(this).closest('.card-pf');
     if ($currentCard.hasClass('active')){
         $currentCard.removeClass('active')
@@ -46,11 +45,53 @@ $('#card-container').on('click', '.card-pf-view-checkbox>input', function(event)
 $(".next-toyList").on('click', function() {
     currentMode = "next"
     getToyList()
+    $(this).attr("hidden",true);
+    $('.before-toyList').attr("hidden",false);
+    $('.finish-toyList').attr("hidden",false);
 });
 
 $(".before-toyList").on('click', function() {
     currentMode = "me"
     getToyList()
+    $(this).attr("hidden",true);
+    $('.next-toyList').attr("hidden",false);
+    $('.finish-toyList').attr("hidden",true);
+});
+
+$(".finish-toyList").on('click', function() {
+    var fromDataArray = new Array();
+    var toDataArray = new Array();
+    for ( let toy_id of clicked_my_toy_list) {
+        var from_toy_id = new Object();
+        from_toy_id.toy_id = toy_id
+        fromDataArray.push(from_toy_id)
+    }
+    for ( let toy_id of clicked_opponent_toy_list) {
+        var to_toy_id = new Object();
+        to_toy_id.toy_id = toy_id
+        toDataArray.push(to_toy_id)
+    }
+
+    var finishObject = new Object();
+
+    finishObject.from_toy = fromDataArray
+    finishObject.to_toy = toDataArray
+
+    var Json = JSON.stringify(finishObject);
+
+    console.log(Json)
+
+    $.ajax({
+        url: '/api/trade',
+        method: 'POST',
+        contentType: 'application/json; charset=utf-8',
+        data: Json
+    }).done(function() {
+        alert("교환 신청");
+        location.reload();
+    }).fail(function () {
+        alert("한개 이상의 장난감을 선택해 주세요");
+    });
 });
 
 function getToyList(){
@@ -77,6 +118,17 @@ function getToyList(){
             var img_id = "#"+val["toy_id"]
             var imageByte = val["photo"]
             $(img_id).attr('src', 'data:image/png;base64,'+imageByte[0]["imageByte"]);
+            if(currentMode === "me"){
+                if(clicked_my_toy_list.has(''+val["toy_id"])){
+                    $('#'+val["toy_id"]).closest('.card-pf.card-pf-view.card-pf-view-select.card-pf-view-multi-select').addClass('active')
+                    $('#'+val["toy_id"]).closest('.card-pf.card-pf-view.card-pf-view-select.card-pf-view-multi-select').find('.clickedCheckBox').prop('checked', true);
+                }
+            }else{
+                if(clicked_opponent_toy_list.has(''+val["toy_id"])){
+                    $('#'+val["toy_id"]).closest('.card-pf.card-pf-view.card-pf-view-select.card-pf-view-multi-select').addClass('active')
+                    $('#'+val["toy_id"]).closest('.card-pf.card-pf-view.card-pf-view-select.card-pf-view-multi-select').find('.clickedCheckBox').prop('checked', true);
+                }
+            }
         });
 
     }).fail(function () {
