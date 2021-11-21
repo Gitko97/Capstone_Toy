@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class PhotoRestApi {
 
     @PostMapping("/upload_image/{toy_id}")
     public ResponseEntity<Photo> uploadSource(@RequestParam("file") MultipartFile sourceFile, @PathVariable("toy_id") Long toy_id) throws IOException {
-        String filePath = save_image_file_path +"/" + new Date().toString()+"-"+sourceFile.getOriginalFilename();
+        String filePath = save_image_file_path +"/" + new SimpleDateFormat("yyyyMMDD").format(new Date())+"-"+sourceFile.getOriginalFilename();
         byteArrayConvertToImageFile(sourceFile.getBytes(), filePath);
         Photo photo = photoService.addPhotoWithToyId(new Photo(filePath), toy_id);
         return new ResponseEntity<>(photo, HttpStatus.OK);

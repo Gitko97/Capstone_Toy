@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!-- 타임리프 레이아웃 적용 -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <th:block th:replace="fragments/config :: configFragment"></th:block>
+    <link href="css/select.css" rel="stylesheet" />
+    <link href="css/button.css" rel="stylesheet" />
+    <title>Toytra Homepage</title>
+</head>
+
+<body>
+
+<!-- 사이드바-->
+<th:block th:replace="fragments/sidebar :: sidebarFragment"></th:block>
+
+<h2 class="pricingTable-title">분석결과</h2>
+<ul class="pricingTable-firstTable">
+
+    <li class="pricingTable-firstTable_table">
+        <h1 class="pricingTable-firstTable_table__header">2등</h1>
+        <p id = "change3" class="pricingTable-firstTable_table__pricing">상품명</p>
+        <ul class="pricingTable-firstTable_table__options">
+            <li id = "change4">캐릭터</li>
+            <li id = "change5">카테고리</li>
+        </ul>
+        <button class="pricingTable-firstTable_table__getstart">Get Started Now</button>
+    </li>
+
+    <li class="pricingTable-firstTable_table">
+        <h1 class="pricingTable-firstTable_table__header">1등</h1>
+        <p id = "change0" class="pricingTable-firstTable_table__pricing">상품명</p>
+        <ul class="pricingTable-firstTable_table__options">
+            <li id = "change1">캐릭터</li>
+            <li id = "change2">카테고리</li>
+        </ul>
+        <button class="pricingTable-firstTable_table__getstart">Get Started Now</button>
+    </li>
+
+    <li class="pricingTable-firstTable_table">
+        <h1 class="pricingTable-firstTable_table__header">3등</h1>
+        <p id = "change6" class="pricingTable-firstTable_table__pricing">상품명</p>
+        <ul class="pricingTable-firstTable_table__options">
+            <li id = "change7">캐릭터</li>
+            <li id = "change8">카테고리</li>
+        </ul>
+        <button class="pricingTable-firstTable_table__getstart">Get Started Now</button>
+    </li>
+</ul>
+
+<button class="button button--secondary" style="float: right;">직접 찾아보기</button>
+
+<script type="text/javascript">
+
+    if (localStorage.getItem('data')) {
+        var lastData = localStorage.getItem('data')
+    }
+
+    Data = JSON.parse(lastData); //local storage에 저장된 json 불러옴.
+
+    var j = 0;
+    for (i = 0; i < Data.length; i++) {
+        // document.write("<input type='radio' name='category' value=" + i + "> " + Data[i].product_name + '</input>');
+            $('#change'+[j]).text(Data[i].product_name);
+            j+=1;
+            $('#change'+[j]).text(Data[i].product_label.character);
+            j+=1;
+            $('#change'+[j]).text(Data[i].product_label.category);
+            j+=1;
+    }
+
+    $("#btnRegist").click(function (event) {
+
+        const form = $('#fileUploadForm')[0];
+
+        const data = new FormData(form);
+
+        $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url: "http://13.125.216.91:8000/finder/api/image_file",
+            data: data,
+            dataType : "JSON",
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 0,
+            success: function (data) {
+                localStorage.setItem("data", JSON.stringify(data));
+                alert("성공");
+                location.href="/analysis";
+            },
+            error: function (e) {
+                alert("fail");
+            }
+        });
+    });
+</script>
+
+<!-- Footer-->
+<th:block th:replace="fragments/footer :: footerFragment"></th:block>
+
+</body>
+
+</html>
