@@ -1,5 +1,7 @@
 package com.test.toy_springboot.user.dto;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.test.toy_springboot.shop.domain.Shop;
 import com.test.toy_springboot.user.domain.User;
 import lombok.*;
 
@@ -30,10 +32,14 @@ public class UserInfoDto {
     @Size(min = 11, max = 50)
     private String phoneNumber;
 
+    private Shop shop;
+
+    private Integer point;
+
     // post 관련 정보
 
-    static public UserInfoDto from(User user){
-        return UserInfoDto.builder().userId(user.getUserId()).name(user.getName()).phoneNumber(user.getPhoneNumber()).build();
+    static public UserInfoDto from(User user) {
+        return UserInfoDto.builder().userId(user.getUserId()).name(user.getName()).phoneNumber(user.getPhoneNumber()).shop(user.getShop()).point(user.getPoint()).build();
     }
 
 

@@ -5,8 +5,9 @@ import com.test.toy_springboot.user.jwt.JwtAccessDeniedHandler;
 import com.test.toy_springboot.user.jwt.JwtAuthenticationEntryPoint;
 import com.test.toy_springboot.user.jwt.JwtSecurityConfig;
 import com.test.toy_springboot.user.jwt.TokenProvider;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -15,9 +16,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.filter.CorsFilter;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -45,17 +43,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) {
         web.ignoring()
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
                 .antMatchers(
                         "/favicon.ico"
-                        ,"/error"
+                        ,"/error",
+                        "/webjars/**",
+                        "/resources/**", "/static/**", "/css/**", "/js/**", "/img/**", "/icon/"
+
                 );
     }
+
+
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 // token을 사용하는 방식이기 때문에 csrf를 disable합니다.
                 .csrf().disable()
+
 
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
@@ -76,11 +81,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/home").permitAll()
                 .antMatchers("/signUp").permitAll()
                 .antMatchers("/signIn").permitAll()
+                .antMatchers("/resources/**").permitAll()
+
 
                 .anyRequest().authenticated()
 //                나머지 요청은 인증을 받아야 함
 
                 .and()
                 .apply(new JwtSecurityConfig(tokenProvider));
+
     }
 }
