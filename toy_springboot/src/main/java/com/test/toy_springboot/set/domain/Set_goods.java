@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.test.toy_springboot.config.AuditingEntity;
 import com.test.toy_springboot.photo.domain.Photo;
 import com.test.toy_springboot.toy.domain.Toy;
+import com.test.toy_springboot.user.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,11 +37,24 @@ public class Set_goods extends AuditingEntity{
     @Column
     private String set_name;
 
+    @Column
+    private int bestPoint = 0;
+
+    @OneToOne
+    @JoinColumn(name="best_point_user")
+    private User bestPointUser;
+
     @OneToMany(mappedBy = "set_goods", fetch = FetchType.EAGER)
     @JsonIgnore
     private List<Toy> toy;
 
     public Set_goods(String set_name) {
         this.set_name = set_name;
+    }
+    public boolean compareBestPoint(int point){
+        if(this.bestPoint >= point){
+            return true;
+        }
+        return false;
     }
 }
