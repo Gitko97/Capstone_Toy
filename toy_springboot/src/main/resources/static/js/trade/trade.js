@@ -48,6 +48,8 @@ $(".next-toyList").on('click', function() {
     $(this).attr("hidden",true);
     $('.before-toyList').attr("hidden",false);
     $('.finish-toyList').attr("hidden",false);
+    currentShopID = $('#nextShopID').data("shop")
+    $('#current_shop').text(currentShopID +"의 장터")
 });
 
 $(".before-toyList").on('click', function() {
@@ -56,6 +58,7 @@ $(".before-toyList").on('click', function() {
     $(this).attr("hidden",true);
     $('.next-toyList').attr("hidden",false);
     $('.finish-toyList').attr("hidden",true);
+    $('#current_shop').text("내 장난감 장터")
 });
 
 $(".finish-toyList").on('click', function() {
@@ -87,10 +90,11 @@ $(".finish-toyList").on('click', function() {
         contentType: 'application/json; charset=utf-8',
         data: Json
     }).done(function() {
-        alert("교환 신청");
+        alert("신청 성공!")
         location.reload();
     }).fail(function () {
-        alert("한개 이상의 장난감을 선택해 주세요");
+        $('#errorMSG').text("한개 이상의 장난감을 선택해주세요!")
+        $('#alarmModal').modal('show');
     });
 });
 
@@ -115,24 +119,32 @@ function getToyList(){
         const html = currentToyListTemplate(arrayData);
         $('#toy-card-list-area').append(html);
         $.each(data, function(idx, val) {
-            var img_id = "#"+val["toy_id"]
-            var imageByte = val["photo"]
-            $(img_id).attr('src', 'data:image/png;base64,'+imageByte[0]["imageByte"]);
-            if(currentMode === "me"){
-                if(clicked_my_toy_list.has(''+val["toy_id"])){
-                    $('#'+val["toy_id"]).closest('.card-pf.card-pf-view.card-pf-view-select.card-pf-view-multi-select').addClass('active')
-                    $('#'+val["toy_id"]).closest('.card-pf.card-pf-view.card-pf-view-select.card-pf-view-multi-select').find('.clickedCheckBox').prop('checked', true);
-                }
+            if (val["photo"].length == 0){
+                console.log("@")
             }else{
-                if(clicked_opponent_toy_list.has(''+val["toy_id"])){
-                    $('#'+val["toy_id"]).closest('.card-pf.card-pf-view.card-pf-view-select.card-pf-view-multi-select').addClass('active')
-                    $('#'+val["toy_id"]).closest('.card-pf.card-pf-view.card-pf-view-select.card-pf-view-multi-select').find('.clickedCheckBox').prop('checked', true);
+                var img_id = "#"+val["toy_id"]
+                var imageByte = val["photo"]
+
+                $(img_id).attr('src', 'data:image/png;base64,'+imageByte[0]["imageByte"]);
+                if(currentMode === "me"){
+                    if(clicked_my_toy_list.has(''+val["toy_id"])){
+                        $('#'+val["toy_id"]).closest('.card-pf.card-pf-view.card-pf-view-select.card-pf-view-multi-select').addClass('active')
+                        $('#'+val["toy_id"]).closest('.card-pf.card-pf-view.card-pf-view-select.card-pf-view-multi-select').find('.clickedCheckBox').prop('checked', true);
+                    }
+                }else{
+                    if(clicked_opponent_toy_list.has(''+val["toy_id"])){
+                        $('#'+val["toy_id"]).closest('.card-pf.card-pf-view.card-pf-view-select.card-pf-view-multi-select').addClass('active')
+                        $('#'+val["toy_id"]).closest('.card-pf.card-pf-view.card-pf-view-select.card-pf-view-multi-select').find('.clickedCheckBox').prop('checked', true);
+                    }
                 }
             }
+
+
         });
 
     }).fail(function () {
-        alert("등록 실패");
+        $('#errorMSG').text("교환 신청 실패.. 다시 시도해주세요.")
+        $('#alarmModal').modal('show');
         location.reload();
     });
 }
