@@ -58,5 +58,13 @@ public class User {
     public void userPointUp(int point){
         this.point += point;
     }
-
+    public void userPointMinus(int point){
+        this.point -= point;
+    }
+    public boolean userComparePoint(int point){
+        if (this.point >= point){
+            return true;
+        }
+        return false;
+    }
 }
