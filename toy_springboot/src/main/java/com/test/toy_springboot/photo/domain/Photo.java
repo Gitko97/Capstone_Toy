@@ -38,12 +38,17 @@ public class Photo extends AuditingEntity {
     @JsonIgnore
     private String filePath;
 
-    public String getImageByte() throws IOException {
-        InputStream imageStream = new FileInputStream(this.filePath);
-        byte[] imageByteArray = IOUtils.toByteArray(imageStream);
-        String resultBase64Encoded = Base64.getEncoder().encodeToString(imageByteArray);
-        imageStream.close();
-        return resultBase64Encoded;
+    public String getImageByte(){
+        try {
+            InputStream imageStream = new FileInputStream(this.filePath);
+            byte[] imageByteArray = IOUtils.toByteArray(imageStream);
+            String resultBase64Encoded = Base64.getEncoder().encodeToString(imageByteArray);
+            imageStream.close();
+            return resultBase64Encoded;
+        }
+        catch (Exception e){
+            return null;
+        }
     }
     public Photo(String filePath) {
         this.filePath = filePath;
