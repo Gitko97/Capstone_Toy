@@ -8,7 +8,6 @@
     </head>
 
     <body>
-
         <!-- 사이드바-->
         <th:block th:replace="fragments/sidebar :: sidebarFragment"></th:block>
 
@@ -33,7 +32,6 @@
 </html>
 
 <script>
-
     $("#btnUpload").click(function (event) {
 
         const form = $('#fileUploadForm')[0];
@@ -72,7 +70,7 @@
         $.ajax({
             type: "POST",
             enctype: 'multipart/form-data',
-            url: "http://localhost:8092/api/photo/upload_image/"+toyId.toy_id,
+            url: upload_url+toyId.toy_id,
             data: data,
             async    : false,
             processData: false,
@@ -102,7 +100,7 @@
             success: function (data) {
                 localStorage.setItem("data", JSON.stringify(data));
                 alert("분석 성공");
-                location.href="/analysis";
+                location.href="/analysis?toy_id="+toyId.toy_id;
             },
             error: function (e) {
                 alert("fail");

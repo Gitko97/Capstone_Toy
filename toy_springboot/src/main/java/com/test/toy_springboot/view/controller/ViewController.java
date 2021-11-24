@@ -19,11 +19,17 @@ public class ViewController {
         this.userService = userService;
     }
 
+    @GetMapping("")
+    public String index() {
+        return "index";
+    }
+
     @GetMapping("/home")
     public String main(Model model) throws Exception {
-        String userId = "1"; // 토큰으로 Id 읽어오기
+        String userId = "111"; // 토큰으로 Id 읽어오기
         User user = userService.getUserById(userId);
         model.addAttribute("currentUser", user);
         return "home";
     }
+
 }

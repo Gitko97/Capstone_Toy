@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!-- 타임리프 레이아웃 적용 -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+    <head>
+        <th:block th:replace="fragments/config :: configFragment"></th:block>
+        <title>Toytra Homepage</title>
+    </head>
+
+    <body>
+
+        <!-- 사이드바-->
+        <th:block th:replace="fragments/sidebar :: sidebarFragment"></th:block>
+
+        <!-- Footer-->
+        <th:block th:replace="fragments/footer :: footerFragment"></th:block>
+
+    </body>
+</html>
+
+
+
+
+
+
+

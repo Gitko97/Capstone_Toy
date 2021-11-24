@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!-- 타임리프 레이아웃 적용 -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+    <head>
+        <th:block th:replace="fragments/config :: configFragment"></th:block>
+        <link href="css/button.css" rel="stylesheet" />
+        <title>Toytra Homepage</title>
+    </head>
+
+    <body>
+        <!-- 사이드바-->
+        <th:block th:replace="fragments/sidebar :: sidebarFragment"></th:block>
+
+        <h4 class = "mb-5">카테고리 페이지</h4>
+
+        <h4 th:text="|현재 샵 id : ${currentShop.shop_id}|"></h4>
+        <input type="hidden" th:id="currentShopID" th:value="${currentShop.shop_id}"/>
+
+        <div id="page-wrapper">
+
+            <h1>장르, 카테고리 결정</h1>
+
+            <input type="text" id="ajax1" list="json-datalist1" placeholder="">
+            <input type="text" id="ajax2" list="json-datalist2" placeholder="">
+            <datalist id="json-datalist1"></datalist>
+            <datalist id="json-datalist2"></datalist>
+        </div>
+
+        <!-- Footer-->
+        <th:block th:replace="fragments/footer :: footerFragment"></th:block>
+
+        <button class="button button--secondary" style="float: right;">선택 완료</button>
+
+    </body>
+</html>
+
+<style>
+    *, *:before, *:after {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    #page-wrapper {
+        width: 640px;
+        background: #FFFFFF;
+        padding: 1em;
+        margin: 1em auto;
+        border-top: 5px solid #69c773;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    }
+    h1 {
+        margin-top: 0;
+    }
+    label {
+        display: block;
+        margin-top: 2em;
+        margin-bottom: 0.5em;
+        color: #999999;
+    }
+    input {
+        width: 100%;
+        padding: 0.5em 0.5em;
+        font-size: 1.2em;
+        border-radius: 3px;
+        border: 1px solid #D9D9D9;
+    }
+    button {
+        display: inline-block;
+        border-radius: 3px;
+        border: none;
+        font-size: 0.9rem;
+        padding: 0.5rem 0.8em;
+        background: #69c773;
+        border-bottom: 1px solid #498b50;
+        color: white;
+        -webkit-font-smoothing: antialiased;
+        font-weight: bold;
+        margin: 0;
+        width: 100%;
+        text-align: center;
+    }
+    button:hover, button:focus {
+        opacity: 0.75;
+        cursor: pointer;
+    }
+    button:active {
+        opacity: 1;
+        box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.1) inset;
+    }
+</style>
+
+<script>
+
+    var dataList1 = document.getElementById('json-datalist1');
+    var dataList2 = document.getElementById('json-datalist2');
+    var input1 = document.getElementById('ajax1');
+    var input2 = document.getElementById('ajax2');
+
+    var request1 = new XMLHttpRequest();
+    var request2 = new XMLHttpRequest();
+
+    request1.onreadystatechange = function (response) {
+        if (request1.readyState === 4) {
+            if (request1.status === 200) {
+
+                var characterJSON = JSON.parse(request1.responseText);
+
+                characterJSON.forEach(function (item) {
+                    var option = document.createElement('option');
+                    option.value = item.name;
+                    dataList1.appendChild(option);
+                });
+
+                input1.placeholder = "캐릭터를 선택하세요";
+            } else {
+                input1.placeholder = "에러";
+            }
+        }
+    };
+
+    input1.placeholder = "로딩중...";
+
+    request1.open('GET', 'http://localhost:8092/api/category/character', true);
+    request1.send();
+
+    request2.onreadystatechange = function (response) {
+        if (request2.readyState === 4) {
+            if (request2.status === 200) {
+
+                var genreJSON = JSON.parse(request2.responseText);
+
+                genreJSON.forEach(function (item) {
+                    var option = document.createElement('option');
+                    option.value = item.name;
+                    dataList2.appendChild(option);
+                });
+
+                input2.placeholder = "장르를 선택하세요";
+            } else {
+                input2.placeholder = "에러";
+            }
+        }
+    };
+
+    input2.placeholder = "로딩중...";
+
+    request2.open('GET', 'http://localhost:8092/api/category/genre', true);
+    request2.send();
+
+
+</script>
