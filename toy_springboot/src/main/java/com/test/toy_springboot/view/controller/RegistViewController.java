@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.security.Principal;
 
 @Controller
-
 public class RegistViewController {
 
     private ShopService shopService;
@@ -34,6 +33,7 @@ public class RegistViewController {
         long l = 1;
         Shop shop = shopService.getShopById(l); //현재 접속중인 유저의 shop 읽어오기
         model.addAttribute("currentShop", shop);
+
         return "regist/upload";
     }
 

@@ -7,6 +7,7 @@ import com.test.toy_springboot.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +35,13 @@ public class UserController {
     @GetMapping("/userInfo")
     public ResponseEntity<UserInfoDto> showUserInfo(@AuthenticationPrincipal org.springframework.security.core.userdetails.User user ){
         return ResponseEntity.ok(userService.getUserInfoById(user.getUsername()));
+    }
+
+    @GetMapping("/role")
+    @PreAuthorize("hasAnyRole('USER')")
+    public ResponseEntity<Boolean> getUserRole(@AuthenticationPrincipal org.springframework.security.core.userdetails.User user ){
+
+        return ResponseEntity.ok(true);
     }
 
 

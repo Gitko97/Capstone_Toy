@@ -45,6 +45,8 @@
 
         var toyId;
 
+
+
         //토이 객체 생성 및 토이 id 받아오기
         $.ajax({
             "url": toy_url,
@@ -53,7 +55,8 @@
             dataType : "JSON",
             "timeout": 0,
             "headers": {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": localStorage.getItem("token")
             },
             "data": JSON.stringify({}),
             success: function (response) {
