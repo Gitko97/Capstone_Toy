@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>로그아웃</title>
+</head>
+<body onload="init();"></body>
+<script type="text/javascript">
+    function init() {
+        alert("로그아웃");
+        localStorage.removeItem("token");
+        location.href = "signIn";
+    }
+</script>
+</html>

@@ -74,7 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-
+/*
                 .and()
                 .authorizeRequests()
 //                일부 요청만 제한을 열어둠 : 회원가입 / 로그인 / 메인화면
@@ -86,7 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .anyRequest().authenticated()
 //                나머지 요청은 인증을 받아야 함
-
+*/
                 .and()
                 .apply(new JwtSecurityConfig(tokenProvider));
 

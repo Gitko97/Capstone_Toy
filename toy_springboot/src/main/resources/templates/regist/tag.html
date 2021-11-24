@@ -25,12 +25,15 @@
             <input type="text" id="ajax2" list="json-datalist2" placeholder="">
             <datalist id="json-datalist1"></datalist>
             <datalist id="json-datalist2"></datalist>
+
+            <button class="button button--secondary" style="float: right;">선택 완료</button>
+            <button class="button button--secondary" style="float: right;">선택 완료</button>
         </div>
 
         <!-- Footer-->
         <th:block th:replace="fragments/footer :: footerFragment"></th:block>
 
-        <button class="button button--secondary" style="float: right;">선택 완료</button>
+
 
     </body>
 </html>
@@ -148,6 +151,7 @@
 
     request2.open('GET', 'http://localhost:8092/api/category/genre', true);
     request2.send();
+
 
 
 </script>

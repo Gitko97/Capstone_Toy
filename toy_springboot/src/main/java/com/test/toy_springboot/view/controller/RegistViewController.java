@@ -6,6 +6,7 @@ import com.test.toy_springboot.shop.service.ShopService;
 import com.test.toy_springboot.toy.service.ToyService;
 import com.test.toy_springboot.toy.domain.Toy;
 import com.test.toy_springboot.user.domain.User;
+import com.test.toy_springboot.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,23 +14,35 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 @Controller
 public class RegistViewController {
 
+    private UserService userService;
     private ShopService shopService;
     private ToyService toyService;
     private PhotoService photoService;
 
     @Autowired
-    public RegistViewController(ShopService shopService, ToyService toyService) {
+    public RegistViewController(UserService userService, ShopService shopService, ToyService toyService) {
         this.shopService = shopService;
         this.toyService = toyService;
+        this.userService = userService;
     }
 
     @GetMapping("/upload")
-    public String upload(Model model) throws Exception{
+    public String upload(Model model,  HttpServletRequest request) throws Exception{
+        HttpSession session = request.getSession();
+        String currentUserID = (String) session.getAttribute("currentUserID");
+        if(currentUserID == null){
+            return "redirect:signIn";
+        }
+        String userId = currentUserID; // 토큰으로 Id 읽어오기
+        User user = userService.getUserById(userId);
+
         long l = 1;
         Shop shop = shopService.getShopById(l); //현재 접속중인 유저의 shop 읽어오기
         model.addAttribute("currentShop", shop);
@@ -38,7 +51,15 @@ public class RegistViewController {
     }
 
     @GetMapping("/analysis")
-    public String analysis(Model model, @RequestParam long toy_id) {
+    public String analysis(Model model, @RequestParam long toy_id, HttpServletRequest request) throws Exception{
+        HttpSession session = request.getSession();
+        String currentUserID = (String) session.getAttribute("currentUserID");
+        if(currentUserID == null){
+            return "redirect:signIn";
+        }
+        String userId = currentUserID; // 토큰으로 Id 읽어오기
+        User user = userService.getUserById(userId);
+
         Toy toy = toyService.getToyById(toy_id);
         model.addAttribute("currentToy", toy);
         return "regist/analysis";

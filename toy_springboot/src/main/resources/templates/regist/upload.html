@@ -102,6 +102,7 @@
             timeout: 0,
             success: function (data) {
                 localStorage.setItem("data", JSON.stringify(data));
+                localStorage.setItem("toy_id", toyId.toy_id);
                 alert("분석 성공");
                 location.href="/analysis?toy_id="+toyId.toy_id;
             },
