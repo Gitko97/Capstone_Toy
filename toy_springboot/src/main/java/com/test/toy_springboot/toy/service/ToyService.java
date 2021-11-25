@@ -6,6 +6,7 @@ import com.test.toy_springboot.toy.domain.Toy;
 import com.test.toy_springboot.toy.repository.ToyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -54,4 +55,10 @@ public class ToyService {
     public void updateToySetGoods(Long toyId, Long set_id) {
         dbAccess.match_toy_to_setItem(toyId, set_id);
     }
+    @Transactional
+    public void toySetTradeComplete(Long toyId) {
+        dbAccess.updateToyToStatusFalse(toyId);
+    }
+
+
 }

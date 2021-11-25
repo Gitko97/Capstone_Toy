@@ -1,6 +1,7 @@
 package com.test.toy_springboot.toy.repository;
 
 import com.test.toy_springboot.toy.domain.Toy;
+import com.test.toy_springboot.trade.domain.Trade;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -34,4 +35,9 @@ public interface ToyRepository extends JpaRepository<Toy, Long> {
     @Modifying // select 문이 아님을 나타낸다
     @Query(value = "UPDATE toy t SET t.set_id = :set_id WHERE t.toy_id = :toy_id", nativeQuery = true)
     void match_toy_to_setItem(@Param("toy_id")Long toy_id, @Param("set_id")Long set_id);
+
+
+    @Modifying
+    @Query("UPDATE Toy t SET t.tradeStatus = 1 WHERE t.toy_id = :toy_id")
+    void updateToyToStatusFalse(@Param("toy_id")Long toy_id);
 }

@@ -59,6 +59,9 @@ public class Toy extends AuditingEntity {
     private String productName;
 
     @Column
+    private boolean tradeStatus = false;
+
+    @Column
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime setTime;
 
