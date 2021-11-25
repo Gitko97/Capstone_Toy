@@ -46,11 +46,11 @@ public class TradeService {
         dbAccess.delete(trade);
     }
 
-    public Trade getTradeByFromUser(Long userIndex){
+    public List<Trade> getTradeByFromUser(Long userIndex){
         return dbAccess.findTradeByFromUser(userIndex);
     }
 
-    public Trade getTradeByToUser(Long userIndex){
+    public List<Trade> getTradeByToUser(Long userIndex){
         return dbAccess.findTradeByToUser(userIndex);
     }
 

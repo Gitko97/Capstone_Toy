@@ -124,7 +124,6 @@ function getToyList(){
             }else{
                 var img_id = "#"+val["toy_id"]
                 var imageByte = val["photo"]
-
                 $(img_id).attr('src', 'data:image/png;base64,'+imageByte[0]["imageByte"]);
                 if(currentMode === "me"){
                     if(clicked_my_toy_list.has(''+val["toy_id"])){

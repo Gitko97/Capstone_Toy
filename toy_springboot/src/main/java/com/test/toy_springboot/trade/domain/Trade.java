@@ -2,6 +2,7 @@ package com.test.toy_springboot.trade.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.test.toy_springboot.config.AuditingEntity;
 import com.test.toy_springboot.toy.domain.Toy;
 import com.test.toy_springboot.user.domain.User;
@@ -22,6 +23,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @ToString
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Trade extends AuditingEntity {
     @Column(nullable = false)
     @Id
@@ -46,5 +48,5 @@ public class Trade extends AuditingEntity {
     User to_user;
 
     @Column
-    private boolean trade_status = false;
+    private int trade_status = 0; // 0 init 1 수락 2 거절
 }

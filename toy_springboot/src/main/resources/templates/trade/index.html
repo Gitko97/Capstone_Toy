@@ -50,7 +50,7 @@
                         <div class="card-pf card-pf-view card-pf-view-select card-pf-view-multi-select">
                             <div class="card-pf-body" style="user-select: auto;">
                                 <div class="card-pf-top-element text-center" style="user-select: auto;">
-                                    <img id="{{toy_id}}" src="" class="img-thumbnail" style="width: 100px; height: 100px;">
+                                    <img id="{{toy_id}}" src="" class="img-thumbnail" style="width: 100px; height: 100px;border-radius: 50%;">
                                 </div>
                                 <h2 class="text-center mt-2" style="user-select: auto;">{{productName}}</h2>
                                 <div class="card-pf-items text-center" style="user-select: auto;">
@@ -73,35 +73,6 @@
                     </div>
                     {{/each}}
                 </script>
-
-<!--                <th:block th:each="myToy,count : ${myToyList}">-->
-<!--                    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2" style="padding-left: 20px;padding-right: 20px">-->
-<!--                        <div class="card-pf card-pf-view card-pf-view-select card-pf-view-multi-select" style="" th:data-toy="${myToy.toy_id}">-->
-<!--                            <div class="card-pf-body" style="user-select: auto;">-->
-<!--                                <div class="card-pf-top-element text-center" style="user-select: auto;">-->
-<!--                                    <img th:src="@{/img/logo.png}" alt=""-->
-<!--                                         style="max-width: 60px; max-height: 60px;">-->
-<!--                                </div>-->
-<!--                                <h2 class="text-center" th:text="${myToy.productName}" style="user-select: auto;"/>-->
-<!--                                <div class="card-pf-items text-center" style="user-select: auto;">-->
-<!--                                    <div class="card-pf-item" style="text-align: left;">-->
-<!--                                        <span>캐릭터 : </span><span th:text="${myToy.character.name}">몰?루</span>-->
-<!--                                        <br>-->
-<!--                                        <span>장르 : </span><span th:text="${myToy.genre.name}">몰?루</span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <p class="card-pf-info text-center" style="user-select: auto;">-->
-<!--                                    <strong style="user-select: auto;">등록일</strong>-->
-<!--                                    <br>-->
-<!--                                    <span th:text="${myToy.createdDate}">몰?루</span>-->
-<!--                                </p>-->
-<!--                            </div>-->
-<!--                            <div class="card-pf-view-checkbox" style="user-select: auto;">-->
-<!--                                <input type="checkbox" class="clickedCheckBox" th:data-id="${myToy.toy_id}">-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </th:block>-->
             </div>
         </div>
         <!-- Footer-->
