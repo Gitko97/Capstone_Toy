@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+  <th:block th:fragment="style-area">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/trade/patternfly-additions.css}">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}">
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.6.0/jquery.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+  </th:block>
+  <title>토이트라 | 내정보</title>
+  <style type="text/css">
+
+  .rounded-circle {
+    border-radius: 50%!important;
+  }
+
+  .avatar img {
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .avatar {
+    display: inline-block;
+    height: 3rem;
+    width: 3rem;
+  }
+
+  .avatar-md {
+    height: 3rem;
+    width: 3rem;
+  }
+
+  img, svg {
+    vertical-align: middle;
+  }
+  </style>
+</head>
+
+<body>
+  <div id="db-wrapper">
+    <!-- navbar vertical -->
+    <!-- page content -->
+    <div id="page-content">
+      <!-- Container fluid -->
+      <th:block th:replace="fragments/sidebar :: sidebarFragment"></th:block>
+      <div class="container-fluid px-6 py-4">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-12">
+            <!-- Page header -->
+            <div>
+              <div class="border-bottom pb-4 mb-4 ">
+                <div class="mb-2 mb-lg-0">
+                  <h3 class="mb-0 fw-bold">Profile</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row align-items-center">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+            <!-- Bg -->
+            <div class="pt-20 rounded-top">
+            </div>
+            <div class="bg-white rounded-bottom smooth-shadow-sm ">
+              <!-- nav -->
+              <div>
+                <nav class="navbar navbar-expand-lg navbar-light mt-2" style="background-color: rgb(227, 242, 253); user-select: auto;">
+                  <div class="container-fluid" style="user-select: auto;">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation" style="user-select: auto;">
+                      <span class="navbar-toggler-icon" style="user-select: auto;"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarColor03" style="user-select: auto;">
+                      <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="user-select: auto;">
+                        <li class="nav-item" style="user-select: auto;">
+                          <a class="nav-link active" aria-current="page" href="#" style="user-select: auto;">내 정보</a>
+                        </li>
+                        <li class="nav-item" style="user-select: auto;">
+                          <a class="nav-link" href="#" style="user-select: auto;">내 장난감</a>
+                        </li>
+                        <li class="nav-item" style="user-select: auto;">
+                          <a class="nav-link" href="#" style="user-select: auto;">교환 신청 목록</a>
+                        </li>
+                        <li class="nav-item" style="user-select: auto;">
+                          <a class="nav-link" href="#" style="user-select: auto;">교환 받은 목록</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- content -->
+        <div class="py-6">
+          <!-- row -->
+          <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-12 mb-4">
+              <!-- card -->
+              <div class="card">
+                <!-- card body -->
+                <div class="card-body">
+                  <!-- card title -->
+                  <h4 class="card-title mb-4">내 정보</h4>
+                  <!-- row -->
+                  <div class="row">
+                    <div class="col-12 mb-5">
+                      <!-- text -->
+                      <h6 class="text-uppercase fs-5 ls-2">ID
+                      </h6>
+                      <p class="mb-0" th:text="${currentUser.userId}"></p>
+                    </div>
+                    <div class="col-6 mb-5">
+                      <h6 class="text-uppercase fs-5 ls-2">이름</h6>
+                      <p class="mb-0" th:text="${currentUser.name}"></p>
+                    </div>
+                    <div class="col-6 mb-5">
+                      <h6 class="text-uppercase fs-5 ls-2">전화번호</h6>
+                      <p class="mb-0" th:text="${currentUser.phoneNumber}"></p>
+                    </div>
+                    <div class="col-6">
+                      <h6 class="text-uppercase fs-5 ls-2">보유 포인트</h6>
+                      <p class="mb-0" th:text="${currentUser.point}"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-12 col-lg-12 col-md-12 col-12 mb-6">
+              <!-- card -->
+              <div class="card mb-4">
+                <!-- card body -->
+                <div class="card-body">
+                  <!-- card title -->
+                  <h4 class="card-title mb-4">내 장난감</h4>
+                  <th:block th:if="${!toy.tradeStatus}" th:each="toy,count : ${currentUser.shop.toyList}">
+                    <div class="d-flex justify-content-between
+                        align-items-center mb-4">
+                      <div class="d-flex align-items-center">
+                        <!-- img -->
+                        <div>
+                          <img th:src="'data:image/png;base64,'+${toy.photo[0].getImageByte()} " class="rounded-circle avatar-md" alt="">
+                        </div>
+                        <!-- text -->
+                        <div class="ms-3 ">
+                          <h5 class="mb-1" th:text="${toy.productName}"></h5>
+                          <p class="text-muted mb-0 fs-5 text-muted" th:text="${toy.character.name} +' / '+${toy.genre.name} "></p>
+                        </div>
+                      </div>
+                    </div>
+                  </th:block>
+                </div>
+              </div>
+
+              <div class="row mb-4">
+                <div class="col-12">
+                  <!-- card -->
+                  <div class="card">
+                    <!-- card body -->
+                    <div class="card-body">
+                      <!-- card title -->
+                      <h4 class="card-title mb-4">내가 신청한 거래</h4>
+                      <div class="row mb-5" style="align-items: center!important;">
+                        <div class="col">
+                          <h5 class="mb-1 text-center"style="text-align: center;">내가 선택한 장난감</h5>
+                        </div>
+                        <div class="col">
+                          <h5 class="mb-1" style="text-align: center;">상대방 이름</h5>
+                          <h5 class="mb-1" style="text-align: center;">신청 날짜</h5>
+                        </div>
+                        <div class="col">
+                          <h5 class="mb-1" style="text-align: center;">교환할 장난감</h5>
+                        </div>
+                      </div>
+                      <th:block th:each="trade,count : ${fromTrade}">
+                        <div class="row mb-5" style="text-align: center;">
+                          <!-- img -->
+                          <div class="col">
+                            <!-- avatar group -->
+                            <div class="avatar-group me-2">
+                              <!-- img -->
+                              <th:block th:each="toy,count : ${trade.from_toy}">
+                                <span class="avatar avatar-sm" style="">
+                                  <img th:src="'data:image/png;base64,'+${toy.photo[0].getImageByte()} " class="rounded-circle avatar-md" style="border: 2px solid #593cc1; height: 4rem;width: 4rem;">
+                                </span>
+                              </th:block>
+                            </div>
+                          </div>
+                          <!-- content -->
+                          <div class="col " style="text-align: center;">
+                            <h5 class="mb-1" th:text="${trade.to_user.name}">...</h5>
+                            <p class="fs-5 mb-0" th:text="${trade.getcreatedDate()}">...</p>
+                            <a class="link-info from-trade" th:data-id="${trade.trade_id}">자세히</a>
+                          </div>
+                          <div class="col" style="user-select: auto;">
+                            <!-- avatar group -->
+                            <div class="avatar-group me-2">
+                              <!-- img -->
+                              <th:block th:each="toy,count : ${trade.to_toy}">
+                                <span class="avatar avatar-sm" style="">
+                                  <img th:src="'data:image/png;base64,'+${toy.photo[0].getImageByte()} " class="rounded-circle avatar-md" style="border: 2px solid #593cc1; height: 4rem;width: 4rem;">
+                                </span>
+                              </th:block>
+                            </div>
+                          </div>
+                        </div>
+                      </th:block>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <div class="col-12">
+                  <!-- card -->
+                  <div class="card">
+                    <!-- card body -->
+                    <div class="card-body">
+                      <!-- card title -->
+                      <h4 class="card-title mb-4">신청 받은 거래</h4>
+                      <div class="row mb-5" style="align-items: center!important;">
+                        <div class="col">
+                          <h5 class="mb-1 text-center"style="text-align: center;">상대방 장난감</h5>
+                        </div>
+                        <div class="col">
+                          <h5 class="mb-1" style="text-align: center;">상대방 이름</h5>
+                          <h5 class="mb-1" style="text-align: center;">신청 날짜</h5>
+                        </div>
+                        <div class="col">
+                          <h5 class="mb-1" style="text-align: center;">상대가 선택한 내 장난감</h5>
+                        </div>
+                      </div>
+                      <th:block  th:each="trade,count : ${toTrade}">
+                        <div class="row mb-5" style="text-align: center;">
+                          <!-- img -->
+                          <div class="col">
+                            <!-- avatar group -->
+                            <div class="avatar-group me-2">
+                              <!-- img -->
+                              <th:block th:each="toy,count : ${trade.from_toy}">
+                                <span class="avatar avatar-sm" style="">
+                                  <img th:src="'data:image/png;base64,'+${toy.photo[0].getImageByte()} " class="rounded-circle avatar-md" style="border: 2px solid #593cc1; height: 4rem;width: 4rem;">
+                                </span>
+                              </th:block>
+                            </div>
+                          </div>
+                          <!-- content -->
+                          <div class="col " style="text-align: center;">
+                            <h5 class="mb-1" th:text="${trade.from_user.name}">...</h5>
+                            <p class="fs-5 mb-0" th:text="${trade.getcreatedDate()}">...</p>
+                            <a class="link-info to-trade" th:data-id="${trade.trade_id}">자세히</a>
+
+                          </div>
+                          <div class="col" style="user-select: auto;">
+                            <!-- avatar group -->
+                            <div class="avatar-group me-2">
+                              <!-- img -->
+                              <th:block th:each="toy,count : ${trade.to_toy}">
+                                <span class="avatar avatar-sm" style="">
+                                  <img th:src="'data:image/png;base64,'+${toy.photo[0].getImageByte()} " class="rounded-circle avatar-md" style="border: 2px solid #593cc1; height: 4rem;width: 4rem;">
+                                </span>
+                              </th:block>
+                            </div>
+                          </div>
+                        </div>
+                      </th:block>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Scripts -->
+  <div class="modal fade" id="modalCart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <!--Header-->
+        <div class="modal-header">
+          <h4 class="modal-title" th:id="myModalLabel">Your cart</h4>
+        </div>
+        <!--Body-->
+        <div class="modal-body">
+          <div class="container-fluid container-cards-pf" id="card-container">
+            <div class="row row-cards-pf" id="toy-card-list-area" style="user-select: auto;">
+              <script id="toyList-card-area" type="text/x-handlebars-template">
+                {{#each this}}
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 removed-area">
+                  <div class="card-pf card-pf-view card-pf-view-select card-pf-view-multi-select">
+                    <div class="card-pf-body" style="user-select: auto;">
+                      <div class="card-pf-top-element text-center" style="user-select: auto;">
+                        <img id="{{toy_id}}" src="" class="img-thumbnail" style="width: 100px; height: 100px;border-radius: 50%;">
+                      </div>
+                      <h2 class="text-center mt-2" style="user-select: auto;">{{productName}}</h2>
+                      <div class="card-pf-items text-center" style="user-select: auto;">
+                        <div class="card-pf-item" style="text-align: left;">
+                          <span>캐릭터 : </span><span>{{character.name}}</span>
+                          <br>
+                          <span>장르 : </span><span>{{genre.name}}</span>
+                        </div>
+                      </div>
+                      <p class="card-pf-info text-center" style="user-select: auto;">
+                        <strong>등록일</strong>
+                        <br>
+                        <span>{{createdDate}}</span>
+                      </p>
+                    </div>
+                    <div class="card-pf-view-checkbox">
+                      <input type="checkbox" class="clickedCheckBox">
+                    </div>
+                  </div>
+                </div>
+                {{/each}}
+              </script>
+            </div>
+          </div>
+        </div>
+        <!--Footer-->
+        <div class="modal-footer">
+          <button class="btn btn-primary modal-next-button">다음</button>
+          <button class="btn btn-primary modal-before-button" hidden>이전</button>
+          <button class="btn btn-outline-danger modal-delete-button">삭제</button>
+          <button type="button" class="btn btn-outline-primary modal-complete-button" hidden>수락</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<div layout:fragment="script_area">
+  <script th:src="@{/js/profile/profile.js}"></script>
+</div>
+</html>
