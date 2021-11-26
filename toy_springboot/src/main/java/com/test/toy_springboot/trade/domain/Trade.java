@@ -48,5 +48,5 @@ public class Trade extends AuditingEntity {
     User to_user;
 
     @Column
-    private int trade_status = 0; // 0 init 1 수락 2 거절
+    private Integer trade_status = 0; // 0 init 1 수락 2 거절
 }

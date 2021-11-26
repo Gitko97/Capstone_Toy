@@ -58,6 +58,21 @@ public class TradeController {
         return new ResponseEntity(resultTrade.getTrade_id(), HttpStatus.OK);
     }
 
+    @PostMapping("/{trade_id}/delete")
+    public ResponseEntity<Long> setTradeDelete(@PathVariable Long trade_id) {
+        Trade resultTrade = tradeService.getTradeById(trade_id);
+        for(Toy toy : resultTrade.getTo_toy()){
+            toyService.toySetTradeTrade(toy.getToy_id());
+        }
+        for(Toy toy : resultTrade.getFrom_toy()){
+            toyService.toySetTradeTrade(toy.getToy_id());
+        }
+        resultTrade.setTrade_status(2);
+        tradeService.updateTrade(resultTrade);
+        if(resultTrade == null) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity(resultTrade.getTrade_id(), HttpStatus.OK);
+    }
+
     @DeleteMapping
     public ResponseEntity<Trade> deleteTrade(@RequestBody Trade trade) {
         try{

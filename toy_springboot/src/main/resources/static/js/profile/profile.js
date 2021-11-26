@@ -1,10 +1,59 @@
 let currentMode = null
 let currentTrade;
+
+$(document).ready(function() {
+    // Card Multi Select
+    $(".trade-status").each(function (index){
+        switch ($(this).data("status")){
+            case 0:
+                break
+            case 1:
+                $(this).closest(".trade-status-area").css("background-color", "lightgreen")
+                break
+            case 2:
+                $(this).closest(".trade-status-area").css("background-color", "lightcoral")
+                break
+        }
+    });
+
+});
+
+$(".modal-complete-button").on('click', function() {
+    trade_id = $(this).data("trade_id")
+    $.ajax({
+        url: '/api/trade/' + trade_id+"/complete",
+        method: 'POST',
+        headers: {Authorization: localStorage.getItem('token') },
+        dataType: 'json'
+    }).done(function (data) {
+        location.reload();
+    }).fail(function () {
+        alert("수락 불가능")
+        location.reload();
+    });
+})
+
+$(".modal-delete-button").on('click', function() {
+    trade_id = $(this).data("trade_id")
+    $.ajax({
+        url: '/api/trade/' + trade_id+"/delete",
+        method: 'POST',
+        headers: {Authorization: localStorage.getItem('token') },
+        dataType: 'json'
+    }).done(function (data) {
+        location.reload();
+    }).fail(function () {
+        alert("수락 불가능")
+        location.reload();
+    });
+})
+
 $(".link-info.to-trade").on('click', function() {
     currentMode = "to-trade"
     $('#myModalLabel').text("상대방 장난감")
-    $(".modal-complete-button").attr('hidden', false);
     var trade_id = $(this).data("id")
+    $(".modal-complete-button").attr('hidden', false).data("trade_id", trade_id)
+    $(".modal-delete-button").data("trade_id", trade_id)
     getToyList(trade_id)
 })
 
@@ -12,6 +61,7 @@ $(".link-info.from-trade").on('click', function() {
     currentMode = "from-trade"
     $('#myModalLabel').text("내 장난감")
     var trade_id = $(this).data("id")
+    $(".modal-delete-button").data("trade_id", trade_id)
     getToyList(trade_id)
 })
 
@@ -70,7 +120,6 @@ function getToyList(trade_id){
         headers: {Authorization: localStorage.getItem('token') },
         dataType: 'json'
     }).done(function (data) {
-        console.log("success")
         currentTrade = data
         showToyCard(currentTrade["from_toy"])
         $('#modalCart').modal('show');

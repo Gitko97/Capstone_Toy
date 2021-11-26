@@ -39,5 +39,9 @@ public interface ToyRepository extends JpaRepository<Toy, Long> {
 
     @Modifying
     @Query("UPDATE Toy t SET t.tradeStatus = 1 WHERE t.toy_id = :toy_id")
-    void updateToyToStatusFalse(@Param("toy_id")Long toy_id);
+    void updateToyToStatusComplete(@Param("toy_id")Long toy_id);
+
+    @Modifying
+    @Query("UPDATE Toy t SET t.tradeStatus = 0 WHERE t.toy_id = :toy_id")
+    void updateToyToStatusTrade(@Param("toy_id")Long toy_id);
 }

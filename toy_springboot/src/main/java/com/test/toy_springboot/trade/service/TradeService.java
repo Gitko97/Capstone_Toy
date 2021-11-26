@@ -38,7 +38,7 @@ public class TradeService {
         trade.setTo_user(to_toy.getShop().getUser());
         return dbAccess.save(trade);
     }
-    public Trade updateToy(Trade trade) {
+    public Trade updateTrade(Trade trade) {
         return dbAccess.save(trade);
     }
 

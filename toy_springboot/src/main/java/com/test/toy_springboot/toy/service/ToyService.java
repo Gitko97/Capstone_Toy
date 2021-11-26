@@ -57,8 +57,11 @@ public class ToyService {
     }
     @Transactional
     public void toySetTradeComplete(Long toyId) {
-        dbAccess.updateToyToStatusFalse(toyId);
+        dbAccess.updateToyToStatusComplete(toyId);
     }
-
+    @Transactional
+    public void toySetTradeTrade(Long toyId) {
+        dbAccess.updateToyToStatusTrade(toyId);
+    }
 
 }

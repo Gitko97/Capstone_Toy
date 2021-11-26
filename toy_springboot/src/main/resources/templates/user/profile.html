@@ -83,16 +83,16 @@
                     <div class="collapse navbar-collapse" id="navbarColor03" style="user-select: auto;">
                       <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="user-select: auto;">
                         <li class="nav-item" style="user-select: auto;">
-                          <a class="nav-link active" aria-current="page" href="#" style="user-select: auto;">내 정보</a>
+                          <a class="nav-link active" aria-current="page" href="#my-info-area" style="user-select: auto;">내 정보</a>
                         </li>
                         <li class="nav-item" style="user-select: auto;">
-                          <a class="nav-link" href="#" style="user-select: auto;">내 장난감</a>
+                          <a class="nav-link" href="#my-toy-area" style="user-select: auto;">내 장난감</a>
                         </li>
                         <li class="nav-item" style="user-select: auto;">
-                          <a class="nav-link" href="#" style="user-select: auto;">교환 신청 목록</a>
+                          <a class="nav-link" href="#to-toy-area" style="user-select: auto;">교환 신청 목록</a>
                         </li>
                         <li class="nav-item" style="user-select: auto;">
-                          <a class="nav-link" href="#" style="user-select: auto;">교환 받은 목록</a>
+                          <a class="nav-link" href="#from-toy-area" style="user-select: auto;">교환 받은 목록</a>
                         </li>
                       </ul>
                     </div>
@@ -106,7 +106,7 @@
         <div class="py-6">
           <!-- row -->
           <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-12 mb-4">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-12 mb-4" id="my-info-area">
               <!-- card -->
               <div class="card">
                 <!-- card body -->
@@ -138,7 +138,7 @@
               </div>
             </div>
 
-            <div class="col-xl-12 col-lg-12 col-md-12 col-12 mb-6">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-12 mb-6" id="my-toy-area">
               <!-- card -->
               <div class="card mb-4">
                 <!-- card body -->
@@ -164,7 +164,7 @@
                 </div>
               </div>
 
-              <div class="row mb-4">
+              <div class="row mb-4" id="to-toy-area">
                 <div class="col-12">
                   <!-- card -->
                   <div class="card">
@@ -185,7 +185,7 @@
                         </div>
                       </div>
                       <th:block th:each="trade,count : ${fromTrade}">
-                        <div class="row mb-5" style="text-align: center;">
+                        <div class="row mb-5" style="text-align: center; align-items: center;">
                           <!-- img -->
                           <div class="col">
                             <!-- avatar group -->
@@ -199,10 +199,13 @@
                             </div>
                           </div>
                           <!-- content -->
-                          <div class="col " style="text-align: center;">
+                          <div class="col trade-status-area" style='text-align: center;'>
                             <h5 class="mb-1" th:text="${trade.to_user.name}">...</h5>
                             <p class="fs-5 mb-0" th:text="${trade.getcreatedDate()}">...</p>
-                            <a class="link-info from-trade" th:data-id="${trade.trade_id}">자세히</a>
+                            <h5 class="mb-1 trade-status" th:if="${trade.trade_status == 2}" th:data-status="${trade.trade_status}">거절됨</h5>
+                            <h5 class="mb-1 trade-status" th:if="${trade.trade_status == 1}" th:data-status="${trade.trade_status}">수락됨</h5>
+                            <h5 class="mb-1 trade-status" th:if="${trade.trade_status == 0}" th:data-status="${trade.trade_status}">거래중</h5>
+                            <a class="link-info from-trade" th:if="${trade.trade_status != 2}" th:data-id="${trade.trade_id}">자세히</a>
                           </div>
                           <div class="col" style="user-select: auto;">
                             <!-- avatar group -->
@@ -223,7 +226,7 @@
               </div>
 
 
-              <div class="row">
+              <div class="row" id="from-toy-area">
                 <div class="col-12">
                   <!-- card -->
                   <div class="card">
@@ -244,7 +247,7 @@
                         </div>
                       </div>
                       <th:block  th:each="trade,count : ${toTrade}">
-                        <div class="row mb-5" style="text-align: center;">
+                        <div class="row mb-5" style="text-align: center; align-items: center;">
                           <!-- img -->
                           <div class="col">
                             <!-- avatar group -->
@@ -258,11 +261,13 @@
                             </div>
                           </div>
                           <!-- content -->
-                          <div class="col " style="text-align: center;">
+                          <div class="col trade-status-area" style="text-align: center;">
                             <h5 class="mb-1" th:text="${trade.from_user.name}">...</h5>
                             <p class="fs-5 mb-0" th:text="${trade.getcreatedDate()}">...</p>
-                            <a class="link-info to-trade" th:data-id="${trade.trade_id}">자세히</a>
-
+                            <h5 class="mb-1 trade-status" th:if="${trade.trade_status == 2}" th:data-status="${trade.trade_status}">거절됨</h5>
+                            <h5 class="mb-1 trade-status" th:if="${trade.trade_status == 1}" th:data-status="${trade.trade_status}">수락됨</h5>
+                            <h5 class="mb-1 trade-status" th:if="${trade.trade_status == 0}" th:data-status="${trade.trade_status}">거래중</h5>
+                            <a class="link-info to-trade" th:if="${trade.trade_status != 2}" th:data-id="${trade.trade_id}">자세히</a>
                           </div>
                           <div class="col" style="user-select: auto;">
                             <!-- avatar group -->
