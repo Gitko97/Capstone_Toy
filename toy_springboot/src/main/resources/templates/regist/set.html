@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!-- 타임리프 레이아웃 적용 -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+    <head>
+        <th:block th:replace="fragments/config :: configFragment"></th:block>
+        <link rel="stylesheet" th:href="@{/css/select.css}">
+        <link rel="stylesheet" th:href="@{/css/button.css}">
+        <title>Toytra Homepage</title>
+    </head>
+
+    <body onload="init();">
+    <!-- 사이드바-->
+    <th:block th:replace="fragments/sidebar :: sidebarFragment"></th:block>
+
+    <h2 class="pricingTable-title">분석결과</h2>
+    <ul class="pricingTable-firstTable">
+        <h4 th:text="|현재 토이 id : ${currentToy.toy_id}|"></h4>
+        <input type="hidden" id="dataId" name="dataId" th:value="${currentToy}"/>
+    </ul>
+
+
+
+<!-- Footer-->
+<th:block th:replace="fragments/footer :: footerFragment"></th:block>
+
+</body>
+
+</html>
+
+<script th:inline="javascript">
+
+    var new_toy = [[${currentToy.toy_id}]];
+
+    var new_data;
+
+    function init(){
+
+        $.ajax({
+            type: "GET",
+            url:  "http://localhost:8092/api/toy/id?toy_id="+new_toy,
+            async    : false,
+            dataType : "JSON",
+            processData: false,
+            contentType: "application/json",
+            cache: false,
+            timeout: 0,
+            success: function (data) {
+                console.log(typeof(data));
+                new_data = data;
+            },
+            error: function (e) {
+                alert("fail");
+            }
+        });
+
+        new_data.productName="바꿈";
+        new_data = JSON.stringify(new_data);
+
+        $.ajax({
+            type: "PUT",
+            url:  "http://localhost:8092/api/toy",
+            data: new_data,
+            async    : false,
+            contentType: "application/json",
+            cache: false,
+            timeout: 0,
+            success: function (data) {
+                alert(data);
+            },
+            error: function (e) {
+                alert("fail");
+            }
+        });
+    }
+
+
+</script>
