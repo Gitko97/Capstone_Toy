@@ -96,7 +96,15 @@ function showToyCard(toyList){
 
     const arrayData = [];
     $.each(toyList, function(idx, val) {
-        arrayData.push(val)
+        //createdDate data format 바꿈
+        if(JSON.stringify(val.createdDate).indexOf(",")!=-1){
+            val.createdDate = JSON.stringify(val.createdDate).split(',');
+            val.createdDate = val.createdDate[0].replace('[','')+'-'+val.createdDate[1]+'-'+val.createdDate[2]
+            arrayData.push(val)
+            console.log(arrayData)
+        }else{
+            arrayData.push(val)
+        }
     });
     const html = currentToyListTemplate(arrayData);
     $('#toy-card-list-area').append(html);

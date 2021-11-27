@@ -114,6 +114,9 @@ function getToyList(){
     }).done(function (data) {
         const arrayData = [];
         $.each(data, function(idx, val) {
+            //createdDate data format 바꿈
+            val.createdDate = JSON.stringify(val.createdDate).split(',')
+            val.createdDate = val.createdDate[0].replace('[','')+'-'+val.createdDate[1]+'-'+val.createdDate[2]
             arrayData.push(val)
         });
         const html = currentToyListTemplate(arrayData);

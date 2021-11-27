@@ -201,7 +201,7 @@
                           <!-- content -->
                           <div class="col trade-status-area" style='text-align: center;'>
                             <h5 class="mb-1" th:text="${trade.to_user.name}">...</h5>
-                            <p class="fs-5 mb-0" th:text="${trade.getcreatedDate()}">...</p>
+                            <p class="fs-5 mb-0" th:text="${trade.getcreatedD()}">...</p>
                             <h5 class="mb-1 trade-status" th:if="${trade.trade_status == 2}" th:data-status="${trade.trade_status}">거절됨</h5>
                             <h5 class="mb-1 trade-status" th:if="${trade.trade_status == 1}" th:data-status="${trade.trade_status}">수락됨</h5>
                             <h5 class="mb-1 trade-status" th:if="${trade.trade_status == 0}" th:data-status="${trade.trade_status}">거래중</h5>
@@ -263,7 +263,7 @@
                           <!-- content -->
                           <div class="col trade-status-area" style="text-align: center;">
                             <h5 class="mb-1" th:text="${trade.from_user.name}">...</h5>
-                            <p class="fs-5 mb-0" th:text="${trade.getcreatedDate()}">...</p>
+                            <p class="fs-5 mb-0" th:text="${trade.getcreatedD()}">...</p>
                             <h5 class="mb-1 trade-status" th:if="${trade.trade_status == 2}" th:data-status="${trade.trade_status}">거절됨</h5>
                             <h5 class="mb-1 trade-status" th:if="${trade.trade_status == 1}" th:data-status="${trade.trade_status}">수락됨</h5>
                             <h5 class="mb-1 trade-status" th:if="${trade.trade_status == 0}" th:data-status="${trade.trade_status}">거래중</h5>

@@ -20,8 +20,10 @@ public class AuditingEntity {
     @LastModifiedDate
     private LocalDateTime modifiedDate;
 
-    public String getcreatedDate(){
+
+    public String getcreatedD(){
         String yyyyMMdd = this.createdDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         return yyyyMMdd;
     }
+
 }
