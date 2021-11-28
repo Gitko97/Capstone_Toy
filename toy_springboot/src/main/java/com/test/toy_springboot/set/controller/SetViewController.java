@@ -36,7 +36,7 @@ public class SetViewController {
         HttpSession session = request.getSession();
         String currentUserID = (String) session.getAttribute("currentUserID");
         if(currentUserID == null){
-            return "redirect:signIn";
+            return "redirect:/signIn";
         }
         List<Set_goods> set_goods_list = set_goods_Service.getSetList();
         User user = userService.getUserById(currentUserID);

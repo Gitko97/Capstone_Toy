@@ -54,7 +54,7 @@ public class UserViewController {
         HttpSession session = request.getSession();
         String currentUserID = (String) session.getAttribute("currentUserID");
         if(currentUserID == null){
-            return "redirect:signIn";
+            return "redirect:/signIn";
         }
         User user = userService.getUserById(currentUserID);
         List<Trade> fromTrade = tradeService.getTradeByFromUser(user.getUserIndex());
