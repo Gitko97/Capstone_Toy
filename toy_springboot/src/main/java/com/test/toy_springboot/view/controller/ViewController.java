@@ -21,6 +21,11 @@ public class ViewController {
     }
 
 
+    @GetMapping("/")
+    public String notLoginPage(Model model,  HttpServletRequest request) throws Exception {
+        return "main";
+    }
+
     @GetMapping("/home")
     public String main(Model model,  HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession();
