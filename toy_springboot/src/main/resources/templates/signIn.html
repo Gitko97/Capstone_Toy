@@ -41,7 +41,9 @@
 </div>
 </body>
 <script>
-    $("#btnLogin").click(function () {
+    $("#btnLogin").click( login);
+
+    function login(){
         const userId = $("#username").val();
         const pw = $("#password").val();
         const loginData = {"userId": userId, "password": pw};
@@ -62,5 +64,13 @@
                 alert("ID와 Password가 일치하지 않습니다");
             }
         });
-    });
+    }
+
+   $("#login").keypress(function (e) {
+       if (e.keyCode == 13){
+           login();
+       }
+   });
+
+
 </script>
