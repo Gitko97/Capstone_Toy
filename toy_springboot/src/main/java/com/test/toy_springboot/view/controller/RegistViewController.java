@@ -22,7 +22,6 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@RequestMapping("/regist")
 public class RegistViewController {
 
     private UserService userService;

@@ -98,7 +98,7 @@
                 localStorage.setItem("data", JSON.stringify(data)); //분석결과 로컬 스토리지에 저장
                 // localStorage.setItem("toy_id", toyId.toy_id);
                 alert("분석 성공");
-                location.href="/regist/analysis?toy_id="+toyId.toy_id;
+                location.href="/analysis?toy_id="+toyId.toy_id;
             },
             error: function (e) {
                 alert("fail");
