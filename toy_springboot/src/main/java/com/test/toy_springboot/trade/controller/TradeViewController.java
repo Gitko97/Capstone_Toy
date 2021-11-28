@@ -36,7 +36,7 @@ public class TradeViewController {
         HttpSession session = request.getSession();
         String currentUserID = (String) session.getAttribute("currentUserID");
         if(currentUserID == null){
-            return "redirect:signIn";
+            return "redirect:/signIn";
         }
         User user = userService.getUserById(currentUserID);
         model.addAttribute("myShopID", user.getShop().getShop_id());

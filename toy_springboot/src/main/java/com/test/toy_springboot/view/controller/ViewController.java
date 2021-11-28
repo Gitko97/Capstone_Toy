@@ -25,7 +25,7 @@ public class ViewController {
         HttpSession session = request.getSession();
         String currentUserID = (String) session.getAttribute("currentUserID");
         if(currentUserID == null){
-            return "redirect:signIn";
+            return "redirect:/signIn";
         }
         String userId = currentUserID; // 토큰으로 Id 읽어오기
         User user = userService.getUserById(userId);
