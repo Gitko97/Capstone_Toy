@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<!-- 타임리프 레이아웃 적용 -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <script src="/js/roleCheck.js"></script>
+        <th:block th:replace="fragments/config :: configFragment"></th:block>
+        <link rel="stylesheet" th:href="@{/css/exchange.css}">
+        <title>Toytra Homepage</title>
+    </head>
+
+    <body>
+
+        <!-- 사이드바-->
+        <th:block th:replace="fragments/sidebar :: sidebarFragment"></th:block>
+
+        <!--filter-->
+
+
+        <!-- Section-->
+
+        <div class="section no-padding-top wf-section">
+            <div class="wrapper side-paddings">
+                <div data-w-id="e89551e9-b5ae-51a6-c418-02c90497790c" class="subscribe" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
+                    <div class="subscribe-info">
+                        <div class="subscribe-icon"><img src="https://assets.website-files.com/5badda2935e11303a89a461e/5baf56dcace69cfd39b34f7a_paperplane-icon-white.svg" alt=""></div>
+                        <h4>캐릭터, 장르 선택 필터</h4>
+                    </div>
+                    <div class="subscribe-form-wrapper w-form">
+                        <form id="wf-form-Subscribe-Form" name="wf-form-Subscribe-Form" data-name="Subscribe Form" class="subscribe-form">
+                            <div class="canvas-95">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="firstSelector">캐릭터</label>
+                                        <select id="firstSelector" class="filters-select form-control">
+                                            <option value="*">show all</option>
+                                            <option value=".metal">metal</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="selectorTwo">장르</label>
+                                        <select id="selectorTwo" class="filters-select2 form-control">
+                                            <option value="*">show all</option>
+                                            <option value=".metal">metal</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="submit" value="Search" data-wait="Please wait..." class="button w-button"></form>
+                        <div class="form-success w-form-done">
+                            <div>Thank you! Your submission has been received!</div>
+                        </div>
+                        <div class="form-error w-form-fail">
+                            <div>Oops! Something went wrong while submitting the form.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section haze no-padding-top wf-section">
+            <div class="wrapper">
+                <div class="shop-header">
+                    <h3 class="no-margin">교환소 1</h3><a href="" class="link arrow-link">See All Toys</a>
+                    <div class="shop-header-line">
+                        <div class="shop-header-color"></div>
+                    </div>
+                </div>
+                <div class="full-width w-dyn-list">
+                    <div role="list" class="products w-dyn-items">
+                        <div style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;" role="listitem" class="product-card-wrapper w-dyn-item"><a href="" class="product-card w-inline-block">
+                            <div class="product-card-image-wrapper"><img alt="" sizes="100vw"></div>
+                            <h6 class="product-card-heading">장난감 1</h6>
+                            <div class="product-card-price"></div>
+                        </a></div>
+                        <div style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;" role="listitem" class="product-card-wrapper w-dyn-item"><a href="" class="product-card w-inline-block">
+                            <div class="product-card-image-wrapper"><img alt="" sizes="100vw"></div>
+                            <h6 class="product-card-heading">장난감 2</h6>
+                            <div class="product-card-price"></div>
+                        </a></div>
+                        <div style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;" role="listitem" class="product-card-wrapper w-dyn-item"><a href="" class="product-card w-inline-block">
+                            <div class="product-card-image-wrapper"><img alt="" sizes="100vw"></div>
+                            <h6 class="product-card-heading">장난감 3</h6>
+                            <div class="product-card-price"></div>
+                        </a></div>
+                        <div style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;" role="listitem" class="product-card-wrapper w-dyn-item"><a href="" class="product-card w-inline-block">
+                            <div class="product-card-image-wrapper"><img alt="" sizes="100vw"></div>
+                            <h6 class="product-card-heading">장난감 4</h6>
+                            <div class="product-card-price"></div>
+                        </a></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wrapper">
+                <div class="shop-header">
+                    <h3 class="no-margin">교환소 2</h3><a href="" class="link arrow-link">See All Toys</a>
+                    <div class="shop-header-line">
+                        <div class="shop-header-color"></div>
+                    </div>
+                </div>
+                <div class="full-width w-dyn-list">
+                    <div role="list" class="products w-dyn-items">
+                        <div style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;" role="listitem" class="product-card-wrapper w-dyn-item"><a href="" class="product-card w-inline-block">
+                            <div class="product-card-image-wrapper"><img alt="" sizes="100vw"></div>
+                            <h6 class="product-card-heading">장난감 1</h6>
+                            <div class="product-card-price"></div>
+                        </a></div>
+                        <div style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;" role="listitem" class="product-card-wrapper w-dyn-item"><a href="" class="product-card w-inline-block">
+                            <div class="product-card-image-wrapper"><img alt="" sizes="100vw"></div>
+                            <h6 class="product-card-heading">장난감 2</h6>
+                            <div class="product-card-price"></div>
+                        </a></div>
+                        <div style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;" role="listitem" class="product-card-wrapper w-dyn-item"><a href="" class="product-card w-inline-block">
+                            <div class="product-card-image-wrapper"><img alt="" sizes="100vw"></div>
+                            <h6 class="product-card-heading">장난감 3</h6>
+                            <div class="product-card-price"></div>
+                        </a></div>
+                        <div style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;" role="listitem" class="product-card-wrapper w-dyn-item"><a href="" class="product-card w-inline-block">
+                            <div class="product-card-image-wrapper"><img alt="" sizes="100vw"></div>
+                            <h6 class="product-card-heading">장난감 4</h6>
+                            <div class="product-card-price"></div>
+                        </a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+
+</html>
+
+
+
+
+
+
+
+
+
+

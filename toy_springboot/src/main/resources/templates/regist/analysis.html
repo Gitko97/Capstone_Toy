@@ -194,6 +194,7 @@
                 timeout: 0,
                 success: function (data) {
                     alert("업데이트 성공");
+                    location.href="/regist/set?toy_id="+current_toyId;
                 },
                 error: function (e) {
                     alert("fail");

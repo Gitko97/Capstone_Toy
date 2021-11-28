@@ -20,6 +20,7 @@ public class ViewController {
         this.userService = userService;
     }
 
+
     @GetMapping("/home")
     public String main(Model model,  HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession();
