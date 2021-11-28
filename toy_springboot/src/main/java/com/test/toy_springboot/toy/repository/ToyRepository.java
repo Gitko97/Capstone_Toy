@@ -28,7 +28,7 @@ public interface ToyRepository extends JpaRepository<Toy, Long> {
     List<Toy> findToyByGenreAndCharacter(@Param("genre_name")String genre_name, @Param("character_name")String character_name);
 
     @Transactional
-    @Query(value = "SELECT * FROM toy t WHERE t.shop_id=:shop_id AND t.to_toy_id is NULL AND t.from_toy_id is NULL AND t.set_time is NULL", nativeQuery = true)
+    @Query(value = "SELECT * FROM toy t WHERE t.shop_id=:shop_id AND t.trade_status = 0 AND t.set_time is NULL", nativeQuery = true)
     List<Toy> findNotTradeToyWithShopId(@Param("shop_id")Long shop_id);
 
     @Transactional
