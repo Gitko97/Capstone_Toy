@@ -4,6 +4,8 @@
 
     <head>
         <th:block th:replace="fragments/config :: configFragment"></th:block>
+        <link rel="stylesheet" th:href="@{/css/upload.css}">
+        <link rel="stylesheet" th:href="@{/css/button.css}">
         <title>Toytra Homepage</title>
     </head>
 
@@ -11,101 +13,80 @@
         <!-- 사이드바-->
         <th:block th:replace="fragments/sidebar :: sidebarFragment"></th:block>
 
-        <h4 class = "mb-5">등록 페이지</h4>
-
         <input type="hidden" th:id="currentShopID" th:value="${currentShop.shop_id}"/>
 
+        <!--
         <div class="container" style="margin-top:30px">
             <form method="post" action="" enctype="multipart/form-data" id="fileUploadForm">
                 <input type="file" name="file"/>
                 <input type="button" id="btnUpload" value = "업로드"/>
             </form>
         </div>
+        -->
+
+        <div>
+            <div id="uploadArea" class="upload-area">
+                <!-- Header -->
+                <div class="upload-area__header">
+                    <h1 class="upload-area__title">Upload your file</h1>
+                    <p class="upload-area__paragraph">
+                        File should be an image
+                        <strong class="upload-area__tooltip">
+                            Like
+                            <span class="upload-area__tooltip-data"></span> <!-- Data Will be Comes From Js -->
+                        </strong>
+                    </p>
+                </div>
+                <!-- End Header -->
+
+                <div class="container" style="margin-top:30px">
+                    <!-- Drop Zoon -->
+                    <div id="dropZoon" class="upload-area__drop-zoon drop-zoon">
+                <span class="drop-zoon__icon">
+                    <i class='bx bxs-file-image'></i>
+                </span>
+                        <p class="drop-zoon__paragraph">Drop your file here or Click to browse</p>
+                        <span id="loadingText" class="drop-zoon__loading-text">Please Wait</span>
+                        <img src="" alt="Preview Image" id="previewImage" class="drop-zoon__preview-image" draggable="false">
+                        <input type="file" id="fileInput" class="drop-zoon__file-input" accept="image/*">
+                    </div>
+                    <!-- End Drop Zoon -->
+
+                </div>
+
+                <!-- File Details -->
+                <div id="fileDetails" class="upload-area__file-details file-details">
+                    <h3 class="file-details__title">Uploaded File</h3>
+
+                    <div id="uploadedFile" class="uploaded-file">
+                        <div class="uploaded-file__icon-container">
+                            <i class='bx bxs-file-blank uploaded-file__icon'></i>
+                            <span class="uploaded-file__icon-text"></span> <!-- Data Will be Comes From Js -->
+                        </div>
+
+                        <div id="uploadedFileInfo" class="uploaded-file__info">
+                            <span class="uploaded-file__name">Proejct 1</span>
+                            <span class="uploaded-file__counter">0%</span>
+                        </div>
+                        <div>
+                            <input class="button button--secondary" type="button" id="btnUpload" value="업로드" style="position: fixed;top: 90%;left: 50%;transform: translate(-50%, -50%);">
+                        </div>
+                    </div>
+                </div>
+                <!-- End File Details -->
+            </div>
+            <!-- End Upload Area -->
+        </div>
+        <!-- Upload Area -->
 
         <!-- Footer-->
         <th:block th:replace="fragments/footer :: footerFragment"></th:block>
     </body>
+
+    <div layout:fragment="script_area">
+        <script th:src="@{/js/upload.js}"></script>
+    </div>
 </html>
-
-<script>
-    $("#btnUpload").click(function (event) {
-
-        const form = $('#fileUploadForm')[0];
-
-        const data = new FormData(form);
-
-        var shop_id = document.getElementById("currentShopID").value;
-
-        var toy_url = "http://localhost:8092/api/toy?shop_id="+shop_id;
-        var upload_url = "http://localhost:8092/api/photo/upload_image/";
-
-        var toyId;
-
-        //토이 객체 생성 및 토이 id 받아오기
-        $.ajax({
-            "url": toy_url,
-            "method": "POST",
-            async    : false,
-            dataType : "JSON",
-            "timeout": 0,
-            "headers": {
-                "Content-Type": "application/json",
-                "Authorization": localStorage.getItem("token")
-            },
-            "data": JSON.stringify({}), //토이 빈 객체 생성
-            success: function (response) {
-                console.log(response);
-                toyId = response; // 생성 객체의 toy_id
-                alert("생성 성공");
-            },
-            error: function (e) {
-                alert("fail");
-            }
-        });
-
-        //생성한 객체의 toy id를 통해 이미지 업로드
-        $.ajax({
-            type: "POST",
-            enctype: 'multipart/form-data',
-            url: upload_url+toyId.toy_id,
-            data: data,
-            async    : false,
-            processData: false,
-            contentType: false,
-            cache: false,
-            timeout: 0,
-            success: function (data) {
-                alert("업로드 성공");
-            },
-            error: function (e) {
-                alert("fail");
-            }
-        });
-
-        //이미지 분석 및 페이지 연결
-        $.ajax({
-            type: "POST",
-            enctype: 'multipart/form-data',
-            url: "http://13.125.216.91:8000/finder/api/image_file",
-            data: data,
-            async    : false,
-            dataType : "JSON",
-            processData: false,
-            contentType: false,
-            cache: false,
-            timeout: 0,
-            success: function (data) {
-                localStorage.setItem("data", JSON.stringify(data)); //분석결과 로컬 스토리지에 저장
-                // localStorage.setItem("toy_id", toyId.toy_id);
-                alert("분석 성공");
-                location.href="/analysis?toy_id="+toyId.toy_id;
-            },
-            error: function (e) {
-                alert("fail");
-            }
-        });
-    });
-</script>
 
 
 
