@@ -2,7 +2,6 @@
 <!-- 타임리프 레이아웃 적용 -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <head>
-        <script src="/js/roleCheck.js"></script>
         <th:block th:replace="fragments/config :: configFragment"></th:block>
         <link rel="stylesheet" th:href="@{/css/exchange.css}">
         <title>Toytra Homepage</title>
@@ -20,6 +19,11 @@
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">홈</a></li>
                         <li class="nav-item"><a class="nav-link" href="#!">서비스 소개</a></li>
                     </ul>
+                    <div class="d-flex">
+                        <button class="btn btn-outline-dark" onclick="location.href='http://localhost:8092/signIn'">
+                            로그인
+                        </button>
+                    </div>
                 </div>
             </div>
         </nav>
