@@ -74,4 +74,9 @@ public class CategoryService {
         }
         return toy_id_list;
     }
+
+    public Category_set getCategorySetByNameAndNum(String set_name, int set_num){
+        Category_set category_set = set_dbAccess.getCategorySetByNameAndNum(set_name, set_num);
+        return category_set;
+    }
 }

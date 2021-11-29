@@ -41,6 +41,13 @@ public class CategoryRestApi {
         return new ResponseEntity<>(setList, HttpStatus.OK);
     }
 
+    @GetMapping("/category_set/set")
+    public ResponseEntity<Category_set> getCategorySetByNameAndNum(@RequestParam String set_name, @RequestParam int set_num){
+        Category_set category_set = categoryService.getCategorySetByNameAndNum(set_name, set_num);
+        if(category_set == null) new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(category_set, HttpStatus.OK);
+    }
+
     @PostMapping("/character")
     public ResponseEntity<Character> saveCharacter(@RequestBody Character character) {
         Character resultCharacter = categoryService.addCharacter(character);
