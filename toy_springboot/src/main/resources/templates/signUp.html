@@ -4,8 +4,8 @@
 <!------ Include the above in your HEAD ---------->
 <title>Toytra Sign-Up</title>
 
-<div class="container">
-    <div class="row centered-form">
+<div class="container" id="signin">
+    <div class="row centered-form" >
         <div style="text-align: center">
             <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FXozLL%2FbtrlIlpbktz%2FE0FCHMN8NQrz1iVFqUArbk%2Fimg.png" alt="Logo"
                  style="height: 200px; margin-top: 4%; margin-bottom: -12%">
@@ -37,7 +37,7 @@
 
                     </form>
 
-                    <input type="button"  id="btnSignUp" value="Register" class="btn btn-info btn-block" input style="background-color: rgb(33, 37, 41) !important;
+                    <input type="button"  id="btnSignUp" onkeyup="enterkey()" value="Register" class="btn btn-info btn-block" input style="background-color: rgb(33, 37, 41) !important;
     border-color:  rgb(33, 37, 41) !important;">
 
                 </div>
@@ -47,7 +47,10 @@
 </div>
 
 <script>
-    $("#btnSignUp").click(function() {
+
+    $("#btnSignUp").click( signin);
+
+    function signin(){
         const id = $("#id").val();
         const pw = $("#password").val();
         const pn = $('#phonenumber').val();
@@ -69,5 +72,12 @@
                 alert("회원가입 실패");
             }
         });
+    }
+
+    $("#signin").keypress(function (e) {
+        if (e.keyCode == 13){
+            signin();
+        }
     });
+
 </script>
