@@ -46,7 +46,7 @@
                 </div>
             </div>
 
-            <div th:if="${#lists.size(shop.getToyList())} > 4">
+            <div th:if="${#lists.size(currentShop.getToyList())} > 4">
                 <br>
                 <button type="button" id="left"> < </button>
                 <button type="button" id="right"> > </button>
