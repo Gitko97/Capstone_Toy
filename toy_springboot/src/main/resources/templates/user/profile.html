@@ -44,7 +44,7 @@
   img, svg {
     vertical-align: middle;
   }
-  .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .show>.nav-link {
+  .navbar-light .navbar-nav .profile-nav-link.active{
     background-color: transparent;
     border-top: 2px solid #624bff;
     color: #624bff;
@@ -86,16 +86,16 @@
                     <div class="collapse navbar-collapse" id="navbarColor03">
                       <ul class="navbar-nav me-auto mb-2 mb-lg-0" >
                         <li class="nav-item" >
-                          <a class="nav-link active" aria-current="page" href="#my-info-area" >내 정보</a>
+                          <a class="nav-link profile-nav-link active" href="#my-info-area" >내 정보</a>
                         </li>
                         <li class="nav-item" >
-                          <a class="nav-link" href="#my-toy-area" >내 장난감</a>
+                          <a class="nav-link profile-nav-link" href="#my-toy-area" >내 장난감</a>
                         </li>
                         <li class="nav-item" >
-                          <a class="nav-link" href="#to-toy-area" >교환 신청 목록</a>
+                          <a class="nav-link profile-nav-link" href="#to-toy-area" >교환 신청 목록</a>
                         </li>
                         <li class="nav-item" >
-                          <a class="nav-link" href="#from-toy-area" >교환 받은 목록</a>
+                          <a class="nav-link profile-nav-link" href="#from-toy-area" >교환 받은 목록</a>
                         </li>
                       </ul>
                     </div>
@@ -120,21 +120,21 @@
                   <div class="row">
                     <div class="col-6 mb-3">
                       <!-- text -->
-                      <h5 class="text-uppercase fs-5 ls-2">ID
+                      <h5 class="text-uppercase fs-4 ls-2">ID
                       </h5>
-                      <p class="mb-0" th:text="${currentUser.userId}"></p>
+                      <p class="fs-5 mb-0" th:text="${currentUser.userId}"></p>
                     </div>
                     <div class="col-6 mb-3">
-                      <h5 class="text-uppercase fs-5 ls-2">이름</h5>
-                      <p class="mb-0" th:text="${currentUser.name}"></p>
+                      <h5 class="text-uppercase fs-4 ls-2">이름</h5>
+                      <p class="fs-5 mb-0" th:text="${currentUser.name}"></p>
                     </div>
                     <div class="col-6 mb-3">
-                      <h5 class="text-uppercase fs-5 ls-2">전화번호</h5>
-                      <p class="mb-0" th:text="${currentUser.phoneNumber}"></p>
+                      <h5 class="text-uppercase fs-4 ls-2">전화번호</h5>
+                      <p class="fs-5 mb-0" th:text="${currentUser.phoneNumber}"></p>
                     </div>
                     <div class="col-6">
-                      <h5 class="text-uppercase fs-5 ls-2">보유 포인트</h5>
-                      <p class="mb-0" th:text="${currentUser.point}"></p>
+                      <h5 class="text-uppercase fs-4 ls-2">보유 포인트</h5>
+                      <p class="fs-5 mb-0" th:text="${currentUser.point}"></p>
                     </div>
                   </div>
                 </div>
@@ -353,8 +353,8 @@
   </div>
 </body>
 <script>
-  $(".navbar-nav .nav-link").on("click", function(){
-    $(".nav-link").find(".active").removeClass("active");
+  $(".navbar-nav .profile-nav-link").on("click", function(){
+    $(".profile-nav-link.active").removeClass("active");
     $(this).addClass("active");
   });
 </script>
