@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -63,8 +65,13 @@ public class SetRestApi {
     }
 
     @PostMapping("/regist/{set_good_id}")
-    public ResponseEntity<String> set_auction(@PathVariable Long set_good_id, @RequestParam int point) throws Exception {
-        User user = userService.getUserById("1111");// 추후 현재 로그인한 유저를 가져올것임 현재는 임의로 아이디 지정
+    public ResponseEntity<String> set_auction(@PathVariable Long set_good_id, @RequestParam int point, HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession();
+        String currentUserID = (String) session.getAttribute("currentUserID");
+        if(currentUserID == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        User user = userService.getUserById(currentUserID);
         Set_goods set_good = set_goods_service.getSet_goodsById(set_good_id);
         if (!user.userComparePoint(point) || set_good.compareBestPoint(point)){
             return new ResponseEntity<>("Not enough point to regist", HttpStatus.BAD_REQUEST);

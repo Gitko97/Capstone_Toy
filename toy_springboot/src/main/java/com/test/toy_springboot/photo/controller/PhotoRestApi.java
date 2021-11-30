@@ -2,6 +2,7 @@ package com.test.toy_springboot.photo.controller;
 
 import com.test.toy_springboot.photo.domain.Photo;
 import com.test.toy_springboot.photo.service.PhotoService;
+import com.test.toy_springboot.user.service.UserService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -21,12 +24,13 @@ import java.util.List;
 @RequestMapping("/api/photo")
 public class PhotoRestApi {
     private PhotoService photoService;
-
+    private UserService userService;
     @Value("${file.path}")
     String save_image_file_path;
 
     @Autowired
-    public PhotoRestApi(PhotoService photoService) {
+    public PhotoRestApi(PhotoService photoService, UserService userService) {
+        this.userService = userService;
         this.photoService = photoService;
     }
 
@@ -45,10 +49,11 @@ public class PhotoRestApi {
     }
 
     @PostMapping("/upload_image/{toy_id}")
-    public ResponseEntity<Photo> uploadSource(@RequestParam("file") MultipartFile sourceFile, @PathVariable("toy_id") Long toy_id) throws IOException {
+    public ResponseEntity<Photo> uploadSource(@RequestParam("file") MultipartFile sourceFile, @PathVariable("toy_id") Long toy_id) throws Exception {
         String filePath = save_image_file_path +"/" + new SimpleDateFormat("yyyyMMDD").format(new Date())+"-"+sourceFile.getOriginalFilename();
         byteArrayConvertToImageFile(sourceFile.getBytes(), filePath);
         Photo photo = photoService.addPhotoWithToyId(new Photo(filePath), toy_id);
+        userService.userPointUp(photo.getToy().getShop().getUser().getUserId(), 30);
         return new ResponseEntity<>(photo, HttpStatus.OK);
     }
 

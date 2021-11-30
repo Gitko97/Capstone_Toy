@@ -23,6 +23,11 @@ public class ViewController {
 
     @GetMapping("/")
     public String notLoginPage(Model model,  HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession();
+        String currentUserID = (String) session.getAttribute("currentUserID");
+        if(currentUserID != null){
+            return "redirect:/home";
+        }
         return "main";
     }
 
