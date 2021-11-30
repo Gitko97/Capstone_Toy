@@ -24,7 +24,7 @@
         <title>Toytra Homepage</title>
     </head>
 
-    <body>
+    <body style="background-color: #e9ecef;">
     <!-- 사이드바-->
     <th:block th:replace="fragments/sidebar :: sidebarFragment"></th:block>
         <!-- Header-->
@@ -76,9 +76,6 @@
             </div>
         </div>
         <!-- Footer-->
-        <footer class="py-5 bg-dark" style="position: absolute; bottom: 0;width: 100%;">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Toytra 2021</p></div>
-        </footer>
         <script th:src="@{/js/trade/patternfly.js}"></script>
         <div class="liner-scroll-points-container" style="user-select: auto;"></div>
     </body>

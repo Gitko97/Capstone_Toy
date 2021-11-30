@@ -79,14 +79,14 @@
                                                 <div class="col">
                                                     <small class="text-muted">
                                                         가격</small>
-                                                    <h1 class="fw-bold text-primary">90000원</h1>
+                                                    <h1 class="fw-bold text-primary">12000원</h1>
                                                 </div>
                                             </div>
                                             <small class="text-muted" >
                                                 현재 최고 포인트 유저</small>
                                             <h1 class="fw-bold text-primary" th:if="${set_goods.bestPointUser} != NULL" th:text="${set_goods.bestPointUser.name}"></h1>
                                             <h1 class="fw-bold text-primary" th:unless="${set_goods.bestPointUser} != NULL" th:text="'유저없음'"></h1>
-                                            <a href="#" class="mb-3 text-muted text-primary-hover d-block" >상품상세링크</a>
+                                            <a href="http://www.partypia.co.kr/shop/goods/goods_view.php?&goodsno=14128" class="mb-3 text-muted text-primary-hover d-block" >상품상세링크</a>
                                             <div class="row">
                                                 <div class="col-4 input-point-area">
                                                     <input class="form-control" type="text" th:id="${set_goods.set_id} +'_inputPoint'" placeholder="입력포인트">

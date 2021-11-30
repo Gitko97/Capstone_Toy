@@ -44,10 +44,16 @@
   img, svg {
     vertical-align: middle;
   }
+  .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .show>.nav-link {
+    background-color: transparent;
+    border-top: 2px solid #624bff;
+    color: #624bff;
+    font-weight: bold;
+  }
   </style>
 </head>
 
-<body>
+<body style="background-color: #e9ecef;">
   <div id="db-wrapper">
     <!-- navbar vertical -->
     <!-- page content -->
@@ -76,23 +82,20 @@
               <!-- nav -->
               <div>
                 <nav class="navbar navbar-expand-lg navbar-light mt-2" style="background-color: rgb(227, 242, 253); user-select: auto;">
-                  <div class="container-fluid" style="user-select: auto;">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation" style="user-select: auto;">
-                      <span class="navbar-toggler-icon" style="user-select: auto;"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarColor03" style="user-select: auto;">
-                      <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="user-select: auto;">
-                        <li class="nav-item" style="user-select: auto;">
-                          <a class="nav-link active" aria-current="page" href="#my-info-area" style="user-select: auto;">내 정보</a>
+                  <div class="container-fluid" >
+                    <div class="collapse navbar-collapse" id="navbarColor03">
+                      <ul class="navbar-nav me-auto mb-2 mb-lg-0" >
+                        <li class="nav-item" >
+                          <a class="nav-link active" aria-current="page" href="#my-info-area" >내 정보</a>
                         </li>
-                        <li class="nav-item" style="user-select: auto;">
-                          <a class="nav-link" href="#my-toy-area" style="user-select: auto;">내 장난감</a>
+                        <li class="nav-item" >
+                          <a class="nav-link" href="#my-toy-area" >내 장난감</a>
                         </li>
-                        <li class="nav-item" style="user-select: auto;">
-                          <a class="nav-link" href="#to-toy-area" style="user-select: auto;">교환 신청 목록</a>
+                        <li class="nav-item" >
+                          <a class="nav-link" href="#to-toy-area" >교환 신청 목록</a>
                         </li>
-                        <li class="nav-item" style="user-select: auto;">
-                          <a class="nav-link" href="#from-toy-area" style="user-select: auto;">교환 받은 목록</a>
+                        <li class="nav-item" >
+                          <a class="nav-link" href="#from-toy-area" >교환 받은 목록</a>
                         </li>
                       </ul>
                     </div>
@@ -112,25 +115,25 @@
                 <!-- card body -->
                 <div class="card-body">
                   <!-- card title -->
-                  <h4 class="card-title mb-4">내 정보</h4>
+                  <h4 class="card-title fw-bold mb-4">내 정보</h4>
                   <!-- row -->
                   <div class="row">
-                    <div class="col-12 mb-5">
+                    <div class="col-6 mb-3">
                       <!-- text -->
-                      <h6 class="text-uppercase fs-5 ls-2">ID
-                      </h6>
+                      <h5 class="text-uppercase fs-5 ls-2">ID
+                      </h5>
                       <p class="mb-0" th:text="${currentUser.userId}"></p>
                     </div>
-                    <div class="col-6 mb-5">
-                      <h6 class="text-uppercase fs-5 ls-2">이름</h6>
+                    <div class="col-6 mb-3">
+                      <h5 class="text-uppercase fs-5 ls-2">이름</h5>
                       <p class="mb-0" th:text="${currentUser.name}"></p>
                     </div>
-                    <div class="col-6 mb-5">
-                      <h6 class="text-uppercase fs-5 ls-2">전화번호</h6>
+                    <div class="col-6 mb-3">
+                      <h5 class="text-uppercase fs-5 ls-2">전화번호</h5>
                       <p class="mb-0" th:text="${currentUser.phoneNumber}"></p>
                     </div>
                     <div class="col-6">
-                      <h6 class="text-uppercase fs-5 ls-2">보유 포인트</h6>
+                      <h5 class="text-uppercase fs-5 ls-2">보유 포인트</h5>
                       <p class="mb-0" th:text="${currentUser.point}"></p>
                     </div>
                   </div>
@@ -144,7 +147,7 @@
                 <!-- card body -->
                 <div class="card-body">
                   <!-- card title -->
-                  <h4 class="card-title mb-4">내 장난감</h4>
+                  <h4 class="card-title fw-bold mb-4">내 장난감</h4>
                   <th:block th:if="${!toy.tradeStatus}" th:each="toy,count : ${currentUser.shop.toyList}">
                     <div class="d-flex justify-content-between
                         align-items-center mb-4">
@@ -171,7 +174,7 @@
                     <!-- card body -->
                     <div class="card-body">
                       <!-- card title -->
-                      <h4 class="card-title mb-4">내가 신청한 거래</h4>
+                      <h4 class="card-title fw-bold mb-4">내가 신청한 거래</h4>
                       <div class="row mb-5 border-bottom border-top" style="align-items: center!important;">
                         <div class="col">
                           <h5 class="mb-1 text-center"style="text-align: center;">내가 선택한 장난감</h5>
@@ -207,7 +210,7 @@
                             <h5 class="mb-1 trade-status" th:if="${trade.trade_status == 0}" th:data-status="${trade.trade_status}">거래중</h5>
                             <a class="link-info from-trade" th:if="${trade.trade_status != 2}" th:data-id="${trade.trade_id}">자세히</a>
                           </div>
-                          <div class="col" style="user-select: auto;">
+                          <div class="col" >
                             <!-- avatar group -->
                             <div class="avatar-group me-2">
                               <!-- img -->
@@ -233,7 +236,7 @@
                     <!-- card body -->
                     <div class="card-body">
                       <!-- card title -->
-                      <h4 class="card-title mb-4">신청 받은 거래</h4>
+                      <h4 class="card-title fw-bold mb-4">신청 받은 거래</h4>
                       <div class="row mb-5 border-bottom border-top" style="align-items: center!important;">
                         <div class="col">
                           <h5 class="mb-1 text-center"style="text-align: center;">상대방 장난감</h5>
@@ -269,7 +272,7 @@
                             <h5 class="mb-1 trade-status" th:if="${trade.trade_status == 0}" th:data-status="${trade.trade_status}">거래중</h5>
                             <a class="link-info to-trade" th:if="${trade.trade_status != 2}" th:data-id="${trade.trade_id}">자세히</a>
                           </div>
-                          <div class="col" style="user-select: auto;">
+                          <div class="col" >
                             <!-- avatar group -->
                             <div class="avatar-group me-2">
                               <!-- img -->
@@ -305,24 +308,24 @@
         <!--Body-->
         <div class="modal-body">
           <div class="container-fluid container-cards-pf" id="card-container">
-            <div class="row row-cards-pf" id="toy-card-list-area" style="user-select: auto;">
+            <div class="row row-cards-pf" id="toy-card-list-area" >
               <script id="toyList-card-area" type="text/x-handlebars-template">
                 {{#each this}}
                 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 removed-area">
                   <div class="card-pf card-pf-view card-pf-view-select card-pf-view-multi-select">
-                    <div class="card-pf-body" style="user-select: auto;">
-                      <div class="card-pf-top-element text-center" style="user-select: auto;">
+                    <div class="card-pf-body" >
+                      <div class="card-pf-top-element text-center" >
                         <img id="{{toy_id}}" src="" class="img-thumbnail" style="width: 100px; height: 100px;border-radius: 50%;">
                       </div>
-                      <h2 class="text-center mt-2" style="user-select: auto;">{{productName}}</h2>
-                      <div class="card-pf-items text-center" style="user-select: auto;">
+                      <h2 class="text-center mt-2" >{{productName}}</h2>
+                      <div class="card-pf-items text-center" >
                         <div class="card-pf-item" style="text-align: left;">
                           <span>캐릭터 : </span><span>{{character.name}}</span>
                           <br>
                           <span>장르 : </span><span>{{genre.name}}</span>
                         </div>
                       </div>
-                      <p class="card-pf-info text-center" style="user-select: auto;">
+                      <p class="card-pf-info text-center" >
                         <strong>등록일</strong>
                         <br>
                         <span>{{createdDate}}</span>
@@ -349,7 +352,12 @@
     </div>
   </div>
 </body>
-
+<script>
+  $(".navbar-nav .nav-link").on("click", function(){
+    $(".nav-link").find(".active").removeClass("active");
+    $(this).addClass("active");
+  });
+</script>
 <div layout:fragment="script_area">
   <script th:src="@{/js/profile/profile.js}"></script>
 </div>
