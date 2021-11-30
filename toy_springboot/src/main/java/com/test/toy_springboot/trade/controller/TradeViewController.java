@@ -1,5 +1,6 @@
 package com.test.toy_springboot.trade.controller;
 
+import com.test.toy_springboot.shop.service.ShopService;
 import com.test.toy_springboot.toy.domain.Toy;
 import com.test.toy_springboot.toy.service.ToyService;
 import com.test.toy_springboot.trade.service.TradeService;
@@ -21,12 +22,12 @@ import java.util.List;
 @RequestMapping("/trade")
 public class TradeViewController {
     private TradeService tradeService;
-    private ToyService toyService;
+    private ShopService shopService;
     private UserService userService;
 
     @Autowired
-    public TradeViewController(TradeService tradeService,ToyService toyService, UserService userService) {
-        this.toyService = toyService;
+    public TradeViewController(TradeService tradeService,ShopService shopService, UserService userService) {
+        this.shopService = shopService;
         this.tradeService = tradeService;
         this.userService = userService;
     }
@@ -37,6 +38,9 @@ public class TradeViewController {
         String currentUserID = (String) session.getAttribute("currentUserID");
         if(currentUserID == null){
             return "redirect:/signIn";
+        }
+        if(!shopService.existsByShopId(shopId)){
+            return "redirect:/exchange";
         }
         User user = userService.getUserById(currentUserID);
         model.addAttribute("myShopID", user.getShop().getShop_id());
