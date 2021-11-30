@@ -63,15 +63,19 @@ public class ExchangeViewController {
         }
         List<Shop> shopList = filteredToyListToShopList(filteredToyList);
         // Debug with print
+
         /*
         for (Shop shop : shopList){
             System.out.println("Shop ID : " + shop.getShop_id());
             for(Toy toy: shop.getToyList()){
                 System.out.println(toy.getToy_id());
             }
-        }*/
+        }
+        */
+
         String userId = currentUserID; // 토큰으로 Id 읽어오기
-        User user = userService.getUserById(currentUserID);
+        User user = userService.getUserById(userId);
+        model.addAttribute("currentUser", user);
         model.addAttribute("shopList", shopList);
         return "exchange";
     }
@@ -85,8 +89,8 @@ public class ExchangeViewController {
                 shop.getToyList().add(toy);
                 listMap.put(shop.getShop_id(), shop);
             }else{
-                Shop fetchshop = listMap.get(shop.getShop_id());
-                fetchshop.getToyList().add(toy);
+                Shop fetchShop = listMap.get(shop.getShop_id());
+                fetchShop.getToyList().add(toy);
             }
         }
         List<Shop> resultShop = new ArrayList<>(listMap.values());

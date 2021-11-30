@@ -189,8 +189,7 @@ body {
     min-height:100%;
     background-color:#fff;
     font-family:Arial,sans-serif;
-    font-size:14px;
-    line-height:20px;
+    font-size:16px;
     color:#333
 }
 img {
@@ -444,7 +443,7 @@ button,html input[type="button"],input[type="reset"] {
     background-color:#ffdede
 }
 label {
-    display:block;
+    display: inline-block;
     margin-bottom:5px;
     font-weight:bold
 }
@@ -4141,13 +4140,7 @@ textarea.w-input,textarea.w-select {
         font-size:16px;
     }
 }
-body {
-    font-family:'Open Sans',sans-serif;
-    color:#111;
-    font-size:14px;
-    line-height:24px;
-    background: #212529;
-}
+
 h1 {
     margin-top:0px;
     margin-bottom:30px;
@@ -5073,6 +5066,7 @@ p {
     font-size:12px;
     line-height:20px;
     font-weight:400;
+    margin-top: 12px;
 }
 .shop-header-color {
     width:136px;

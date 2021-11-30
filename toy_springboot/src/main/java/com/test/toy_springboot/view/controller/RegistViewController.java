@@ -76,9 +76,20 @@ public class RegistViewController {
     }
 
     @GetMapping("/tag")
-    public String tag(Model model) throws Exception{
-        long l = 1;
-        Shop shop = shopService.getShopById(l); //현재 접속중인 유저의 shop 읽어오기
+    public String tag(Model model, HttpServletRequest request) throws Exception{
+        HttpSession session = request.getSession();
+        String currentUserID = (String) session.getAttribute("currentUserID");
+        if(currentUserID == null){
+            return "redirect:/signIn";
+        }
+        String userId = currentUserID; // 토큰으로 Id 읽어오기
+        User user = userService.getUserById(userId);
+
+        List<Genre> genreList = categoryService.getGenreList();
+        List<Character> characterList = categoryService.getCharacterList();
+        Shop shop = user.getShop(); //현재 접속중인 유저의 shop 읽어오기
+        model.addAttribute("genreList", genreList);
+        model.addAttribute("characterList", characterList);
         model.addAttribute("currentShop", shop);
         return "regist/tag";
     }
