@@ -21,7 +21,11 @@
         <meta name="author" content="" />
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-
+        <style type="text/css">
+            .category-text{
+                color: black; max-height: 38px; font-size: 1.1rem; font-weight: 500; line-height: 1.2;
+            }
+        </style>
         <title>Toytra Homepage</title>
     </head>
 
@@ -56,13 +60,13 @@
                                 <h2 class="text-center mt-2 overflow-auto" style="max-height: 38px;">{{productName}}</h2>
                                 <div class="card-pf-items text-center" style="">
                                     <div class="card-pf-item" style="text-align: left;">
-                                        <span>캐릭터 : </span><span>{{character.name}}</span>
+                                        <span class="category-text">캐릭터 : </span><span class="category-text">{{character.name}}</span>
                                         <br>
-                                        <span>장르 : </span><span>{{genre.name}}</span>
+                                        <span class="category-text">장르 : </span><span class="category-text">{{genre.name}}</span>
                                     </div>
                                 </div>
                                 <p class="card-pf-info text-center" style="user-select: auto;">
-                                    <strong>등록일</strong>
+                                    <strong style="margin-right: 0;">등록일</strong>
                                     <br>
                                     <span>{{createdDate}}</span>
                                 </p>

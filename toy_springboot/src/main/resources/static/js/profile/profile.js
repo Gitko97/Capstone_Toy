@@ -122,7 +122,6 @@ function showToyCard(toyList){
             val.createdDate = JSON.stringify(val.createdDate).split(',');
             val.createdDate = val.createdDate[0].replace('[','')+'-'+val.createdDate[1]+'-'+val.createdDate[2]
             arrayData.push(val)
-            console.log(arrayData)
         }else{
             arrayData.push(val)
         }
@@ -131,7 +130,6 @@ function showToyCard(toyList){
     $('#toy-card-list-area').append(html);
     $.each(toyList, function(idx, val) {
         if (val["photo"].length == 0){
-            console.log("@")
         }else{
             var img_id = "#"+val["toy_id"]
             var imageByte = val["photo"]

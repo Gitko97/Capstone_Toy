@@ -38,8 +38,6 @@ $('#card-container').on('click', '.card-pf-view-checkbox>input', function(event)
             clicked_opponent_toy_list.add(clickedToyId)
         }
     }
-    console.log(clicked_my_toy_list)
-    console.log(clicked_opponent_toy_list)
 });
 
 $(".next-toyList").on('click', function() {
@@ -82,7 +80,6 @@ $(".finish-toyList").on('click', function() {
 
     var Json = JSON.stringify(finishObject);
 
-    console.log(Json)
 
     $.ajax({
         url: '/api/trade',
@@ -134,7 +131,6 @@ function getToyList(){
         $('#toy-card-list-area').append(html);
         $.each(data, function(idx, val) {
             if (val["photo"].length == 0){
-                console.log("@")
             }else{
                 var img_id = "#"+val["toy_id"]
                 var imageByte = val["photo"]
