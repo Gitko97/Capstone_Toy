@@ -95,5 +95,21 @@ public class RegistViewController {
         model.addAttribute("currentShop", shop);
         return "regist/tag";
     }
+
+    //테스트용
+    @GetMapping("/album")
+    public String album(Model model, HttpServletRequest request) throws Exception{
+        HttpSession session = request.getSession();
+        String currentUserID = (String) session.getAttribute("currentUserID");
+        if(currentUserID == null){
+            return "redirect:/signIn";
+        }
+        String userId = currentUserID; // 토큰으로 Id 읽어오기
+        User user = userService.getUserById("222");
+
+        Shop shop = user.getShop(); //현재 접속중인 유저의 shop 읽어오기
+        model.addAttribute("currentShop", shop);
+        return "albumtest";
+    }
 }
 
