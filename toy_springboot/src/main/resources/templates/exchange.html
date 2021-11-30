@@ -51,7 +51,7 @@
         <div th:each="shop : ${shopList}" class="section haze no-padding-top wf-section">
             <div class="wrapper">
                 <div class="shop-header">
-                    <h3 th:text="|${shop.getUser().getName()}님의 교환소|" class="no-margin">교환소 이름</h3><a th:href="/trade/${shop.getShop_id()}" class="link arrow-link">교환 신청</a>
+                    <h3 th:text="|${shop.getUser().getName()}님의 교환소|" class="no-margin">교환소 이름</h3><a th:href="@{|/trade/${shop.getShop_id()}|}" class="link arrow-link">교환 신청</a>
                     <div class="shop-header-line">
                         <div class="shop-header-color"></div>
                     </div>
