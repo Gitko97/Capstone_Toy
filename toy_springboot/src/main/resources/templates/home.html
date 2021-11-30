@@ -3,11 +3,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <head>
         <th:block th:replace="fragments/config :: configFragment"></th:block>
+        <link rel="stylesheet" th:href="@{/css/home.css}">
+        <link rel="stylesheet" th:href="@{/css/button.css}">
         <title>Toytra Homepage</title>
     </head>
 
     <body>
-
         <!-- 사이드바-->
         <th:block th:replace="fragments/sidebar :: sidebarFragment"></th:block>
 
@@ -21,15 +22,38 @@
             </div>
         </header>
 
-        <!-- Section-->
-        <section class="py-2">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class = "mb-5">
-                    <h4 class = "mb-5">나의 등록현황</h4>
-                    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id = "my_toy_box"></div>
+        <div class="wrapper">
+            <div class="shop-header">
+                <h3 class="no-margin">나의 등록현황</h3><a href="" class="link arrow-link">more</a>
+                <div class="shop-header-line">
+                    <div class="shop-header-color"></div>
                 </div>
             </div>
-        </section>
+            <div class="full-width w-dyn-list">
+                <div role="list" class="products w-dyn-items" id="scrollArea">
+                    <div th:each="toy : ${currentShop.getToyList()}" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;" role="listitem" class="product-card-wrapper w-dyn-item">
+                        <a href="" class="product-card w-inline-block"> <!--상세정보 링크-->
+                            <div class="product-card-image-wrapper"><img th:src="|data:image/png;base64, ${toy.getPhoto()[0].getImageByte()}|" sizes="100vw"></div>
+                            <h6 style="max-height: 38px; font-size: 1.5rem; font-weight: 500; line-height: 1.2;" th:text="${toy.getProductName()}"class="product-card-heading text-center mt-2 overflow-auto">장난감 이름</h6>
+                            <span style="color: black; max-height: 38px; font-size: 1.1rem; font-weight: 500; line-height: 1.2;" class="text-center mt-2">캐릭터 :
+                                <span style="color: black; max-height: 38px; font-size: 1.1rem; font-weight: 500; line-height: 1.2;" th:text="${toy.getCharacter().getName()}"class="text-center mt-2">캐릭터 이름</span></span>
+                            <span style="color: black; max-height: 38px; font-size: 1.1rem; font-weight: 500; line-height: 1.2;" class="text-center mt-2">장르 :
+                                <span style="color: black; max-height: 38px; font-size: 1.1rem; font-weight: 500; line-height: 1.2;" th:text="${toy.getGenre().getName()}"class="text-center mt-2 mb-2">캐릭터 이름</span></span>
+                            <div class="product-card-price">등록일</div>
+                            <span style="color: black; max-height: 38px; font-size: 1.2rem; font-weight: 500; line-height: 1.2;" th:text="${toy.getcreatedD()}"class="text-center mt-2">등록 일자</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div th:if="${#lists.size(shop.getToyList())} > 4">
+                <br>
+                <button type="button" id="left"> < </button>
+                <button type="button" id="right"> > </button>
+            </div>
+
+
+        </div>
 
         <!-- Footer-->
         <th:block th:replace="fragments/footer :: footerFragment"></th:block>

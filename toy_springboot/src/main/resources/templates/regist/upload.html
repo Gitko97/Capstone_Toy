@@ -15,20 +15,11 @@
 
         <input type="hidden" th:id="currentShopID" th:value="${currentShop.shop_id}"/>
 
-        <!--
-        <div class="container" style="margin-top:30px">
-            <form method="post" action="" enctype="multipart/form-data" id="fileUploadForm">
-                <input type="file" name="file"/>
-                <input type="button" id="btnUpload" value = "업로드"/>
-            </form>
-        </div>
-        -->
-
         <div>
             <div id="uploadArea" class="upload-area">
                 <!-- Header -->
                 <div class="upload-area__header">
-                    <h1 class="upload-area__title">Upload your file</h1>
+                    <h1 class="upload-area__title">분석할 장난감의 이미지 업로드</h1>
                     <p class="upload-area__paragraph">
                         File should be an image
                         <strong class="upload-area__tooltip">
@@ -45,8 +36,8 @@
                 <span class="drop-zoon__icon">
                     <i class='bx bxs-file-image'></i>
                 </span>
-                        <p class="drop-zoon__paragraph">Drop your file here or Click to browse</p>
-                        <span id="loadingText" class="drop-zoon__loading-text">Please Wait</span>
+                        <p class="drop-zoon__paragraph">드래그앤 드랍 또는 클릭하여 파일을 선택해주세요</p>
+                        <span id="loadingText" class="drop-zoon__loading-text">로딩중...</span>
                         <img src="" alt="Preview Image" id="previewImage" class="drop-zoon__preview-image" draggable="false">
                         <input type="file" id="fileInput" class="drop-zoon__file-input" accept="image/*">
                     </div>
@@ -56,7 +47,7 @@
 
                 <!-- File Details -->
                 <div id="fileDetails" class="upload-area__file-details file-details">
-                    <h3 class="file-details__title">Uploaded File</h3>
+                    <h3 class="file-details__title">업로드된 파일</h3>
 
                     <div id="uploadedFile" class="uploaded-file">
                         <div class="uploaded-file__icon-container">
