@@ -128,7 +128,7 @@
                     info.name = select_kind
 
                     $.ajax({
-                        "url": "http://localhost:8092/api/category/"+kind,
+                        "url": "/api/category/"+kind,
                         "method": "POST",
                         async    : false,
                         dataType : "JSON",
@@ -158,7 +158,7 @@
 
             $.ajax({
                 type: "GET",
-                url:  "http://localhost:8092/api/toy/id?toy_id="+current_toyId,
+                url:  "/api/toy/id?toy_id="+current_toyId,
                 async    : false,
                 dataType : "JSON",
                 processData: false,
@@ -187,7 +187,7 @@
 
             $.ajax({
                 type: "PUT",
-                url:  "http://localhost:8092/api/toy",
+                url:  "/api/toy",
                 data: currentToy_data,
                 async    : false,
                 contentType: "application/json",
