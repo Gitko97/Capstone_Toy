@@ -34,6 +34,10 @@ public class ShopService {
         return dbAccess.save(shop);
     }
 
+    public boolean existsByShopId(Long shop_id) {
+        return dbAccess.existsById(shop_id);
+    }
+
     public void delete(Shop shop) throws IllegalArgumentException{
         dbAccess.delete(shop);
     }
