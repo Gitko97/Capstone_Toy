@@ -2,63 +2,63 @@
 <!-- 타임리프 레이아웃 적용 -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-    <head>
-        <th:block th:replace="fragments/config :: configFragment"></th:block>
-        <link rel="stylesheet" th:href="@{/css/select.css}">
-        <link rel="stylesheet" th:href="@{/css/button.css}">
-        <title>Toytra Homepage</title>
-    </head>
+<head>
+    <th:block th:replace="fragments/config :: configFragment"></th:block>
+    <link rel="stylesheet" th:href="@{/css/select.css}">
+    <link rel="stylesheet" th:href="@{/css/button.css}">
+    <title>Toytra Homepage</title>
+</head>
 
-    <body>
-        <!-- 사이드바-->
-        <th:block th:replace="fragments/sidebar :: sidebarFragment"></th:block>
+<body>
+<!-- 사이드바-->
+<th:block th:replace="fragments/sidebar :: sidebarFragment"></th:block>
 
-        <h2 class="pricingTable-title">분석결과</h2>
+<h2 class="pricingTable-title">분석결과</h2>
 
-        <ul class="pricingTable-firstTable">
-            <h4 th:text="|현재 토이 id : ${currentToy.toy_id}|"></h4>
-            <h4 th:text="|현재 샵 id : ${currentShop.shop_id}|"></h4>
-            <input type="hidden" th:id="genreList" th:value="${genreList}"/>
-            <input type="hidden" th:id="characterList" th:value="${characterList}"/>
-            <input type="hidden" th:id="currentToyId" th:value="${currentToy.toy_id}" />
-            <input type="hidden" th:id="currentShopID" th:value="${currentShop.shop_id}"/>
+<ul class="pricingTable-firstTable">
+    <h4 th:text="|현재 토이 id : ${currentToy.toy_id}|"></h4>
+    <h4 th:text="|현재 샵 id : ${currentShop.shop_id}|"></h4>
+    <input type="hidden" th:id="genreList" th:value="${genreList}"/>
+    <input type="hidden" th:id="characterList" th:value="${characterList}"/>
+    <input type="hidden" th:id="currentToyId" th:value="${currentToy.toy_id}" />
+    <input type="hidden" th:id="currentShopID" th:value="${currentShop.shop_id}"/>
 
-            <li class="pricingTable-firstTable_table">
-                <h1 class="pricingTable-firstTable_table__header">2등</h1>
-                <p id="change3" class="pricingTable-firstTable_table__pricing">상품명</p>
-                <ul class="pricingTable-firstTable_table__options">
-                    <li id="change4">캐릭터</li>
-                    <li id="change5">카테고리</li>
-                </ul>
-                <button id="2" value="btnSelect" class="pricingTable-firstTable_table__getstart"> 선택 </button>
-            </li>
-
-            <li class="pricingTable-firstTable_table">
-                <h1 class="pricingTable-firstTable_table__header">1등</h1>
-                <p id="change0" class="pricingTable-firstTable_table__pricing">상품명</p>
-                <ul class="pricingTable-firstTable_table__options">
-                    <li id="change1">캐릭터</li>
-                    <li id="change2">카테고리</li>
-                </ul>
-                <button id="1" value="btnSelect" class="pricingTable-firstTable_table__getstart"> 선택 </button>
-            </li>
-
-            <li class="pricingTable-firstTable_table">
-                <h1 class="pricingTable-firstTable_table__header">3등</h1>
-                <p id="change6" class="pricingTable-firstTable_table__pricing">상품명</p>
-                <ul class="pricingTable-firstTable_table__options">
-                    <li id="change7">캐릭터</li>
-                    <li id="change8">카테고리</li>
-                </ul>
-                <button id="3" value="btnSelect" class="pricingTable-firstTable_table__getstart"> 선택 </button>
-            </li>
+    <li class="pricingTable-firstTable_table">
+        <h1 class="pricingTable-firstTable_table__header">2등</h1>
+        <p id="change3" class="pricingTable-firstTable_table__pricing">상품명</p>
+        <ul class="pricingTable-firstTable_table__options">
+            <li id="change4">캐릭터</li>
+            <li id="change5">카테고리</li>
         </ul>
+        <button id="2" value="btnSelect" class="pricingTable-firstTable_table__getstart"> 선택 </button>
+    </li>
 
-        <button class="button button--secondary" style="float: right;">직접 찾아보기</button>
+    <li class="pricingTable-firstTable_table">
+        <h1 class="pricingTable-firstTable_table__header">1등</h1>
+        <p id="change0" class="pricingTable-firstTable_table__pricing">상품명</p>
+        <ul class="pricingTable-firstTable_table__options">
+            <li id="change1">캐릭터</li>
+            <li id="change2">카테고리</li>
+        </ul>
+        <button id="1" value="btnSelect" class="pricingTable-firstTable_table__getstart"> 선택 </button>
+    </li>
 
-        <!-- Footer-->
-        <th:block th:replace="fragments/footer :: footerFragment"></th:block>
-    </body>
+    <li class="pricingTable-firstTable_table">
+        <h1 class="pricingTable-firstTable_table__header">3등</h1>
+        <p id="change6" class="pricingTable-firstTable_table__pricing">상품명</p>
+        <ul class="pricingTable-firstTable_table__options">
+            <li id="change7">캐릭터</li>
+            <li id="change8">카테고리</li>
+        </ul>
+        <button id="3" value="btnSelect" class="pricingTable-firstTable_table__getstart"> 선택 </button>
+    </li>
+</ul>
+
+<button id="btnTag" class="button button--secondary" style="float: right;">직접 찾아보기</button>
+
+<!-- Footer-->
+<th:block th:replace="fragments/footer :: footerFragment"></th:block>
+</body>
 </html>
 
 <script th:inline="javascript">
@@ -82,6 +82,7 @@
     var select_genre;
     var select_character;
     var select_name;
+    var id_check;
 
     $("button[value='btnSelect']").click(function() {
 
@@ -90,7 +91,7 @@
         var current_toyId = [[${currentToy.toy_id}]];
         var current_shopId = [[${currentShop.shop_id}]];
         var currentToy_data;
-        var id_check = $(this).attr("id"); //선택한 버튼의 id 가져옴.
+        id_check = $(this).attr("id"); //선택한 버튼의 id 가져옴.
 
         if (id_check == "1") {
             select_name = $('#change' + [0]).text();
@@ -194,7 +195,7 @@
                 timeout: 0,
                 success: function (data) {
                     alert("업데이트 성공");
-                    location.href="/set?toy_id="+current_toyId;
+                    location.href="/set?toy_id=" + current_toyId + "&select_num=" + id_check;
                 },
                 error: function (e) {
                     alert("fail");
@@ -205,4 +206,9 @@
             //location.href = "/regist/set?toy_id=" + new_toy;
         }
     }); //선택한 항목에 대한 장르, 캐릭터, 상품명 가져와서 토이 객체에 저장
+
+    $("#btnTag").unbind("click").bind("click", function () {
+        var current_toyId = [[${currentToy.toy_id}]];
+        location.href="/tag?toy_id="+current_toyId;
+    });
 </script>
