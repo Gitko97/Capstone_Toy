@@ -226,8 +226,8 @@ $("#btnUpload").unbind("click").bind("click", function () {
 
     var shop_id = document.getElementById("currentShopID").value;
 
-    var toy_url = "http://localhost:8092/api/toy?shop_id="+shop_id;
-    var upload_url = "http://localhost:8092/api/photo/upload_image/";
+    var toy_url = "/api/toy?shop_id="+shop_id;
+    var upload_url = "/api/photo/upload_image/";
 
     var toyId;
 

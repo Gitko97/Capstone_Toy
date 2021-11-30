@@ -2,44 +2,42 @@
 <!-- 타임리프 레이아웃 적용 -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-    <head>
-        <th:block th:replace="fragments/config :: configFragment"></th:block>
-        <link href="css/button.css" rel="stylesheet" />
-        <title>Toytra Homepage</title>
-    </head>
+<head>
+    <th:block th:replace="fragments/config :: configFragment"></th:block>
+    <link href="css/button.css" rel="stylesheet" />
+    <title>Toytra Homepage</title>
+</head>
 
-    <body>
-        <!-- 사이드바-->
-        <th:block th:replace="fragments/sidebar :: sidebarFragment"></th:block>
+<body>
+<!-- 사이드바-->
+<th:block th:replace="fragments/sidebar :: sidebarFragment"></th:block>
 
-        <h4 class = "mb-5">카테고리 페이지</h4>
+<h4 class = "mb-5">카테고리 페이지</h4>
 
-        <h4 th:text="|현재 샵 id : ${currentShop.shop_id}|"></h4>
-        <input type="hidden" th:id="currentShopID" th:value="${currentShop.shop_id}"/>
+<h4 th:text="|현재 샵 id : ${currentShop.shop_id}|"></h4>
+<input type="hidden" th:id="currentShopID" th:value="${currentShop.shop_id}"/>
 
-        <div id="page-wrapper">
+<div id="page-wrapper">
 
-            <h1>장르, 카테고리 결정</h1>
+    <h1>장르, 카테고리, 장난감 이름을 입력해주세요</h1>
 
-            <input type="text" id="ajax1" list="json-datalist1" placeholder="">
-            <input type="text" id="ajax2" list="json-datalist2" placeholder="">
-            <datalist id="json-datalist1"></datalist>
-            <datalist id="json-datalist2"></datalist>
+    <input type="text" id="ajax1" list="json-datalist1" placeholder="">
+    <input type="text" id="ajax2" list="json-datalist2" placeholder="">
+    <datalist id="json-datalist1"></datalist>
+    <datalist id="json-datalist2"></datalist>
+    <input type="text" id="ajax3" placeholder="">
 
-            <button class="button button--secondary" style="float: right;">선택 완료</button>
-            <button class="button button--secondary" style="float: right;">선택 완료</button>
-        </div>
+    <button id="btnSelect" class="button button--secondary" style="float: right;">사용자 정보 입력 완료</button>
+</div>
 
-        <!-- Footer-->
-        <th:block th:replace="fragments/footer :: footerFragment"></th:block>
+<!-- Footer-->
+<th:block th:replace="fragments/footer :: footerFragment"></th:block>
 
+</body>
 
-
-    </body>
-
-    <div layout:fragment="script_area">
-        <script th:src="@{/js/filterlist.js}"></script>
-    </div>
+<div layout:fragment="script_area">
+    <script th:src="@{/js/filterlist.js}"></script>
+</div>
 </html>
 
 <style>
@@ -97,3 +95,123 @@
         box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.1) inset;
     }
 </style>
+
+
+<script th:inline="javascript">
+
+    var genreList = [[${genreList}]];
+    var characterList = [[${characterList}]];
+    var current_toyId = [[${currentToy.toy_id}]];
+    var current_shopId = [[${currentShop.shop_id}]];
+    var currentToy_data;
+    var select_genre;
+    var select_character;
+    var select_name;
+    var input = document.getElementById('ajax3');
+    input.placeholder = "상품명을 입력하세요";
+
+    $("#btnSelect").unbind("click").bind("click", function () {
+        var val1 = document.querySelector('input[id=ajax1]').value;
+        var val2 = document.querySelector('input[id=ajax2]').value;
+        var val3 = document.querySelector('input[id=ajax3]').value;
+
+        select_character = val1
+        select_genre = val2
+        select_name = val3
+
+        select(select_name, select_character, select_genre);
+
+        function select(select_name, select_character, select_genre) {
+
+            function findList(List, select_kind, kind){
+                var find_List = List.filter(function(g){
+                    if(g.name == select_kind){
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }
+                })
+
+                if(find_List.length === 0){
+                    alert("db에 정보 없음");
+                    var info = new Object();
+                    info.name = select_kind
+
+                    $.ajax({
+                        "url": "/api/category/"+kind,
+                        "method": "POST",
+                        async    : false,
+                        dataType : "JSON",
+                        "timeout": 0,
+                        "headers": {
+                            "Content-Type": "application/json",
+                            "Authorization": localStorage.getItem("token")
+                        },
+                        "data": JSON.stringify(info),
+                        success: function (response) {
+                            console.log(JSON.stringify(response));
+                            alert("갱신 성공");
+                        },
+                        error: function (e) {
+                            alert("fail");
+                        }
+                    });
+                    return info;
+                }
+                else{
+                    return find_List[0];
+                }
+            } //db에 장르랑 캐릭터 검색해서 찾아보고 없으면 추가.
+
+            var final_genre = findList(genreList, select_genre, "genre");
+            var final_character = findList(characterList, select_character, "character");
+
+            $.ajax({
+                type: "GET",
+                url:  "/api/toy/id?toy_id="+current_toyId,
+                async    : false,
+                dataType : "JSON",
+                processData: false,
+                contentType: "application/json",
+                cache: false,
+                timeout: 0,
+                success: function (data) {
+                    console.log(typeof(data));
+                    currentToy_data = data;
+                },
+                error: function (e) {
+                    alert("실패");
+                }
+            }); //현재 토이 객체의 정보 받아옴
+
+            var shopInfo = new Object();
+            shopInfo.shop_id = current_shopId;
+
+            currentToy_data.productName = select_name;
+            currentToy_data.genre = final_genre;
+            currentToy_data.character = final_character;
+            currentToy_data.shop = shopInfo;
+            currentToy_data = JSON.stringify(currentToy_data);
+
+            console.log(currentToy_data);
+
+            $.ajax({
+                type: "PUT",
+                url:  "/api/toy",
+                data: currentToy_data,
+                async    : false,
+                contentType: "application/json",
+                cache: false,
+                timeout: 0,
+                success: function (data) {
+                    alert("등록 성공");
+                    location.href="/home";
+                },
+                error: function (e) {
+                    alert("fail");
+                }
+            }); //토이 객체 업데이트.
+        }
+    });
+</script>

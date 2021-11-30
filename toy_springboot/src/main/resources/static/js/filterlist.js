@@ -33,7 +33,7 @@ request1.onreadystatechange = function (response) {
 
 input1.placeholder = "로딩중...";
 
-request1.open('GET', 'http://localhost:8092/api/category/character', true);
+request1.open('GET', '/api/category/character', true);
 request1.send();
 
 request2.onreadystatechange = function (response) {
@@ -57,5 +57,5 @@ request2.onreadystatechange = function (response) {
 
 input2.placeholder = "로딩중...";
 
-request2.open('GET', 'http://localhost:8092/api/category/genre', true);
+request2.open('GET', '/api/category/genre', true);
 request2.send();

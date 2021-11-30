@@ -116,3 +116,4 @@ public class RegistViewController {
         return "regist/set";
     }
 }
+
