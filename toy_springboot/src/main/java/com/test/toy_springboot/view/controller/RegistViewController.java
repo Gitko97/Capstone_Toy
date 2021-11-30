@@ -95,25 +95,5 @@ public class RegistViewController {
         model.addAttribute("currentShop", shop);
         return "regist/tag";
     }
-
-    @GetMapping("/set")
-    public String regist(Model model, @RequestParam long toy_id, @RequestParam long select_num, HttpServletRequest request) throws Exception{
-        HttpSession session = request.getSession();
-        String currentUserID = (String) session.getAttribute("currentUserID");
-        if(currentUserID == null){
-            return "redirect:/signIn";
-        }
-
-        String userId = currentUserID; // 토큰으로 Id 읽어오기
-        User user = userService.getUserById(userId);
-
-        Toy toy = toyService.getToyById(toy_id); //현재 등록진행중인 토이 불러오기.
-        Shop shop = user.getShop(); //현재 접속중인 유저의 shop 읽어오기
-        model.addAttribute("currentToy", toy);
-        model.addAttribute("currentShop", shop);
-        model.addAttribute("selectNum", select_num);
-        System.out.print(toy);
-        return "regist/set";
-    }
 }
 

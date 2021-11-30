@@ -6,6 +6,7 @@
     <th:block th:replace="fragments/config :: configFragment"></th:block>
     <link rel="stylesheet" th:href="@{/css/select.css}">
     <link rel="stylesheet" th:href="@{/css/button.css}">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <title>Toytra Homepage</title>
 </head>
 
@@ -67,7 +68,6 @@
     }
 
     Data = JSON.parse(lastData); //local storage에 저장된 분석결과 json 불러옴.
-
     var j = 0;
     for (i = 0; i < Data.length; i++) {
         // document.write("<input type='radio' name='category' value=" + i + "> " + Data[i].product_name + '</input>');
@@ -123,7 +123,7 @@
                 })
 
                 if(find_List.length === 0){
-                    alert("db에 정보 없음");
+                    // alert("db에 정보 없음");
                     var info = new Object();
                     info.name = select_kind
 
@@ -140,10 +140,10 @@
                         "data": JSON.stringify(info),
                         success: function (response) {
                             console.log(JSON.stringify(response));
-                            alert("갱신 성공");
+                            // alert("갱신 성공");
                         },
                         error: function (e) {
-                            alert("fail");
+                            alert("DB에 새로운 Category 생성 실패");
                         }
                     });
                     return info;
@@ -155,6 +155,30 @@
 
             var final_genre = findList(genreList, select_genre, "genre");
             var final_character = findList(characterList, select_character, "character");
+
+            var index = id_check - 1
+            var hasSetCategory = Data[index].product_label.hasOwnProperty("set")
+            var currentSetObject;
+            if (hasSetCategory) {
+                set_data = Data[index].product_label.set.split('-');
+                console.log(set_data)
+                console.log(set_data)
+                $.ajax({
+                    type: "GET",
+                    url:  "/api/category/category_set/set?set_name="+set_data[0]+"&set_num="+parseInt(set_data[1]),
+                    async    : false,
+                    dataType : "JSON",
+                    contentType: "application/json",
+                    success: function (data) {
+                        currentSetObject = data;
+                        console.log(data)
+                    },
+                    error: function (e) {
+                        hasSetCategory = false
+                        alert("DB에 해당 SET 정보가 들어있지 않음!");
+                    }
+                });
+            }
 
             $.ajax({
                 type: "GET",
@@ -181,10 +205,14 @@
             currentToy_data.genre = final_genre;
             currentToy_data.character = final_character;
             currentToy_data.shop = shopInfo;
+
+            if (hasSetCategory){
+                currentToy_data.category_set = currentSetObject;
+            }
+
             currentToy_data = JSON.stringify(currentToy_data);
 
             console.log(currentToy_data);
-
             $.ajax({
                 type: "PUT",
                 url:  "/api/toy",
@@ -194,8 +222,49 @@
                 cache: false,
                 timeout: 0,
                 success: function (data) {
-                    alert("업데이트 성공");
-                    location.href="/set?toy_id=" + current_toyId + "&select_num=" + id_check;
+                    if (hasSetCategory){
+                        swal({
+                            text: "혹시 세트 상품이 아닌가요?",
+                            icon: "/img/다이노변신합체로봇.PNG",
+                            buttons: {
+                                cancel: "세트 상품이란?",
+                                exchange: {
+                                    text: "장터 등록",
+                                    value: "exchange",
+                                },
+                                set: {
+                                    text: "세트 등록",
+                                    value: "set",
+                                },
+                            },
+                        })
+                            .then((value) => {
+                                switch (value) {
+                                    case "set":
+                                        // 세트 활성화
+                                        $.ajax({
+                                            url:  "/api/setGoods/"+current_toyId,
+                                            method: 'POST',
+                                            "timeout": 0,
+                                        }).done(function() {
+                                            swal("세트 등록 성공!").then((willDelete) => {
+                                                location.href="/upload"
+                                            });
+                                        }).fail(function (data) {
+                                            alert("실패");
+                                            location.href();
+                                        });
+                                        break;
+                                    case "exchange":
+                                        swal("장터 등록 성공!").then((willDelete) => {
+                                                location.href="/upload"
+                                            });
+
+                                        break;
+
+                                }
+                            });
+                    }
                 },
                 error: function (e) {
                     alert("fail");
