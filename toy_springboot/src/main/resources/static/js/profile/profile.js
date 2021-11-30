@@ -26,7 +26,14 @@ $(".modal-complete-button").on('click', function() {
         headers: {Authorization: localStorage.getItem('token') },
         dataType: 'json'
     }).done(function (data) {
-        location.reload();
+        swal({
+            title: "수락 성공!",
+            text: "교환 신청을 수락하셨습니다!",
+            icon: "success",
+            button: "확인",
+        }).then((value) => {
+            location.reload();
+        });
     }).fail(function () {
         alert("수락 불가능")
         location.reload();
@@ -35,17 +42,31 @@ $(".modal-complete-button").on('click', function() {
 
 $(".modal-delete-button").on('click', function() {
     trade_id = $(this).data("trade_id")
-    $.ajax({
-        url: '/api/trade/' + trade_id+"/delete",
-        method: 'POST',
-        headers: {Authorization: localStorage.getItem('token') },
-        dataType: 'json'
-    }).done(function (data) {
-        location.reload();
-    }).fail(function () {
-        alert("수락 불가능")
-        location.reload();
-    });
+    swal({
+        title: "Are you sure?",
+        text: "정말로 해당 신청을 거부하시겠습니다?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    url: '/api/trade/' + trade_id+"/delete",
+                    method: 'POST',
+                    headers: {Authorization: localStorage.getItem('token') },
+                    dataType: 'json'
+                }).done(function (data) {
+                    location.reload();
+                }).fail(function () {
+                    alert("수락 불가능")
+                    location.reload();
+                });
+            } else {
+                swal("Your imaginary file is safe!");
+            }
+        });
+
 })
 
 $(".link-info.to-trade").on('click', function() {

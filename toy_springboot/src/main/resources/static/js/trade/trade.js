@@ -90,11 +90,22 @@ $(".finish-toyList").on('click', function() {
         contentType: 'application/json; charset=utf-8',
         data: Json
     }).done(function() {
-        alert("신청 성공!")
-        location.reload();
+        swal({
+            title: "교환 신청!",
+            text: "총"+toDataArray.length+"개의 장난감과 교환 신청하셨습니다.",
+            icon: "success",
+            button: "확인",
+        }).then((value) => {
+            location.reload();
+        });
     }).fail(function () {
-        $('#errorMSG').text("한개 이상의 장난감을 선택해주세요!")
-        $('#alarmModal').modal('show');
+        swal({
+            title: "한 개 이상의 장난감을 선택해주세요!",
+            icon: "warning",
+            buttons: "확인",
+        })
+            .then((willDelete) => {
+            });
     });
 });
 
@@ -145,9 +156,15 @@ function getToyList(){
         });
 
     }).fail(function () {
-        $('#errorMSG').text("교환 신청 실패.. 다시 시도해주세요.")
-        $('#alarmModal').modal('show');
-        location.reload();
+        swal({
+            title: "신청 오류!",
+            icon: "warning",
+            text: "다시 시도해 주세요!",
+            buttons: "확인",
+        })
+            .then((willDelete) => {
+                location.reload();
+            });
     });
 }
 

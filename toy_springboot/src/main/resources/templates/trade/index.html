@@ -11,6 +11,7 @@
             <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.css}">
             <script type="text/javascript" th:src="@{/webjars/jquery/3.6.0/jquery.js}"></script>
             <script type="text/javascript" th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.js}"></script>
+            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
         </th:block>
 
@@ -79,18 +80,6 @@
         <script th:src="@{/js/trade/patternfly.js}"></script>
         <div class="liner-scroll-points-container" style="user-select: auto;"></div>
     </body>
-    <div class="modal fade" id="alarmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">교환 신청 오류</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" th:id="errorMSG" th:text="...">
-                </div>
-            </div>
-        </div>
-    </div>
     <div layout:fragment="script_area">
         <script th:src="@{/js/trade/trade.js}"></script>
     </div>
