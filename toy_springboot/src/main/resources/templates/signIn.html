@@ -54,10 +54,7 @@
             contentType: "application/json",
             data: JSON.stringify(loginData),
             success: function (jwtToken) {
-                alert("로그인 성공");
                 localStorage.setItem("token", "Bearer " + jwtToken["token"]);
-
-
                 window.location.href = "home"
             },
             error: function (jqXHR, status, error) {
