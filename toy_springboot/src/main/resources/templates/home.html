@@ -10,7 +10,10 @@
 
     <body>
         <!-- 사이드바-->
-        <th:block th:replace="fragments/sidebar :: sidebarFragment"></th:block>
+        <div class="row">
+            <th:block th:replace="fragments/sidebar :: sidebarFragment"></th:block>
+        </div>
+
 
         <!-- Header-->
         <header class="bg-dark py-5">
@@ -46,11 +49,11 @@
                 </div>
             </div>
         </div>
-
-        <!-- Footer-->
-        <th:block th:replace="fragments/footer :: footerFragment"></th:block>
-
     </body>
+    <!-- Footer-->
+    <div class="row">
+        <th:block th:replace="fragments/footer :: footerFragment"></th:block>
+    </div>
 </html>
 
 
