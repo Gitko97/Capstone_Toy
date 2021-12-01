@@ -4,11 +4,15 @@ import com.test.toy_springboot.toy.domain.Toy;
 import com.test.toy_springboot.toy.service.ToyService;
 import com.test.toy_springboot.trade.domain.Trade;
 import com.test.toy_springboot.trade.service.TradeService;
+import com.test.toy_springboot.user.domain.User;
+import com.test.toy_springboot.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -16,10 +20,12 @@ import java.util.List;
 public class TradeController {
     private final TradeService tradeService;
     private final ToyService toyService;
+    private final UserService userService;
     @Autowired
-    public TradeController(TradeService tradeService, ToyService toyService){
+    public TradeController(TradeService tradeService, ToyService toyService, UserService userService){
         this.toyService = toyService;
         this.tradeService = tradeService;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -34,6 +40,19 @@ public class TradeController {
         Trade trade = tradeService.getTradeById(trade_id);
         if(trade == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(trade, HttpStatus.OK);
+    }
+
+    @GetMapping("/toTrade")
+    public ResponseEntity<List<Trade>> getCurrentUserTradeList(HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession();
+        String currentUserID = (String) session.getAttribute("currentUserID");
+        if(currentUserID == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        User user = userService.getUserById(currentUserID);
+        List<Trade> tradeList = tradeService.getTradeByToUser(user.getUserIndex());
+        if(tradeList == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(tradeList, HttpStatus.OK);
     }
 
     @PostMapping

@@ -13,10 +13,10 @@ import java.util.List;
 @Repository
 public interface TradeRepository extends JpaRepository<Trade, Long> {
     @Transactional
-    @Query(value = "SELECT * From trade t WHERE t.from_user=:userIndex ORDER BY t.created_date ASC", nativeQuery = true)
+    @Query(value = "SELECT * From trade t WHERE t.from_user=:userIndex ORDER BY t.created_date DESC", nativeQuery = true)
     List<Trade> findTradeByFromUser(@Param("userIndex")Long userIndex);
 
     @Transactional
-    @Query(value = "SELECT * From trade t WHERE t.to_user=:userIndex ORDER BY t.created_date ASC", nativeQuery = true)
+    @Query(value = "SELECT * From trade t WHERE t.to_user=:userIndex ORDER BY t.created_date DESC", nativeQuery = true)
     List<Trade> findTradeByToUser(@Param("userIndex")Long userIndex);
 }
