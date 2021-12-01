@@ -265,6 +265,11 @@
                                 }
                             });
                     }
+                    else{
+                        swal("장터 등록 성공!").then((willDelete) => {
+                            location.href="/upload"
+                        });
+                    }
                 },
                 error: function (e) {
                     alert("fail");
