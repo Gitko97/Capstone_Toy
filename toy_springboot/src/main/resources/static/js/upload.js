@@ -276,7 +276,7 @@ $("#btnUpload").unbind("click").bind("click", function () {
     $.ajax({
         type: "POST",
         enctype: 'multipart/form-data',
-        url: "http://13.125.48.240:8000/finder/api/image_file",
+        url: "http://3.35.158.203:8000/finder/api/image_file",
         data: data,
         async    : false,
         dataType : "JSON",
