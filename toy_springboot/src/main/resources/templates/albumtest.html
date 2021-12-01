@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!-- 타임리프 레이아웃 적용 -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <th:block th:replace="fragments/config :: configFragment"></th:block>
+    <link rel="stylesheet" th:href="@{/css/button.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery.flipster.css}">
+    <title>Toytra Homepage</title>
+</head>
+<body>
+
+<div class="my-flipster">
+    <ul>
+        <li th:each="toy : ${currentShop.getToyList()}">
+            <img th:src="|data:image/png;base64, ${toy.getPhoto()[0].getImageByte()}|"/>
+        </li>
+    </ul>
+</div>
+
+
+</body>
+<div layout:fragment="script_area">
+    <script th:src="@{/js/jquery.flipster.js}"></script>
+</div>
+</html>
+<script>
+    $('.my-flipster').flipster();
+</script>
+
+
+
+
+
+
+
+
