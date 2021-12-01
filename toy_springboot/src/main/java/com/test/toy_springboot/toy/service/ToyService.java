@@ -56,12 +56,17 @@ public class ToyService {
         dbAccess.match_toy_to_setItem(toyId, set_id);
     }
     @Transactional
-    public void toySetTradeComplete(Long toyId) {
+    public void updateToyToStatusComplete(Long toyId) {
         dbAccess.updateToyToStatusComplete(toyId);
     }
     @Transactional
-    public void toySetTradeTrade(Long toyId) {
+    public void updateToyToStatusTrade(Long toyId) {
         dbAccess.updateToyToStatusTrade(toyId);
+    }
+
+    @Transactional
+    public void updateToyToStatusNotTrade(Long toyId) {
+        dbAccess.updateToyToStatusNotTrade(toyId);
     }
 
 }

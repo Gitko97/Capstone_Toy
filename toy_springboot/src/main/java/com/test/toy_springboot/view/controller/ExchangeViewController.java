@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.constraints.Null;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -84,7 +85,7 @@ public class ExchangeViewController {
         Map<Long, Shop> listMap = new HashMap<>();
         for (Toy toy : filteredToy){
             Shop shop = toy.getShop();
-            if(currentShopId == shop.getShop_id())
+            if(currentShopId == shop.getShop_id() || toy.getSetTime() != null || toy.getTradeStatus() != 0)
                 continue;
             if (!listMap.containsKey(shop.getShop_id())){
                 shop.setToyList(new ArrayList<>());

@@ -34,6 +34,12 @@ public class TradeService {
     public Trade addTradeWithoutUser(Trade trade){
         Toy from_toy = toyService.getToyById((trade.getFrom_toy()).get(0).getToy_id());
         Toy to_toy = toyService.getToyById((trade.getTo_toy()).get(0).getToy_id());
+        for(Toy toy : trade.getFrom_toy()){
+            toyService.updateToyToStatusTrade(toy.getToy_id());
+        }
+        for(Toy toy : trade.getTo_toy()){
+            toyService.updateToyToStatusTrade(toy.getToy_id());
+        }
         trade.setFrom_user(from_toy.getShop().getUser());
         trade.setTo_user(to_toy.getShop().getUser());
         return dbAccess.save(trade);

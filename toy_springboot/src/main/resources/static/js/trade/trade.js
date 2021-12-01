@@ -93,7 +93,7 @@ $(".finish-toyList").on('click', function() {
             icon: "success",
             button: "확인",
         }).then((value) => {
-            location.reload();
+            location.href="/exchange"
         });
     }).fail(function () {
         swal({
@@ -123,27 +123,31 @@ function getToyList(){
         const arrayData = [];
         $.each(data, function(idx, val) {
             //createdDate data format 바꿈
-            val.createdDate = JSON.stringify(val.createdDate).split(',')
-            val.createdDate = val.createdDate[0].replace('[','')+'-'+val.createdDate[1]+'-'+val.createdDate[2]
-            arrayData.push(val)
+            if (val["tradeStatus"] == 0 && val["set_time"] == null){
+                val.createdDate = JSON.stringify(val.createdDate).split(',')
+                val.createdDate = val.createdDate[0].replace('[','')+'-'+val.createdDate[1]+'-'+val.createdDate[2]
+                arrayData.push(val)
+            }
         });
         const html = currentToyListTemplate(arrayData);
         $('#toy-card-list-area').append(html);
         $.each(data, function(idx, val) {
-            if (val["photo"].length == 0){
-            }else{
-                var img_id = "#"+val["toy_id"]
-                var imageByte = val["photo"]
-                $(img_id).attr('src', 'data:image/png;base64,'+imageByte[0]["imageByte"]);
-                if(currentMode === "me"){
-                    if(clicked_my_toy_list.has(''+val["toy_id"])){
-                        $('#'+val["toy_id"]).closest('.card-pf.card-pf-view.card-pf-view-select.card-pf-view-multi-select').addClass('active')
-                        $('#'+val["toy_id"]).closest('.card-pf.card-pf-view.card-pf-view-select.card-pf-view-multi-select').find('.clickedCheckBox').prop('checked', true);
-                    }
+            if (val["tradeStatus"] == 0 && val["set_time"] == null){
+                if (val["photo"].length == 0){
                 }else{
-                    if(clicked_opponent_toy_list.has(''+val["toy_id"])){
-                        $('#'+val["toy_id"]).closest('.card-pf.card-pf-view.card-pf-view-select.card-pf-view-multi-select').addClass('active')
-                        $('#'+val["toy_id"]).closest('.card-pf.card-pf-view.card-pf-view-select.card-pf-view-multi-select').find('.clickedCheckBox').prop('checked', true);
+                    var img_id = "#"+val["toy_id"]
+                    var imageByte = val["photo"]
+                    $(img_id).attr('src', 'data:image/png;base64,'+imageByte[0]["imageByte"]);
+                    if(currentMode === "me"){
+                        if(clicked_my_toy_list.has(''+val["toy_id"])){
+                            $('#'+val["toy_id"]).closest('.card-pf.card-pf-view.card-pf-view-select.card-pf-view-multi-select').addClass('active')
+                            $('#'+val["toy_id"]).closest('.card-pf.card-pf-view.card-pf-view-select.card-pf-view-multi-select').find('.clickedCheckBox').prop('checked', true);
+                        }
+                    }else{
+                        if(clicked_opponent_toy_list.has(''+val["toy_id"])){
+                            $('#'+val["toy_id"]).closest('.card-pf.card-pf-view.card-pf-view-select.card-pf-view-multi-select').addClass('active')
+                            $('#'+val["toy_id"]).closest('.card-pf.card-pf-view.card-pf-view-select.card-pf-view-multi-select').find('.clickedCheckBox').prop('checked', true);
+                        }
                     }
                 }
             }

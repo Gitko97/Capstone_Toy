@@ -47,10 +47,10 @@ public class TradeController {
     public ResponseEntity<Long> setTradeComplete(@PathVariable Long trade_id) {
         Trade resultTrade = tradeService.getTradeById(trade_id);
         for(Toy toy : resultTrade.getTo_toy()){
-            toyService.toySetTradeComplete(toy.getToy_id());
+            toyService.updateToyToStatusComplete(toy.getToy_id());
         }
         for(Toy toy : resultTrade.getFrom_toy()){
-            toyService.toySetTradeComplete(toy.getToy_id());
+            toyService.updateToyToStatusComplete(toy.getToy_id());
         }
         resultTrade.setTrade_status(1);
         tradeService.addTrade(resultTrade);
@@ -62,13 +62,12 @@ public class TradeController {
     public ResponseEntity<Long> setTradeDelete(@PathVariable Long trade_id) {
         Trade resultTrade = tradeService.getTradeById(trade_id);
         for(Toy toy : resultTrade.getTo_toy()){
-            toyService.toySetTradeTrade(toy.getToy_id());
+            toyService.updateToyToStatusNotTrade(toy.getToy_id());
         }
         for(Toy toy : resultTrade.getFrom_toy()){
-            toyService.toySetTradeTrade(toy.getToy_id());
+            toyService.updateToyToStatusNotTrade(toy.getToy_id());
         }
-        resultTrade.setTrade_status(2);
-        tradeService.updateTrade(resultTrade);
+        tradeService.delete(resultTrade);
         if(resultTrade == null) return new ResponseEntity(HttpStatus.BAD_REQUEST);
         return new ResponseEntity(resultTrade.getTrade_id(), HttpStatus.OK);
     }

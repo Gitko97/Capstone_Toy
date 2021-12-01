@@ -59,7 +59,7 @@ public class Toy extends AuditingEntity {
     private String productName;
 
     @Column
-    private boolean tradeStatus = false;
+    private int tradeStatus = 0; // 0 not trade, 1 trade, 2 accept
 
     @Column
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")

@@ -34,7 +34,7 @@
             </div>
             <div class="full-width w-dyn-list">
                 <div role="list" class="products w-dyn-items" id="scrollArea">
-                    <div th:each="toy : ${currentShop.getToyList()}" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;" role="listitem" class="product-card-wrapper w-dyn-item">
+                    <div th:if="${toy.tradeStatus} != 2" th:each="toy : ${currentShop.getToyList()}" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;" role="listitem" class="product-card-wrapper w-dyn-item">
                         <a href="" class="product-card w-inline-block"> <!--상세정보 링크-->
                             <div class="product-card-image-wrapper"><img th:src="|data:image/png;base64, ${toy.getPhoto()[0].getImageByte()}|" sizes="100vw"></div>
                             <h6 style="max-height: 38px; font-size: 1.5rem; font-weight: 500; line-height: 1.2;" th:text="${toy.getProductName()}"class="product-card-heading text-center mt-2 overflow-auto">장난감 이름</h6>
