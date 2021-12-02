@@ -19,4 +19,8 @@ public interface TradeRepository extends JpaRepository<Trade, Long> {
     @Transactional
     @Query(value = "SELECT * From trade t WHERE t.to_user=:userIndex ORDER BY t.created_date DESC", nativeQuery = true)
     List<Trade> findTradeByToUser(@Param("userIndex")Long userIndex);
+
+    @Transactional
+    @Query(value = "SELECT * From trade t WHERE t.to_user=:userIndex AND t.trade_status = 0 ORDER BY t.created_date DESC", nativeQuery = true)
+    List<Trade> getStatusTradeByToUser(@Param("userIndex")Long userIndex);
 }

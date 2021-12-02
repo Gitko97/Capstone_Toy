@@ -60,4 +60,8 @@ public class TradeService {
         return dbAccess.findTradeByToUser(userIndex);
     }
 
+    public List<Trade> getStatusTradeByToUser(Long userIndex){
+        return dbAccess.getStatusTradeByToUser(userIndex);
+    }
+
 }

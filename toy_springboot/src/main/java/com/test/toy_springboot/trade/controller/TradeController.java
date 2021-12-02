@@ -50,7 +50,7 @@ public class TradeController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         User user = userService.getUserById(currentUserID);
-        List<Trade> tradeList = tradeService.getTradeByToUser(user.getUserIndex());
+        List<Trade> tradeList = tradeService.getStatusTradeByToUser(user.getUserIndex());
         if(tradeList == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(tradeList, HttpStatus.OK);
     }
