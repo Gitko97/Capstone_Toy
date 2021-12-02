@@ -53,12 +53,49 @@
     </li>
 </ul>
 
-<button id="btnTag" class="button button--secondary" style="position: relative ;top: 5%;left: 50%;transform: translate(-50%, -50%);">직접 찾아보기</button>
+<!-- Button trigger modal -->
+<button type="button" class="button button--secondary" style="position: relative ;top: 5%;left: 50%;transform: translate(-50%, -50%);" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    사용자 직접 입력
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">사용자 직접 입력</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h1 style="margin-top: 20px;margin-bottom: 30px; font-size: 2em;" >- 캐릭터</h1>
+                <input style="font-size: 1.5em;" type="text" id="ajax1" list="json-datalist1" placeholder="">
+                <datalist id="json-datalist1"></datalist>
+
+                <h1 style="margin-top: 30px;margin-bottom: 30px; font-size: 2em;">- 장르</h1>
+                <input style="font-size: 1.5em;" type="text" id="ajax2" list="json-datalist2" placeholder="">
+                <datalist id="json-datalist2"></datalist>
+
+                <h1 style="margin-top: 30px;margin-bottom: 30px; font-size: 2em;">- 상품명</h1>
+                <input style="font-size: 1.5em; margin-bottom: 25px;" type="text" id="ajax3" placeholder="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                <button id="btnTag" type="button" class="btn btn-primary">등록</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
+
+<div layout:fragment="script_area">
+    <script th:src="@{/js/filterlist.js}"></script>
+</div>
 </html>
 
 <script th:inline="javascript">
+
+
     if (localStorage.getItem('data')) {
         var lastData = localStorage.getItem('data')
     }
@@ -277,8 +314,118 @@
         }
     }); //선택한 항목에 대한 장르, 캐릭터, 상품명 가져와서 토이 객체에 저장
 
+    var genreList = [[${genreList}]];
+    var characterList = [[${characterList}]];
+    var current_toyId = [[${currentToy.toy_id}]];
+    var current_shopId = [[${currentShop.shop_id}]];
+    var currentToy_data;
+    var input = document.getElementById('ajax3');
+    input.placeholder = "상품명을 입력하세요";
+
     $("#btnTag").unbind("click").bind("click", function () {
-        var current_toyId = [[${currentToy.toy_id}]];
-        location.href="/tag?toy_id="+current_toyId;
+
+        var val1 = document.querySelector('input[id=ajax1]').value;
+        var val2 = document.querySelector('input[id=ajax2]').value;
+        var val3 = document.querySelector('input[id=ajax3]').value;
+
+        select_character = val1;
+        select_genre = val2;
+        select_name = val3;
+
+        select(select_name, select_character, select_genre);
+
+        function select(select_name, select_character, select_genre) {
+
+            function findList(List, select_kind, kind){
+                var find_List = List.filter(function(g){
+                    if(g.name == select_kind){
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }
+                })
+
+                if(find_List.length === 0){
+                    alert("db에 정보 없음");
+                    var info = new Object();
+                    info.name = select_kind
+
+                    $.ajax({
+                        "url": "/api/category/"+kind,
+                        "method": "POST",
+                        async    : false,
+                        dataType : "JSON",
+                        "timeout": 0,
+                        "headers": {
+                            "Content-Type": "application/json",
+                            "Authorization": localStorage.getItem("token")
+                        },
+                        "data": JSON.stringify(info),
+                        success: function (response) {
+                            console.log(JSON.stringify(response));
+                            alert("갱신 성공");
+                        },
+                        error: function (e) {
+                            alert("fail");
+                        }
+                    });
+                    return info;
+                }
+                else{
+                    return find_List[0];
+                }
+            } //db에 장르랑 캐릭터 검색해서 찾아보고 없으면 추가.
+
+            var final_genre = findList(genreList, select_genre, "genre");
+            var final_character = findList(characterList, select_character, "character");
+
+            $.ajax({
+                type: "GET",
+                url:  "/api/toy/id?toy_id="+current_toyId,
+                async    : false,
+                dataType : "JSON",
+                processData: false,
+                contentType: "application/json",
+                cache: false,
+                timeout: 0,
+                success: function (data) {
+                    console.log(typeof(data));
+                    currentToy_data = data;
+                },
+                error: function (e) {
+                    alert("실패");
+                }
+            }); //현재 토이 객체의 정보 받아옴
+
+            var shopInfo = new Object();
+            shopInfo.shop_id = current_shopId;
+
+            currentToy_data.productName = select_name;
+            currentToy_data.genre = final_genre;
+            currentToy_data.character = final_character;
+            currentToy_data.shop = shopInfo;
+            currentToy_data = JSON.stringify(currentToy_data);
+
+            console.log(currentToy_data);
+
+            $.ajax({
+                type: "PUT",
+                url:  "/api/toy",
+                data: currentToy_data,
+                async    : false,
+                contentType: "application/json",
+                cache: false,
+                timeout: 0,
+                success: function (data) {
+                    swal("장터 등록 성공!").then((willDelete) => {
+                        location.href="/upload"
+                    });
+                },
+                error: function (e) {
+                    alert("fail");
+                }
+            }); //토이 객체 업데이트.
+        }
     });
 </script>
