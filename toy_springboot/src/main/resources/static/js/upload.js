@@ -1,4 +1,5 @@
 var fileData;
+var fileMultiData;
 var isRun = false;
 
 // Select Upload-Area
@@ -214,7 +215,7 @@ function fileValidate(fileType, fileSize) {
 
 $("#btnUpload").unbind("click").bind("click", function () {
 
-    if(isRun == true) {
+    if(isRun === true) {
         return;
     } //중복실행방지
 
@@ -276,7 +277,7 @@ $("#btnUpload").unbind("click").bind("click", function () {
     $.ajax({
         type: "POST",
         enctype: 'multipart/form-data',
-        url: "http://3.36.75.158:8000/finder/api/image_file",
+        url: "http://3.34.194.76:8000/finder/api/image_file",
         data: data,
         async    : false,
         dataType : "JSON",
@@ -286,8 +287,146 @@ $("#btnUpload").unbind("click").bind("click", function () {
         timeout: 0,
         success: function (data) {
             localStorage.setItem("data", JSON.stringify(data)); //분석결과 로컬 스토리지에 저장
-            // localStorage.setItem("toy_id", toyId.toy_id);
-            //alert("분석 성공");
+            location.href="/analysis?toy_id="+toyId.toy_id;
+        },
+        error: function (e) {
+            alert("fail");
+        }
+    });
+});
+
+$("#btnAdd").unbind("click").bind("click", function() {
+    if (window.File && window.FileList && window.FileReader) {
+        $("#files").on("change", function(e) {
+            var files = e.target.files,
+                filesLength = files.length;
+            $(".modal-body").children(".pip").remove();
+            for (var i = 0; i < filesLength; i++) {
+                var f = files[i];
+
+                var fileReader = new FileReader();
+                fileReader.onload = (function(e) {
+                    var file = e.target;
+                    $("<span class=\"pip\">" +
+                        "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
+                        "<br/>").insertAfter("#image_field");
+                    $(".remove").click(function(){
+                        $(this).parent(".pip").remove();
+                    });
+                });
+                fileReader.readAsDataURL(f);
+            }
+            fileMultiData = files;
+            document.getElementById('uploadLabel').innerHTML = '파일 재선택';
+        });
+    } else {
+        alert("Your browser doesn't support to File API")
+    }
+});
+
+$("#btnMultiUpload").unbind("click").bind("click", function () {
+
+    if(isRun === true) {
+        return;
+    } //중복실행방지
+
+    isRun = true;
+
+    console.log(fileData);
+    console.log(fileMultiData);
+
+    const form =  fileData;
+    const data = new FormData();
+    data.append('file', form);
+
+    var shop_id = document.getElementById("currentShopID").value;
+
+    var toy_url = "/api/toy?shop_id="+shop_id;
+    var upload_url = "/api/photo/upload_image/";
+
+    var toyId;
+
+    //토이 객체 생성 및 토이 id 받아오기
+    $.ajax({
+        "url": toy_url,
+        "method": "POST",
+        async    : false,
+        dataType : "JSON",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": localStorage.getItem("token")
+        },
+        "data": JSON.stringify({}), //토이 빈 객체 생성
+        success: function (response) {
+            //console.log(response);
+            toyId = response; // 생성 객체의 toy_id
+            //alert("생성 성공");
+        },
+        error: function (e) {
+            alert("fail");
+        }
+    });
+
+    //생성한 객체의 toy id를 통해 대표 이미지 업로드
+    $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: upload_url+toyId.toy_id,
+        data: data,
+        async    : false,
+        processData: false,
+        contentType: false,
+        cache: false,
+        timeout: 0,
+        success: function (data) {
+            //alert("업로드 성공");
+        },
+        error: function (e) {
+            alert("fail");
+        }
+    });
+
+    //생성한 객체의 toy id를 통해 추가 이미지 업로드
+
+    for (var i = 0; i < fileMultiData.length; i++) {
+        const form =  fileMultiData[i];
+        const data = new FormData();
+        data.append('file', form);
+
+        $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url: upload_url+toyId.toy_id,
+            data: data,
+            async    : false,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 0,
+            success: function (data) {
+                //alert("업로드 성공");
+            },
+            error: function (e) {
+                alert("fail");
+            }
+        });
+    }
+
+    //이미지 분석 및 페이지 연결
+    $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: "http://3.34.194.76:8000/finder/api/image_file",
+        data: data,
+        async    : false,
+        dataType : "JSON",
+        processData: false,
+        contentType: false,
+        cache: false,
+        timeout: 0,
+        success: function (data) {
+            localStorage.setItem("data", JSON.stringify(data)); //분석결과 로컬 스토리지에 저장
             location.href="/analysis?toy_id="+toyId.toy_id;
         },
         error: function (e) {

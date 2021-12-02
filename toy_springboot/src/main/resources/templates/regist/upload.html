@@ -19,7 +19,7 @@
             <div id="uploadArea" class="upload-area">
                 <!-- Header -->
                 <div class="upload-area__header">
-                    <h1 class="upload-area__title">장난감의 이미지 업로드</h1>
+                    <h1 class="upload-area__title">분석할 장난감의<br>대표 이미지 업로드</h1>
                     <p class="upload-area__paragraph">
                         File should be an image
                         <strong class="upload-area__tooltip">
@@ -56,11 +56,18 @@
                         </div>
 
                         <div id="uploadedFileInfo" class="uploaded-file__info">
-                            <span class="uploaded-file__name">Proejct 1</span>
+                            <span class="uploaded-file__name">Project 1</span>
                             <span class="uploaded-file__counter">0%</span>
                         </div>
+
                         <div>
-                            <input class="button button--secondary" type="button" id="btnUpload" value="업로드" style="position: fixed;top: 90%;left: 50%;transform: translate(-50%, -50%);">
+                            <input class="button button--secondary" type="button" id="btnUpload" value="업로드" style="position: fixed;top: 90%;left: 75%;transform: translate(-50%, -50%);">
+                        </div>
+                        <div>
+                            <!-- Button trigger modal -->
+                            <button type="button" id="btnAdd" class="button button--secondary" style="background: #458bd1; position: fixed;top: 90%;left: 25%;transform: translate(-50%, -50%);" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                이미지 추가
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -71,10 +78,57 @@
         <!-- Upload Area -->
     </body>
 
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">이미지 추가</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="field" align="center">
+                        <h3>이미지들을 선택해주세요</h3>
+                        <label id="uploadLabel" for="files" style="display: inline-block;padding: 10px 20px;color: #fff;vertical-align: middle;background-color: #999999;cursor: pointer;height: 40px;margin-left: 10px;">파일 선택</label>
+                        <input type="file" id="files" name="files[]" style=" position: absolute;width: 0;height: 0;padding: 0;overflow: hidden;border: 0;" multiple />
+                    </div>
+                    <div id="image_field"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                    <button id="btnMultiUpload" type="button" class="btn btn-primary">업로드</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div layout:fragment="script_area">
         <script th:src="@{/js/upload.js}"></script>
     </div>
 </html>
+
+<style>
+    .imageThumb {
+        max-height: 75px;
+        border: 2px solid;
+        padding: 1px;
+    }
+    .pip {
+        display: inline-block;
+        margin: 10px 10px 0 0;
+    }
+    .remove {
+        display: block;
+        background: #444;
+        border: 1px solid black;
+        color: white;
+        text-align: center;
+    }
+    .remove:hover {
+        background: white;
+        color: black;
+    }
+</style>
 
 
 
