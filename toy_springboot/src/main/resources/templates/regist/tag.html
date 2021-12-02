@@ -5,6 +5,7 @@
 <head>
     <th:block th:replace="fragments/config :: configFragment"></th:block>
     <link href="css/button.css" rel="stylesheet" />
+    <link href="css/tag.css" rel="stylesheet" />
     <title>Toytra Homepage</title>
 </head>
 
@@ -12,38 +13,48 @@
 <!-- 사이드바-->
 <th:block th:replace="fragments/sidebar :: sidebarFragment"></th:block>
 
-<h4 class = "mb-5">카테고리 페이지</h4>
+    <h1 class="animated fadeInDown" style="margin-top:20px"><i class="icon icon-arrow-down"></i></h1>
 
-<h4 th:text="|현재 샵 id : ${currentShop.shop_id}|"></h4>
-<input type="hidden" th:id="currentShopID" th:value="${currentShop.shop_id}"/>
+    <h1 class="animated fadeInDown">사용자 직접 입력</h1>
 
-<div id="page-wrapper">
+    <div id="page-wrapper" style="
+    width: 100%;
+    max-width: 50rem;
+    padding: 0rem 1.875rem 5rem 1.875rem;
+    /* margin: 0.625rem; */
+    text-align: center;
+    position: relative;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-top: 5px solid #69c773;
+    margin-top: 70px;
+    background-color: whitesmoke;
+    " >
 
-    <h1>장르, 카테고리, 장난감 이름을 입력해주세요</h1>
+        <h1 style="margin-top: 30px;margin-bottom: 30px; font-size: 2em;" >캐릭터</h1>
+        <input style="font-size: 1.5em;" type="text" id="ajax1" list="json-datalist1" placeholder="">
+        <datalist id="json-datalist1"></datalist>
 
-    <input type="text" id="ajax1" list="json-datalist1" placeholder="">
-    <input type="text" id="ajax2" list="json-datalist2" placeholder="">
-    <datalist id="json-datalist1"></datalist>
-    <datalist id="json-datalist2"></datalist>
-    <input type="text" id="ajax3" placeholder="">
+        <h1 style="margin-top: 30px;margin-bottom: 30px; font-size: 2em;">장르</h1>
+        <input style="font-size: 1.5em;" type="text" id="ajax2" list="json-datalist2" placeholder="">
+        <datalist id="json-datalist2"></datalist>
 
-    <button id="btnSelect" class="button button--secondary" style="float: right;">사용자 정보 입력 완료</button>
-</div>
+        <h1 style="margin-top: 30px;margin-bottom: 30px; font-size: 2em;">상품명</h1>
+        <input style="font-size: 1.5em; margin-bottom: 25px;" type="text" id="ajax3" placeholder="">
+        <br>
 
+        <button id="btnSelect" class="button button--secondary" style="position: fixed;top: 90%;left: 50%;transform: translate(-50%, -50%);">입력 완료</button>
+
+    </div>
 </body>
 
 <div layout:fragment="script_area">
     <script th:src="@{/js/filterlist.js}"></script>
 </div>
 </html>
-
+<!--
 <style>
-    *, *:before, *:after {
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-    }
-
     #page-wrapper {
         width: 640px;
         background: #FFFFFF;
@@ -52,15 +63,7 @@
         border-top: 5px solid #69c773;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
     }
-    h1 {
-        margin-top: 0;
-    }
-    label {
-        display: block;
-        margin-top: 2em;
-        margin-bottom: 0.5em;
-        color: #999999;
-    }
+
     input {
         width: 100%;
         padding: 0.5em 0.5em;
@@ -68,6 +71,7 @@
         border-radius: 3px;
         border: 1px solid #D9D9D9;
     }
+
     button {
         display: inline-block;
         border-radius: 3px;
@@ -83,16 +87,18 @@
         width: 100%;
         text-align: center;
     }
+
     button:hover, button:focus {
         opacity: 0.75;
         cursor: pointer;
     }
+
     button:active {
         opacity: 1;
         box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.1) inset;
     }
 </style>
-
+-->
 
 <script th:inline="javascript">
 
