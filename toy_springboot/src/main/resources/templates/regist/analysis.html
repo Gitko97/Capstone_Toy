@@ -14,11 +14,9 @@
 <!-- 사이드바-->
 <th:block th:replace="fragments/sidebar :: sidebarFragment"></th:block>
 
-<h2 class="pricingTable-title">분석결과</h2>
-
 <ul class="pricingTable-firstTable">
-    <h4 th:text="|현재 토이 id : ${currentToy.toy_id}|"></h4>
-    <h4 th:text="|현재 샵 id : ${currentShop.shop_id}|"></h4>
+    <h4 style="margin:40px 30px;">이미지 분석 결과</h4>
+
     <input type="hidden" th:id="genreList" th:value="${genreList}"/>
     <input type="hidden" th:id="characterList" th:value="${characterList}"/>
     <input type="hidden" th:id="currentToyId" th:value="${currentToy.toy_id}" />
@@ -55,7 +53,7 @@
     </li>
 </ul>
 
-<button id="btnTag" class="button button--secondary" style="float: right;">직접 찾아보기</button>
+<button id="btnTag" class="button button--secondary" style="position: relative ;top: 5%;left: 50%;transform: translate(-50%, -50%);">직접 찾아보기</button>
 
 </body>
 </html>
