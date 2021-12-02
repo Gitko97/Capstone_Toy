@@ -2,6 +2,7 @@ package com.test.toy_springboot.photo.controller;
 
 import com.test.toy_springboot.photo.domain.Photo;
 import com.test.toy_springboot.photo.service.PhotoService;
+import com.test.toy_springboot.toy.domain.Toy;
 import com.test.toy_springboot.user.service.UserService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.imageio.ImageIO;
@@ -46,6 +48,34 @@ public class PhotoRestApi {
         Photo photo = photoService.getPhotoById(image_id);
         String imageBase64 = photo.getImageByte();
         return new ResponseEntity<String>(imageBase64, HttpStatus.OK);
+    }
+
+    @PostMapping("/upload_image/thumbnail") // 사진 업로드 point o
+    public ResponseEntity<Photo> uploadThumbnailImage(@RequestParam("file") MultipartFile sourceFile, @AuthenticationPrincipal org.springframework.security.core.userdetails.User user ) throws Exception {
+        String currentUserId = userService.getUserInfoById(user.getUsername()).getUserId();
+        String filePath = save_image_file_path +"/" + new SimpleDateFormat("yyyyMMDD").format(new Date())+"-"+sourceFile.getOriginalFilename();
+        byteArrayConvertToImageFile(sourceFile.getBytes(), filePath);
+        Photo photo = photoService.addPhoto(new Photo(filePath));
+        userService.userPointUp(currentUserId, 30);
+        return new ResponseEntity<>(photo, HttpStatus.OK);
+    }
+
+    @PostMapping("/upload_image") // 사진 업로드 point x
+    public ResponseEntity<Photo> uploadImage(@RequestParam("file") MultipartFile sourceFile) throws Exception {
+        String filePath = save_image_file_path +"/" + new SimpleDateFormat("yyyyMMDD").format(new Date())+"-"+sourceFile.getOriginalFilename();
+        byteArrayConvertToImageFile(sourceFile.getBytes(), filePath);
+        Photo photo = photoService.addPhoto(new Photo(filePath));
+        return new ResponseEntity<>(photo, HttpStatus.OK);
+    }
+
+    @PostMapping("/toy/mapping")// 장난감 - 사진 맵핑
+    public ResponseEntity<Toy> MappingPhotoToToy(@RequestParam Long toy_id, @RequestParam Long photo_id) {
+        try {
+            Toy resultToy = photoService.addPhotoToToy(toy_id, photo_id);
+            return new ResponseEntity<>(resultToy, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/upload_image/{toy_id}")

@@ -6,6 +6,8 @@ import com.test.toy_springboot.toy.domain.Toy;
 import com.test.toy_springboot.toy.service.ToyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -44,5 +46,14 @@ public class PhotoService {
 
     public Photo getPhotoById(Long photo_id){
         return dbAccess.getById(photo_id);
+    }
+
+    @Transactional
+    public Toy addPhotoToToy(@RequestParam Long toy_id, @RequestParam Long photo_id) {
+        Photo resultPhoto = getPhotoById(photo_id);
+        Toy toy = toyService.getToyById(toy_id);
+        resultPhoto.setToy(toy);
+        updatePhoto(resultPhoto);
+        return toy;
     }
 }

@@ -3,6 +3,7 @@ package com.test.toy_springboot.photo.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.test.toy_springboot.config.AuditingEntity;
 import com.test.toy_springboot.toy.domain.Toy;
 import lombok.Getter;
@@ -23,6 +24,7 @@ import java.util.Base64;
 @Setter
 @Entity
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Photo extends AuditingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
