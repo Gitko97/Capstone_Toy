@@ -201,10 +201,10 @@ function fileValidate(fileType, fileSize) {
     // If The Uploaded File Is An Image
     if (isImage.length !== 0) {
         // Check, If File Size Is 10MB or Less
-        if (fileSize <= 1000000) {
+        if (fileSize <= 5000000) {
             return true;
         } else { // Else File Size
-            return alert('Please Your File Should be 2 Megabytes or Less');
+            return alert('Please Your File Should be 50 Megabytes or Less');
         };
     } else { // Else File Type
         return alert('Please make sure to upload An Image File Type');
@@ -277,7 +277,7 @@ $("#btnUpload").unbind("click").bind("click", function () {
     $.ajax({
         type: "POST",
         enctype: 'multipart/form-data',
-        url: "http://3.34.194.76:8000/finder/api/image_file",
+        url: "http://3.37.121.205:8000/finder/api/image_file",
         data: data,
         async    : false,
         dataType : "JSON",
