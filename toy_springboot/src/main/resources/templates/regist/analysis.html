@@ -96,7 +96,11 @@
 
 
     if (localStorage.getItem('data')) {
-        var lastData = localStorage.getItem('data')
+        var lastData = localStorage.getItem('data');
+    }
+
+    if (localStorage.getItem('photoIdarr')) {
+        var photoIdarray = JSON.parse(localStorage.getItem('photoIdarr'));
     }
 
     Data = JSON.parse(lastData); //local storage에 저장된 분석결과 json 불러옴.
@@ -231,8 +235,8 @@
                 cache: false,
                 timeout: 0,
                 success: function (data) {
-                    console.log(hasSetCategory);
-                    console.log(data.toy_id);
+
+                    image_map(data.toy_id);
 
                     if (hasSetCategory){
                         swal({
@@ -255,7 +259,7 @@
                                     case "set":
                                         // 세트 활성화
                                         $.ajax({
-                                            url:  "/api/setGoods/"+current_toyId,
+                                            url:  "/api/setGoods/"+data.toy_id,
                                             method: 'POST',
                                             "timeout": 0,
                                         }).done(function() {
@@ -372,6 +376,8 @@
                 cache: false,
                 timeout: 0,
                 success: function (data) {
+                    image_map(data.toy_id);
+
                     swal("장터 등록 성공!").then((willDelete) => {
                         location.href="/upload"
                     });
@@ -382,4 +388,24 @@
             }); //토이 객체 등록.
         }
     });
+
+    function image_map(toy_id) {
+        for (i = 0; i < photoIdarray.length; i++) {
+            $.ajax({
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: "/api/photo/toy/mapping?toy_id=" + toy_id + "&photo_id=" + photoIdarray[i],
+                async    : false,
+                processData: false,
+                contentType: false,
+                cache: false,
+                timeout: 0,
+                success: function (data) {
+                },
+                error: function (e) {
+                    alert("매핑 실패");
+                }
+            });
+        }
+    }
 </script>

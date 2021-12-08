@@ -213,6 +213,7 @@ function fileValidate(fileType, fileSize) {
 
 // :)
 
+//추가이미지 없는경우
 $("#btnUpload").unbind("click").bind("click", function () {
 
     if(isRun === true) {
@@ -226,31 +227,6 @@ $("#btnUpload").unbind("click").bind("click", function () {
     data.append('file', form);
 
     var photoIdarr = new Array();
-
-    /*
-    //토이 객체 생성 및 토이 id 받아오기
-    $.ajax({
-        "url": toy_url,
-        "method": "POST",
-        async    : false,
-        dataType : "JSON",
-        "timeout": 0,
-        "headers": {
-            "Content-Type": "application/json",
-            "Authorization": localStorage.getItem("token")
-        },
-        "data": JSON.stringify({}), //토이 빈 객체 생성
-        success: function (response) {
-            //console.log(response);
-            toyId = response; // 생성 객체의 toy_id
-            //alert("생성 성공");
-        },
-        error: function (e) {
-            alert("fail");
-        }
-    });
-     */
-
 
     //썸네일 이미지 업로드(포인트x)
     $.ajax({
@@ -268,6 +244,7 @@ $("#btnUpload").unbind("click").bind("click", function () {
         },
         success: function (data) {
             photoIdarr.push(data.photo_id);
+            localStorage.setItem("photoIdarr", JSON.stringify(photoIdarr)); //포토 id 로컬 스토리지에 저장
             console.log(photoIdarr);
         },
         error: function (e) {
@@ -300,6 +277,7 @@ $("#btnUpload").unbind("click").bind("click", function () {
     });
 });
 
+//이미지 추가 버튼 클릭시
 $("#btnAdd").unbind("click").bind("click", function() {
     if (window.File && window.FileList && window.FileReader) {
         $("#files").on("change", function(e) {
@@ -329,6 +307,7 @@ $("#btnAdd").unbind("click").bind("click", function() {
     }
 });
 
+//추가 이미지 있을 경우
 $("#btnMultiUpload").unbind("click").bind("click", function () {
 
     if(isRun === true) {
@@ -343,6 +322,8 @@ $("#btnMultiUpload").unbind("click").bind("click", function () {
     const form =  fileData;
     const data = new FormData();
     data.append('file', form);
+
+    var photoIdarr = new Array();
 
     var shop_id = document.getElementById("currentShopID").value;
 
@@ -362,9 +343,12 @@ $("#btnMultiUpload").unbind("click").bind("click", function () {
         contentType: false,
         cache: false,
         timeout: 0,
+        "headers": {
+            "Authorization": localStorage.getItem("token")
+        },
         success: function (data) {
-            console.log(JSON.stringify(data));
-            //alert("업로드 성공");
+            photoIdarr.push(data.photo_id);
+            localStorage.setItem("photoIdarr", photoIdarr); //포토 id 로컬 스토리지에 저장
         },
         error: function (e) {
             alert("fail");
@@ -388,8 +372,8 @@ $("#btnMultiUpload").unbind("click").bind("click", function () {
             cache: false,
             timeout: 0,
             success: function (data) {
-                console.log(JSON.stringify(data));
-                //alert("업로드 성공");
+                photoIdarr.push(data.photo_id);
+                localStorage.setItem("photoIdarr", JSON.stringify(photoIdarr)); //포토 id 로컬 스토리지에 저장
             },
             error: function (e) {
                 alert("fail");
