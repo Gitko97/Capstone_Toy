@@ -21,21 +21,21 @@ public class ShopRestApi {
     @GetMapping
     public ResponseEntity<List<Shop>> getShopList(){
         List<Shop> shopList = shopService.getShopList();
-        if(shopList == null) new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if(shopList == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(shopList, HttpStatus.OK);
     }
 
     @GetMapping("/id")
     public ResponseEntity<Shop> getShopList(@RequestParam Long shop_id) throws Exception {
         Shop shop = shopService.getShopById(shop_id);
-        if(shop == null) new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if(shop == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(shop, HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<Shop> saveShop(@RequestBody Shop shop) {
         Shop resultShop = shopService.addShop(shop);
-        if(resultShop == null) new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if(resultShop == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(resultShop,HttpStatus.OK);
     }
 

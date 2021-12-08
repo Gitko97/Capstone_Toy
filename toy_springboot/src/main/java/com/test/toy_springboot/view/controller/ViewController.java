@@ -57,7 +57,6 @@ public class ViewController {
 
     @GetMapping("/signOut")
     public String logout(HttpServletRequest request) {
-        System.out.println("LOGOUT");
         HttpSession session = request.getSession();
         session.invalidate();
 //      return "NotLoginHomePage";

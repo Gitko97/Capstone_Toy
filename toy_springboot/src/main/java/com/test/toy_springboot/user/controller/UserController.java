@@ -5,6 +5,7 @@ import com.test.toy_springboot.user.dto.SignUpDto;
 import com.test.toy_springboot.user.dto.UserInfoDto;
 import com.test.toy_springboot.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,7 +25,12 @@ public class UserController {
     public ResponseEntity<User> signup(
             @Valid @RequestBody SignUpDto signUpDto
     ) {
-        return ResponseEntity.ok(userService.signup(signUpDto));
+        try{
+            User resultUser = userService.signup(signUpDto);
+            return ResponseEntity.ok(resultUser);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/user")

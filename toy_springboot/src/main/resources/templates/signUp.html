@@ -65,11 +65,10 @@
             // headers : {'token' : localStorage.getItem("token")},
             success : function (){
                 alert("회원가입 성공");
-
                 window.location.href = "home"
             },
             error : function(jqXHR, status, error){
-                alert("회원가입 실패");
+                alert("아이디 중복");
             }
         });
     }
