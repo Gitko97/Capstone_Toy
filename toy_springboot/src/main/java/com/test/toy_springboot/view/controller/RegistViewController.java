@@ -55,7 +55,7 @@ public class RegistViewController {
     }
 
     @GetMapping("/analysis")
-    public String analysis(Model model, @RequestParam long toy_id, HttpServletRequest request) throws Exception{
+    public String analysis(Model model, HttpServletRequest request) throws Exception{
         HttpSession session = request.getSession();
         String currentUserID = (String) session.getAttribute("currentUserID");
         if(currentUserID == null){
@@ -66,34 +66,11 @@ public class RegistViewController {
 
         List<Genre> genreList = categoryService.getGenreList();
         List<Character> characterList = categoryService.getCharacterList();
-        Toy toy = toyService.getToyById(toy_id); //현재 등록진행중인 토이 불러오기.
         Shop shop = user.getShop(); //현재 접속중인 유저의 shop 읽어오기
-        model.addAttribute("genreList", genreList);
-        model.addAttribute("characterList", characterList);
-        model.addAttribute("currentToy", toy);
-        model.addAttribute("currentShop", shop);
-        return "regist/analysis";
-    }
-
-    @GetMapping("/tag")
-    public String tag(Model model, @RequestParam long toy_id, HttpServletRequest request) throws Exception{
-        HttpSession session = request.getSession();
-        String currentUserID = (String) session.getAttribute("currentUserID");
-        if(currentUserID == null){
-            return "redirect:/signIn";
-        }
-        String userId = currentUserID; // 토큰으로 Id 읽어오기
-        User user = userService.getUserById(userId);
-
-        List<Genre> genreList = categoryService.getGenreList();
-        List<Character> characterList = categoryService.getCharacterList();
-        Toy toy = toyService.getToyById(toy_id); //현재 등록진행중인 토이 불러오기.
-        Shop shop = user.getShop(); //현재 접속중인 유저의 shop 읽어오기
-        model.addAttribute("currentToy", toy);
         model.addAttribute("genreList", genreList);
         model.addAttribute("characterList", characterList);
         model.addAttribute("currentShop", shop);
-        return "regist/tag";
+        return "regist/analysis";
     }
 
     //테스트용

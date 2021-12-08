@@ -225,7 +225,7 @@ $("#btnUpload").unbind("click").bind("click", function () {
     const data = new FormData();
     data.append('file', form);
 
-    var shop_id = document.getElementById("currentShopID").value;
+    var photoIdarr = new Array();
 
     /*
     //토이 객체 생성 및 토이 id 받아오기
@@ -267,7 +267,8 @@ $("#btnUpload").unbind("click").bind("click", function () {
             "Authorization": localStorage.getItem("token")
         },
         success: function (data) {
-            //alert("업로드 성공");
+            photoIdarr.push(data.photo_id);
+            console.log(photoIdarr);
         },
         error: function (e) {
             alert("fail");
