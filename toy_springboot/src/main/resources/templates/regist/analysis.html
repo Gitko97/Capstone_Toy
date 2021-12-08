@@ -19,7 +19,6 @@
 
     <input type="hidden" th:id="genreList" th:value="${genreList}"/>
     <input type="hidden" th:id="characterList" th:value="${characterList}"/>
-    <input type="hidden" th:id="currentToyId" th:value="${currentToy.toy_id}" />
     <input type="hidden" th:id="currentShopID" th:value="${currentShop.shop_id}"/>
 
     <li class="pricingTable-firstTable_table">
@@ -103,7 +102,6 @@
     Data = JSON.parse(lastData); //local storage에 저장된 분석결과 json 불러옴.
     var j = 0;
     for (i = 0; i < Data.length; i++) {
-        // document.write("<input type='radio' name='category' value=" + i + "> " + Data[i].product_name + '</input>');
         $('#change' + [j]).text(Data[i].product_name);
         j += 1;
         $('#change' + [j]).text(Data[i].product_label.character);
@@ -121,9 +119,8 @@
 
         var genreList = [[${genreList}]];
         var characterList = [[${characterList}]];
-        var current_toyId = [[${currentToy.toy_id}]];
         var current_shopId = [[${currentShop.shop_id}]];
-        var currentToy_data;
+        var currentToy_data = new Object(); // 로컬스토리지에 저장해둘 목적.
         id_check = $(this).attr("id"); //선택한 버튼의 id 가져옴.
 
         if (id_check == "1") {
@@ -156,7 +153,6 @@
                 })
 
                 if(find_List.length === 0){
-                    // alert("db에 정보 없음");
                     var info = new Object();
                     info.name = select_kind
 
@@ -172,8 +168,6 @@
                         },
                         "data": JSON.stringify(info),
                         success: function (response) {
-                            console.log(JSON.stringify(response));
-                            // alert("갱신 성공");
                         },
                         error: function (e) {
                             alert("DB에 새로운 Category 생성 실패");
@@ -194,8 +188,6 @@
             var currentSetObject;
             if (hasSetCategory) {
                 set_data = Data[index].product_label.set.split('-');
-                console.log(set_data)
-                console.log(set_data)
                 $.ajax({
                     type: "GET",
                     url:  "/api/category/category_set/set?set_name="+set_data[0]+"&set_num="+parseInt(set_data[1]),
@@ -204,57 +196,44 @@
                     contentType: "application/json",
                     success: function (data) {
                         currentSetObject = data;
-                        console.log(data)
                     },
                     error: function (e) {
-                        hasSetCategory = false
-                        alert("DB에 해당 SET 정보가 들어있지 않음!");
+                        hasSetCategory = false;
                     }
                 });
-            }
+            } //세트 정보 검색
 
-            $.ajax({
-                type: "GET",
-                url:  "/api/toy/id?toy_id="+current_toyId,
-                async    : false,
-                dataType : "JSON",
-                processData: false,
-                contentType: "application/json",
-                cache: false,
-                timeout: 0,
-                success: function (data) {
-                    console.log(typeof(data));
-                    currentToy_data = data;
-                },
-                error: function (e) {
-                    alert("실패");
-                }
-            }); //현재 토이 객체의 정보 받아옴
 
             var shopInfo = new Object();
             shopInfo.shop_id = current_shopId;
-
             currentToy_data.productName = select_name;
             currentToy_data.genre = final_genre;
             currentToy_data.character = final_character;
             currentToy_data.shop = shopInfo;
 
             if (hasSetCategory){
-                currentToy_data.category_set = currentSetObject;
+                var category_set = new Object();
+                category_set.set_name = currentSetObject.set_name;
+                category_set.set_num = currentSetObject.set_num;
+                currentToy_data.category_set = category_set;
             }
 
             currentToy_data = JSON.stringify(currentToy_data);
 
             console.log(currentToy_data);
+
             $.ajax({
-                type: "PUT",
-                url:  "/api/toy",
+                type: "POST",
+                url:  "/api/toy?shop_id="+shopInfo.shop_id,
                 data: currentToy_data,
                 async    : false,
                 contentType: "application/json",
                 cache: false,
                 timeout: 0,
                 success: function (data) {
+                    console.log(hasSetCategory);
+                    console.log(data.toy_id);
+
                     if (hasSetCategory){
                         swal({
                             text: "혹시 세트 상품이 아닌가요?",
@@ -307,18 +286,14 @@
                 error: function (e) {
                     alert("fail");
                 }
-            }); //토이 객체 업데이트.
-
-            //var new_toy = $("#currentToyId").val();
-            //location.href = "/regist/set?toy_id=" + new_toy;
+            }); //토이 객체 등록.
         }
     }); //선택한 항목에 대한 장르, 캐릭터, 상품명 가져와서 토이 객체에 저장
 
     var genreList = [[${genreList}]];
     var characterList = [[${characterList}]];
-    var current_toyId = [[${currentToy.toy_id}]];
     var current_shopId = [[${currentShop.shop_id}]];
-    var currentToy_data;
+    var currentToy_data = new Object();
     var input = document.getElementById('ajax3');
     input.placeholder = "상품명을 입력하세요";
 
@@ -347,7 +322,6 @@
                 })
 
                 if(find_List.length === 0){
-                    alert("db에 정보 없음");
                     var info = new Object();
                     info.name = select_kind
 
@@ -363,11 +337,9 @@
                         },
                         "data": JSON.stringify(info),
                         success: function (response) {
-                            console.log(JSON.stringify(response));
-                            alert("갱신 성공");
                         },
                         error: function (e) {
-                            alert("fail");
+                            alert("DB에 새로운 Category 생성 실패");
                         }
                     });
                     return info;
@@ -379,24 +351,6 @@
 
             var final_genre = findList(genreList, select_genre, "genre");
             var final_character = findList(characterList, select_character, "character");
-
-            $.ajax({
-                type: "GET",
-                url:  "/api/toy/id?toy_id="+current_toyId,
-                async    : false,
-                dataType : "JSON",
-                processData: false,
-                contentType: "application/json",
-                cache: false,
-                timeout: 0,
-                success: function (data) {
-                    console.log(typeof(data));
-                    currentToy_data = data;
-                },
-                error: function (e) {
-                    alert("실패");
-                }
-            }); //현재 토이 객체의 정보 받아옴
 
             var shopInfo = new Object();
             shopInfo.shop_id = current_shopId;
@@ -410,8 +364,8 @@
             console.log(currentToy_data);
 
             $.ajax({
-                type: "PUT",
-                url:  "/api/toy",
+                type: "POST",
+                url:  "/api/toy?shop_id=" + shopInfo.shop_id,
                 data: currentToy_data,
                 async    : false,
                 contentType: "application/json",
@@ -425,7 +379,7 @@
                 error: function (e) {
                     alert("fail");
                 }
-            }); //토이 객체 업데이트.
+            }); //토이 객체 등록.
         }
     });
 </script>
