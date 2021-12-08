@@ -227,11 +227,7 @@ $("#btnUpload").unbind("click").bind("click", function () {
 
     var shop_id = document.getElementById("currentShopID").value;
 
-    var toy_url = "/api/toy?shop_id="+shop_id;
-    var upload_url = "/api/photo/upload_image/";
-
-    var toyId;
-
+    /*
     //토이 객체 생성 및 토이 id 받아오기
     $.ajax({
         "url": toy_url,
@@ -253,18 +249,23 @@ $("#btnUpload").unbind("click").bind("click", function () {
             alert("fail");
         }
     });
+     */
 
-    //생성한 객체의 toy id를 통해 이미지 업로드
+
+    //썸네일 이미지 업로드(포인트x)
     $.ajax({
         type: "POST",
         enctype: 'multipart/form-data',
-        url: upload_url+toyId.toy_id,
+        url: "/api/photo/upload_image/thumbnail",
         data: data,
         async    : false,
         processData: false,
         contentType: false,
         cache: false,
         timeout: 0,
+        "headers": {
+            "Authorization": localStorage.getItem("token")
+        },
         success: function (data) {
             //alert("업로드 성공");
         },
@@ -273,7 +274,7 @@ $("#btnUpload").unbind("click").bind("click", function () {
         }
     });
 
-    //이미지 분석 및 페이지 연결
+    //이미지 분석 및 분석 페이지 연결
     $.ajax({
         type: "POST",
         enctype: 'multipart/form-data',
@@ -285,9 +286,12 @@ $("#btnUpload").unbind("click").bind("click", function () {
         contentType: false,
         cache: false,
         timeout: 0,
+        "headers": {
+            "Authorization": localStorage.getItem("token")
+        },
         success: function (data) {
             localStorage.setItem("data", JSON.stringify(data)); //분석결과 로컬 스토리지에 저장
-            location.href="/analysis?toy_id="+toyId.toy_id;
+            location.href="/analysis";
         },
         error: function (e) {
             alert("fail");
@@ -346,33 +350,11 @@ $("#btnMultiUpload").unbind("click").bind("click", function () {
 
     var toyId;
 
-    //토이 객체 생성 및 토이 id 받아오기
-    $.ajax({
-        "url": toy_url,
-        "method": "POST",
-        async    : false,
-        dataType : "JSON",
-        "timeout": 0,
-        "headers": {
-            "Content-Type": "application/json",
-            "Authorization": localStorage.getItem("token")
-        },
-        "data": JSON.stringify({}), //토이 빈 객체 생성
-        success: function (response) {
-            //console.log(response);
-            toyId = response; // 생성 객체의 toy_id
-            //alert("생성 성공");
-        },
-        error: function (e) {
-            alert("fail");
-        }
-    });
-
-    //생성한 객체의 toy id를 통해 대표 이미지 업로드
+    //썸네일 이미지 업로드(포인트o)
     $.ajax({
         type: "POST",
         enctype: 'multipart/form-data',
-        url: upload_url+toyId.toy_id,
+        url: "/api/photo/upload_image/thumbnail",
         data: data,
         async    : false,
         processData: false,
@@ -380,6 +362,7 @@ $("#btnMultiUpload").unbind("click").bind("click", function () {
         cache: false,
         timeout: 0,
         success: function (data) {
+            console.log(JSON.stringify(data));
             //alert("업로드 성공");
         },
         error: function (e) {
@@ -387,8 +370,7 @@ $("#btnMultiUpload").unbind("click").bind("click", function () {
         }
     });
 
-    //생성한 객체의 toy id를 통해 추가 이미지 업로드
-
+    //추가 이미지 업로드(포인트x)
     for (var i = 0; i < fileMultiData.length; i++) {
         const form =  fileMultiData[i];
         const data = new FormData();
@@ -397,7 +379,7 @@ $("#btnMultiUpload").unbind("click").bind("click", function () {
         $.ajax({
             type: "POST",
             enctype: 'multipart/form-data',
-            url: upload_url+toyId.toy_id,
+            url: "/api/photo/upload_image",
             data: data,
             async    : false,
             processData: false,
@@ -405,6 +387,7 @@ $("#btnMultiUpload").unbind("click").bind("click", function () {
             cache: false,
             timeout: 0,
             success: function (data) {
+                console.log(JSON.stringify(data));
                 //alert("업로드 성공");
             },
             error: function (e) {
@@ -417,7 +400,7 @@ $("#btnMultiUpload").unbind("click").bind("click", function () {
     $.ajax({
         type: "POST",
         enctype: 'multipart/form-data',
-        url: "http://3.34.194.76:8000/finder/api/image_file",
+        url: "http://3.37.121.205:8000/finder/api/image_file",
         data: data,
         async    : false,
         dataType : "JSON",
@@ -427,7 +410,7 @@ $("#btnMultiUpload").unbind("click").bind("click", function () {
         timeout: 0,
         success: function (data) {
             localStorage.setItem("data", JSON.stringify(data)); //분석결과 로컬 스토리지에 저장
-            location.href="/analysis?toy_id="+toyId.toy_id;
+            location.href="/analysis";
         },
         error: function (e) {
             alert("fail");
