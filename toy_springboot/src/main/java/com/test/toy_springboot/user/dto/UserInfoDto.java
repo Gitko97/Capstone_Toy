@@ -25,11 +25,11 @@ public class UserInfoDto {
 //    private String password;
 
     @NotNull
-    @Size(min = 3, max = 50)
+    @Size(max = 50)
     private String name;
 
     @NotNull
-    @Size(min = 11, max = 50)
+    @Size(max = 50)
     private String phoneNumber;
 
     private Shop shop;

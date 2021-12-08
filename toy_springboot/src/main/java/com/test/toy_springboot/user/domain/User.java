@@ -30,10 +30,10 @@ public class User {
     private String userId;
 
     @JsonIgnore
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
