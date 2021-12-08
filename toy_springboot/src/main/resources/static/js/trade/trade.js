@@ -46,7 +46,7 @@ $(".next-toyList").on('click', function() {
     $(this).attr("hidden",true);
     $('.before-toyList').attr("hidden",false);
     $('.finish-toyList').attr("hidden",false);
-    currentShopID = $('#nextShopID').data("shop")
+    currentShopID = $('#nextShopUserName').data("shop")
     $('#current_shop').text(currentShopID +"의 장터")
 });
 

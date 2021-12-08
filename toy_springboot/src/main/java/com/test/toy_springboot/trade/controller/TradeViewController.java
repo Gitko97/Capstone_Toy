@@ -43,8 +43,10 @@ public class TradeViewController {
             return "redirect:/exchange";
         }
         User user = userService.getUserById(currentUserID);
+        String clickedUserName = shopService.getShopById(shopId).getUser().getName();
         model.addAttribute("myShopID", user.getShop().getShop_id());
         model.addAttribute("clickedShopID", shopId);
+        model.addAttribute("clickedUserName", clickedUserName);
         return "trade/index";
     }
 
