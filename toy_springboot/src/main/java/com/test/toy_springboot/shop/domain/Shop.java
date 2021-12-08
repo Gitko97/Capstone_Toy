@@ -26,7 +26,7 @@ public class Shop {
     private Long shop_id;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "shop",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "shop",fetch = FetchType.EAGER)
     private List<Toy> toyList;
 
 

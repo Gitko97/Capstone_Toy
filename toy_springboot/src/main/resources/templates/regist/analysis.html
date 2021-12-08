@@ -217,6 +217,7 @@
 
             if (hasSetCategory){
                 var category_set = new Object();
+                category_set.set_id = currentSetObject.set_id;
                 category_set.set_name = currentSetObject.set_name;
                 category_set.set_num = currentSetObject.set_num;
                 currentToy_data.category_set = category_set;
@@ -224,11 +225,10 @@
 
             currentToy_data = JSON.stringify(currentToy_data);
 
-            console.log(currentToy_data);
 
             $.ajax({
-                type: "POST",
-                url:  "/api/toy?shop_id="+shopInfo.shop_id,
+                type: "PUT",
+                url:  "/api/toy",
                 data: currentToy_data,
                 async    : false,
                 contentType: "application/json",
@@ -365,11 +365,10 @@
             currentToy_data.shop = shopInfo;
             currentToy_data = JSON.stringify(currentToy_data);
 
-            console.log(currentToy_data);
 
             $.ajax({
-                type: "POST",
-                url:  "/api/toy?shop_id=" + shopInfo.shop_id,
+                type: "PUT",
+                url:  "/api/toy",
                 data: currentToy_data,
                 async    : false,
                 contentType: "application/json",

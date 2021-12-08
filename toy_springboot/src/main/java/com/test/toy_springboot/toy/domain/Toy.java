@@ -33,7 +33,7 @@ public class Toy extends AuditingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long toy_id;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="shop_id")
     @OnDelete(action= OnDeleteAction.CASCADE)
     @JsonBackReference
@@ -51,7 +51,7 @@ public class Toy extends AuditingEntity {
     @JoinColumn(name="genre_id")
     private Genre genre;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "category_set_id")
     private Category_set category_set;
 
@@ -65,7 +65,7 @@ public class Toy extends AuditingEntity {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime setTime;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "set_id")
     @OnDelete(action= OnDeleteAction.CASCADE)
     private Set_goods set_goods;
