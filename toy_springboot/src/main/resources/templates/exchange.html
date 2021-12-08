@@ -5,6 +5,7 @@
         <th:block th:replace="fragments/config :: configFragment"></th:block>
         <link rel="stylesheet" th:href="@{/css/exchange.css}">
         <link rel="stylesheet" th:href="@{/css/button.css}">
+        <link rel="stylesheet" th:href="@{/css/jquery.flipster.css}">
         <title>Toytra Homepage</title>
     </head>
 
@@ -59,7 +60,7 @@
                 <div class="full-width w-dyn-list">
                     <div role="list" class="products w-dyn-items" id="scrollArea">
                         <div th:each="toy : ${shop.getToyList()}" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;" role="listitem" class="product-card-wrapper w-dyn-item">
-                            <a href="" class="product-card w-inline-block"> <!--상세정보 링크-->
+                            <a th:id="${toy.getToy_id()}" data-bs-toggle="modal" th:attr="data-bs-target='#exampleModal'+${toy.getToy_id()}" class="product-card w-inline-block"> <!--상세정보 링크-->
                             <div class="product-card-image-wrapper"><img th:src="|data:image/png;base64, ${toy.getPhoto()[0].getImageByte()}|" sizes="100vw"></div>
                             <h6 style="max-height: 38px; font-size: 1.5rem; font-weight: 500; line-height: 1.2;" th:text="${toy.getProductName()}"class="product-card-heading text-center mt-2 overflow-auto">장난감 이름</h6>
                                 <span style="color: black; max-height: 38px; font-size: 1.1rem; font-weight: 500; line-height: 1.2;" class="text-center mt-2">캐릭터 :
@@ -82,6 +83,39 @@
 
             </div>
         </div>
+
+        <div th:each="shop : ${shopList}">
+            <div th:if="${toy.tradeStatus} != 2" th:each="toy : ${shop.getToyList()}">
+                <div th:id="|exampleModal${toy.getToy_id()}|" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">이미지</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div class="gallery">
+                                    <div class="container">
+                                        <section class="container">
+                                            <div class="row gallery">
+                                                <div th:each="photo : ${toy.getPhoto()}" class="col-lg-6 col-md-6 col-xs-6 thumb">
+                                                    <a th:href="|data:image/png;base64, ${photo.getImageByte()}|">
+                                                        <figure><img class="img-fluid img-thumbnail" th:src="|data:image/png;base64, ${photo.getImageByte()}|" alt="Random Image"></figure>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </body>
 
     <div layout:fragment="script_area">

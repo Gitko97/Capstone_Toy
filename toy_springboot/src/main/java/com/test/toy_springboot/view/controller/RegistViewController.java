@@ -82,7 +82,7 @@ public class RegistViewController {
             return "redirect:/signIn";
         }
         String userId = currentUserID; // 토큰으로 Id 읽어오기
-        User user = userService.getUserById("222");
+        User user = userService.getUserById("111");
 
         Shop shop = user.getShop(); //현재 접속중인 유저의 shop 읽어오기
         model.addAttribute("currentShop", shop);
